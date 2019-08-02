@@ -86,6 +86,11 @@ class ProgramOutcomesPicker extends LitElement {
 			.flex-spacer {
 				flex-grow: 1;
 			}
+			
+			d2l-alert {
+				margin: 4px;
+				width: calc( 100% - 8px );
+			}
 		`;
 		
 		return [
@@ -152,11 +157,11 @@ class ProgramOutcomesPicker extends LitElement {
 		return html`
 			<d2l-alert
 				class="d2l-body-standard"
-				type="default"
+				type="critical"
 				has-close-button
 				@d2l-alert-closed="${() => this._errored = false}"
 			>
-				<span>this._localize('ConnectionError')</span>
+				<span>${this._localize('ConnectionError')}</span>
 			</d2l-alert>
 		`;
 	}
@@ -164,8 +169,8 @@ class ProgramOutcomesPicker extends LitElement {
 	render() {
 		if( this._loading ) {
 			return html`
+				${this._renderAlert()}
 				<div style="width: 100%; height: 100%; display: flex;" aria-busy="true">
-					${this._renderAlert()}
 					<div style="flex-grow: 1"></div>
 					<div style="display: flex; flex-direction: column;">
 						<div style="flex-grow: 1"></div>
