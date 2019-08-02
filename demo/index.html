@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en-US">
+	<head>
+		<meta charset="utf-8">
+		<title>Program Outcomes Picker (DEMO)</title>
+		<script type="module">
+			import './lores-mock.js';
+			import '../d2l-program-outcomes-picker.js';
+		</script>
+		<style>
+			html {
+				font-size: 20px;
+			}
+			
+			.demo {
+				max-width: 600px;
+				max-height: 800px;
+				border: 1px solid #CDD5DC;
+				margin: 8px;
+				height: 100vh;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="demo">
+			<d2l-program-outcomes-picker
+				id="picker"
+				registry-id="0"
+				programs='[{ "name": "Program One", "registryId": "1" }, { "name": "Program Two", "registryId": "2" }]'
+				lores-endpoint="mocked"
+				outcome-term="outcomes"
+			></d2l-program-outcomes-picker>
+		</div>
+		<script>
+			const picker = document.getElementById( 'picker' );
+			picker.addEventListener( 'd2l-program-outcomes-picker-import', event => {
+				console.info( event.detail.newRegistryContents );
+				window.alert( 'Done!\n\n' + JSON.stringify( event.detail.newRegistryContents, null, 2 ) );
+			});
+			picker.addEventListener( 'd2l-program-outcomes-picker-cancel', event => {
+				window.alert( 'Cancelled' );
+			});
+		</script>
+	</body>
+</html>

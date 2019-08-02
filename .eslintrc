@@ -1,0 +1,23 @@
+{
+	"extends": "brightspace/browser-config",
+	"env": {
+		"browser": true
+	},
+	"rules": {
+		"no-unused-vars": 2,
+		"no-console": 1,
+		"keyword-spacing": 0,
+		"space-in-parens": 0,
+		"no-trailing-spaces": 0,
+		"no-warning-comments": 1
+	},
+	"parserOptions": {
+		"ecmaVersion": 6,
+		"sourceType": "module"
+	},
+	"globals": {
+		"customElements": true,
+		"Set": true,
+		"Promise": true
+	}
+}
