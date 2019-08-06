@@ -108,7 +108,6 @@ class ProgramOutcomesPicker extends LitElement {
 		this.registryId = null;
 		this.programs = [];
 		this.loresEndpoint = null;
-		this.token = null;
 		this._loading = true;
 		this._selectedProgramRegistryId = null;
 		this._changesToApply = null;
@@ -242,6 +241,42 @@ class ProgramOutcomesPicker extends LitElement {
 		`;
 	}
 	
+	updated( changedProperties ) {
+		super.updated( changedProperties );
+		if(
+			changedProperties.has( 'programs' ) || 
+			changedProperties.has( 'registryId' ) ||
+			changedProperties.has( 'loresEndpoint' )
+		) {
+			// First update or core property changed. Re-initialize.
+			this._loading = true;
+			this._errored = false;
+			this._dataState = {
+				programRegistries: {},
+				mergedProgramForestMap: {},
+				rootOutcomes: new Set(),
+				ownedAuthoredLeafOutcomes: new Set(),
+				programState: null,
+				expandState: {}
+			};
+			
+			Lores.setEndpoint( this.loresEndpoint );
+			if( !this.programs.length ) {
+				this._errored = true;
+				return;
+			}
+			
+			const programRegistryIds = this.programs.map( p => p.registryId );
+			programRegistryIds.forEach( registryId => this._dataState.expandState[registryId] = {} );
+			Actions.initializeAsync( this._dataState, this.registryId, programRegistryIds ).then(
+				() => this._loading = false
+			).catch( exception => {
+				console.error( exception ); //eslint-disable-line no-console
+				this._errored = true;
+			});
+		}
+	}
+	
 	_onSelectProgram( event ) {
 		const registryId = event.target.value;
 		this._selectedProgramRegistryId = registryId;
@@ -317,22 +352,6 @@ class ProgramOutcomesPicker extends LitElement {
 	
 	_cancelSave() {
 		this._changesToApply = null;
-	}
-	
-	firstUpdated() {
-		if( !this.programs.length ) {
-			this._errored = true;
-			return;
-		}
-		
-		const programRegistryIds = this.programs.map( p => p.registryId );
-		programRegistryIds.forEach( registryId => this._dataState.expandState[registryId] = {} );
-		Actions.initializeAsync( this._dataState, this.registryId, programRegistryIds ).then(
-			() => this._loading = false
-		).catch( exception => {
-			console.error( exception ); //eslint-disable-line no-console
-			this._errored = true;
-		});
 	}
 	
 	_onFocusTree() {
