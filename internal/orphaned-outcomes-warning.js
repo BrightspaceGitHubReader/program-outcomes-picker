@@ -69,8 +69,12 @@ class OrphanedOutcomesWarning extends LitElement {
 				padding: 0;
 			}
 			
-			li {
+			li:dir(ltr) {
 				margin-left: 4ch;
+			}
+			
+			li:dir(rtl) {
+				margin-right: 4ch;
 			}
 			
 			.flex-spacer {

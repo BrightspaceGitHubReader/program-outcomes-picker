@@ -46,7 +46,14 @@ class OutcomeNode extends LitElement {
 			
 			.outcome-description {
 				display: inline-block;
+			}
+			
+			.outcome-description:dir(ltr) {
 				padding-right: 23px;
+			}
+			
+			.outcome-description:dir(rtl) {
+				padding-left: 23px;
 			}
 			
 			.expander, .expander-spacer {
@@ -54,8 +61,15 @@ class OutcomeNode extends LitElement {
 				width: 18px;
 				height: 18px;
 				margin-top: 6px;
-				margin-right: 8px;
 				padding: 0 10px;
+			}
+			
+			.expander:dir(ltr), .expander-spacer:dir(ltr) {
+				margin-right: 8px;
+			}
+			
+			.expander:dir(rtl), .expander-spacer:dir(rtl) {
+				margin-left: 8px;
 			}
 			
 			.expander {
@@ -65,7 +79,14 @@ class OutcomeNode extends LitElement {
 			.outcome-children {
 				display: flex;
 				flex-direction: column;
+			}
+			
+			.outcome-children:dir(ltr) {
 				margin-left: 32px;
+			}
+			
+			.outcome-children:dir(rtl) {
+				margin-right: 32px;
 			}
 
 			ul, li {
@@ -84,6 +105,11 @@ class OutcomeNode extends LitElement {
 			d2l-button-icon {
 				position: relative;
 				top: -12px;
+				left: -12px;
+			}
+			
+			d2l-button-icon:dir(rtl) {
+				transform: scaleX(-1);
 			}
 		`;
 		return [ bodyCompactStyles, componentStyle ];
@@ -155,7 +181,6 @@ class OutcomeNode extends LitElement {
 			<d2l-button-icon
 				icon="${this._expanded ? 'd2l-tier1:arrow-collapse' : 'd2l-tier1:arrow-expand'}"
 				text="${CurrentLanguage.localize(this._expanded ? 'Expand' : 'Collapse')}"
-				h-align="text"
 				tabindex="-1"
 				class="expander"
 				@click="${this._toggleExpansion}"
