@@ -46,14 +46,12 @@ class OutcomeNode extends LitElement {
 			
 			.outcome-description {
 				display: inline-block;
-			}
-			
-			.outcome-description:dir(ltr) {
 				padding-right: 23px;
 			}
 			
 			.outcome-description:dir(rtl) {
 				padding-left: 23px;
+				padding-right: 0;
 			}
 			
 			.expander, .expander-spacer {
@@ -61,15 +59,13 @@ class OutcomeNode extends LitElement {
 				width: 18px;
 				height: 18px;
 				margin-top: 6px;
-				padding: 0 10px;
-			}
-			
-			.expander:dir(ltr), .expander-spacer:dir(ltr) {
 				margin-right: 8px;
+				padding: 0 10px;
 			}
 			
 			.expander:dir(rtl), .expander-spacer:dir(rtl) {
 				margin-left: 8px;
+				margin-right: 0;
 			}
 			
 			.expander {
@@ -79,13 +75,11 @@ class OutcomeNode extends LitElement {
 			.outcome-children {
 				display: flex;
 				flex-direction: column;
-			}
-			
-			.outcome-children:dir(ltr) {
 				margin-left: 32px;
 			}
 			
 			.outcome-children:dir(rtl) {
+				margin-left: 0;
 				margin-right: 32px;
 			}
 

@@ -67,13 +67,11 @@ class OrphanedOutcomesWarning extends LitElement {
 			ul, li {
 				list-style-type: none;
 				padding: 0;
-			}
-			
-			li:dir(ltr) {
 				margin-left: 4ch;
 			}
 			
-			li:dir(rtl) {
+			ul:dir(rtl), li:dir(rtl) {
+				margin-left: 0;
 				margin-right: 4ch;
 			}
 			
