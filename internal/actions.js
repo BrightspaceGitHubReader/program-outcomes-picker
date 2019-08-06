@@ -10,18 +10,6 @@ const selectProgram = function( dataState, registryId ) {
 	};
 };
 
-const setsOverlap = function( setA, setB ) {
-	if( setA.size > setB.size ) {
-		return setsOverlap( setB, setA );
-	}
-	for( const element of setA ) {
-		if( setB.has( element ) ) {
-			return true;
-		}
-	}
-	return false;
-};
-
 const buildProgramState = function( dataState, registryId ) {
 	const registry = dataState.programRegistries[registryId];
 	return registry.objectives.map( outcome => buildProgramStateRecursive( dataState, outcome, null ) );
