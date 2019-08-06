@@ -1,11 +1,3 @@
-const isAuthoredOutcome = function( dataState, objectiveId ) {
-	const outcome = dataState.outcomeNodes[objectiveId].outcome;
-	return(
-		outcome.source === 'lores' &&
-		outcome.document_id === 'http://d2l.com/lo/authored'
-	);
-};
-
 // Get the status of hidden outcomes leaves (outcomes that are leaf nodes in the
 // current resgitry, but are not present in any of the available programs)
 const processHiddenOutcomes = function( dataState ) {
