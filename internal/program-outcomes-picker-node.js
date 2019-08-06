@@ -293,6 +293,29 @@ class OutcomeNode extends LitElement {
 		}
 	}
 	
+	_collapseOrMoveUp( noCollapse ) {
+		if( this._expanded && this._programNode.children.length && !noCollapse ) {
+			this._setExpanded( false );
+		} else if( this._programNode.parent ) {
+			const parentComponent = this._programNode.parent.elementRef;
+			parentComponent._focusNode();
+		}
+	}
+	
+	_expandOrMoveDown() {
+		if( this._programNode.children.length ) {
+			if( this._expanded ) {
+				this._programNode.children[0].elementRef._focusNode();
+			} else {
+				this._setExpanded( true );
+			}
+		}
+	}
+	
+	_isRtl() {
+		return window.getComputedStyle( this ).direction === 'rtl';
+	}
+	
 	_onKeyDown( event ) {
 		switch( event.keyCode ) {
 			case 38: { // Up Arrow
@@ -315,21 +338,10 @@ class OutcomeNode extends LitElement {
 				}
 				break;
 			case 39: // Right Arrow
-				if( this._programNode.children.length ) {
-					if( this._expanded ) {
-						this._programNode.children[0].elementRef._focusNode();
-					} else {
-						this._setExpanded( true );
-					}
-				}
+				this._isRtl() ? this._collapseOrMoveUp( event.ctrlKey ) : this._expandOrMoveDown();
 				break;
 			case 37: // Left Arrow
-				if( this._expanded && this._programNode.children.length && !event.ctrlKey ) {
-					this._setExpanded( false );
-				} else if( this._programNode.parent ) {
-					const parentComponent = this._programNode.parent.elementRef;
-					parentComponent._focusNode();
-				}
+				this._isRtl() ? this._expandOrMoveDown() : this._collapseOrMoveUp( event.ctrlKey );
 				break;
 			case 36: // Home
 				if( event.ctrlKey ) {
