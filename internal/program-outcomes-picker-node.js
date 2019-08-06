@@ -3,7 +3,7 @@ import { ifDefined } from 'lit-html/directives/if-defined.js';
 import { CheckboxState } from './enums.js';
 import { CurrentLanguage } from './language.js';
 import OutcomeFormatter from './outcome-formatter.js';
-import TypographyStyle from './typography.js';
+import { bodyCompactStyles } from '@brightspace-ui/core/components/typography/styles.js';
 import 'd2l-inputs/d2l-input-checkbox.js';
 import 'd2l-button/d2l-button-icon.js';
 import 'd2l-icons/tier1-icons.js';
@@ -86,7 +86,7 @@ class OutcomeNode extends LitElement {
 				top: -12px;
 			}
 		`;
-		return [ TypographyStyle, componentStyle ];
+		return [ bodyCompactStyles, componentStyle ];
 	}
 	
 	constructor() {
@@ -98,7 +98,7 @@ class OutcomeNode extends LitElement {
 	
 	_renderChild( programNode ) {
 		return html`
-			<li class="d2l-typography">
+			<li>
 				<program-outcomes-picker-node
 					tabindex="-1"
 					.checkboxState="${programNode.checkboxState}"
@@ -177,7 +177,7 @@ class OutcomeNode extends LitElement {
 			<div
 				id="focusable-node"
 				tabindex="-1"
-				class="outcome d2l-typography"
+				class="outcome"
 				role="treeitem checkbox"
 				aria-expanded="${ifDefined(ariaExpanded)}"
 				aria-checked="${ariaChecked}"

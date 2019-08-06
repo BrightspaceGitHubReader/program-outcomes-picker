@@ -1,5 +1,5 @@
 import { css, html, LitElement } from 'lit-element/lit-element.js';
-import TypographyStyle from './typography.js';
+import { bodyStandardStyles, heading3Styles } from '@brightspace-ui/core/components/typography/styles.js';
 import OutcomeFormatter from './outcome-formatter.js';
 import { CurrentLanguage } from './language.js';
 import 'd2l-button/d2l-button.js';
@@ -109,7 +109,8 @@ class OrphanedOutcomesWarning extends LitElement {
 		`;
 		
 		return [
-			TypographyStyle,
+			bodyStandardStyles,
+			heading3Styles,
 			componentStyle
 		];
 	}
@@ -176,7 +177,7 @@ class OrphanedOutcomesWarning extends LitElement {
 					<div class="flex-spacer"></div>
 					<div class="centre-v">
 						<div class="flex-spacer"></div>
-						<div class="dialog d2l-typography" role="dialog" aria-modal="true">
+						<div class="dialog" role="dialog" aria-modal="true">
 							<div class="zero-size" tabindex="0" @focus="${() => this._focusElement('cancel-button')}"></div>
 								<div class="header">
 									<h1 class="d2l-heading-3">${this._localize('WarningHeader')}</h1>

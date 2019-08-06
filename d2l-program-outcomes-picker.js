@@ -1,7 +1,7 @@
 import { css, html, LitElement } from 'lit-element/lit-element.js';
 import Actions from './internal/actions.js';
 import SelectStyle from './internal/select-style.js';
-import TypographyStyle from './internal/typography.js';
+import { bodyStandardStyles, bodyCompactStyles, heading2Styles, heading3Styles, labelStyles } from '@brightspace-ui/core/components/typography/styles.js';
 import Lores from './internal/lores.js';
 import { CurrentLanguage } from './internal/language.js';
 import './internal/program-outcomes-picker-tree.js';
@@ -94,8 +94,10 @@ class ProgramOutcomesPicker extends LitElement {
 		`;
 		
 		return [
+			bodyStandardStyles, bodyCompactStyles,
+			heading2Styles, heading3Styles,
+			labelStyles,
 			SelectStyle,
-			TypographyStyle,
 			componentStyle
 		];
 	}
@@ -193,7 +195,7 @@ class ProgramOutcomesPicker extends LitElement {
 				@action-delete="${this._deleteOrphanedOutcomesAndSave}"
 				@action-cancel="${this._cancelSave}"
 			></program-outcomes-picker-warning-modal>
-			<div class="d2l-typography main">
+			<div class="main">
 				<div class="header">
 					<h1 class="d2l-heading-2">${this._localize('Title')}</h1>
 					<div class="flex-spacer"></div>

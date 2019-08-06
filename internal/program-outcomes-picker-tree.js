@@ -1,5 +1,4 @@
 import { css, html, LitElement } from 'lit-element/lit-element.js';
-import TypographyStyle from './typography.js';
 import './program-outcomes-picker-node.js';
 
 class ProgramOutcomesTree extends LitElement {
@@ -12,7 +11,7 @@ class ProgramOutcomesTree extends LitElement {
 	}
 	
 	static get styles() {
-		const componentStyle = css`
+		return css`
 			.outcomes-tree {
 				overflow-y: auto;
 				overflow-x: hidden;
@@ -28,7 +27,6 @@ class ProgramOutcomesTree extends LitElement {
 				padding: 0;
 			}
 		`;
-		return [ TypographyStyle, componentStyle ];
 	}
 	
 	_renderNode( programStateNode ) {
@@ -52,7 +50,7 @@ class ProgramOutcomesTree extends LitElement {
 		}
 		
 		return html`
-			<div class="outcomes-tree d2l-typography">
+			<div class="outcomes-tree">
 				<ul class="root-outcomes" role="tree">
 					${programRoots}
 				</ul>

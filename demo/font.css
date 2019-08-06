@@ -1,0 +1,36 @@
+@font-face {
+	font-family: 'Lato';
+	font-style: normal;
+	font-weight: 400;
+	src:
+		local('Lato Regular'),
+		local('Lato-Regular'),
+		url('https://s.brightspace.com/lib/fonts/0.5.0/assets/Lato-400.woff2') format('woff2'),
+		url('https://s.brightspace.com/lib/fonts/0.5.0/assets/Lato-400.woff') format('woff'),
+		url('https://s.brightspace.com/lib/fonts/0.5.0/assets/Lato-400.ttf') format('truetype')
+}
+
+@font-face {
+	font-family: 'Lato';
+	font-style: normal;
+	font-weight: 700;
+	src:
+		local('Lato Bold'),
+		local('Lato-Bold'),
+		url('https://s.brightspace.com/lib/fonts/0.5.0/assets/Lato-700.woff2') format('woff2'),
+		url('https://s.brightspace.com/lib/fonts/0.5.0/assets/Lato-700.woff') format('woff'),
+		url('https://s.brightspace.com/lib/fonts/0.5.0/assets/Lato-700.ttf') format('truetype')
+}
+
+html {
+	font-family: 'Lato', 'Lucida Sans Unicode', 'Lucida Grande', sans-serif;
+	font-size: 20px;
+	letter-spacing: 0.01rem;
+	color: var(--d2l-color-ferrite);
+}
+
+body {
+	font-size: 0.95rem;
+	font-weight: 400;
+	line-height: 1.4rem;
+}
