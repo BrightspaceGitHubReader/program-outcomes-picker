@@ -9,7 +9,8 @@ A Lit Element webcomponent for importing learning outcomes from programs.
 `registry-id`: The registryId of the course or program to which the outcomes will be imported  
 `programs`: A JSON-encoded array of objects with `name` and `registryId` properties, corresponding to the name and registryId of every program that can be imported from  
 `loresEndpoint`: The endpoint of the Lores service  
-`outcomeTerm` *(Optional)*: Which lang term to use for outcomes. Valid values are `competencies`, `expectations`, `objectives`, `outcomes`, and `standards`. Default is `standards`
+`outcomeTerm` *(Optional)*: Which lang term to use for outcomes. Valid values are `competencies`, `expectations`, `objectives`, `outcomes`, and `standards`. Default is `standards`  
+`no-header` *(Boolean)*: If included, the header (title and close button) will not be rendered.
 
 ### Events
 

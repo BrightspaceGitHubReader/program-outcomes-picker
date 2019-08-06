@@ -18,6 +18,7 @@ class ProgramOutcomesPicker extends LitElement {
 			programs: { type: Array },
 			loresEndpoint: { type: String, attribute: 'lores-endpoint' },
 			outcomeTerm: { type: String, attribute: 'outcome-term' },
+			noHeader: { type: Boolean, attribute: 'no-header' },
 			
 			_dataState: { type: Object },
 			_loading: { type: Boolean },
@@ -168,6 +169,23 @@ class ProgramOutcomesPicker extends LitElement {
 		`;
 	}
 	
+	_renderHeader() {
+		if( this.noHeader ) {
+			return '';
+		}
+		return html`
+			<div class="header">
+				<h1 class="d2l-heading-2">${this._localize('Title')}</h1>
+				<div class="flex-spacer"></div>
+				<d2l-button-icon
+					icon="d2l-tier3:close-thick"
+					text="${this._localize('Close')}"
+					@click="${this._close}"
+				></d2l-icon>
+			</div>
+		`;
+	}
+	
 	render() {
 		if( this._loading ) {
 			return html`
@@ -196,15 +214,7 @@ class ProgramOutcomesPicker extends LitElement {
 				@action-cancel="${this._cancelSave}"
 			></program-outcomes-picker-warning-modal>
 			<div class="main">
-				<div class="header">
-					<h1 class="d2l-heading-2">${this._localize('Title')}</h1>
-					<div class="flex-spacer"></div>
-					<d2l-button-icon
-						icon="d2l-tier3:close-thick"
-						text="${this._localize('Close')}"
-						@click="${this._close}"
-					></d2l-icon>
-				</div>
+				${this._renderHeader()}
 				<div class="body">
 					${this._renderAlert()}
 					<p class="d2l-body-standard">${this._localize('SelectProgram')}</p>
