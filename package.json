@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "scripts": {
     "lint": "eslint program-outcomes-picker.js internal/*.js lang/*.js",
-    "serve": "polymer serve --hostname 0.0.0.0"
+    "serve": "polymer serve --hostname 0.0.0.0",
+    "demo": "parallelshell \"npm run serve\" \"sleepms 2000 && open-cli http://localhost:8081/components/program-outcomes-picker/demo/\""
   },
   "dependencies": {
     "d2l-alert": "BrightspaceUI/alert#semver:^4",
@@ -19,6 +20,9 @@
     "@webcomponents/webcomponentsjs": "^2.2.10",
     "eslint": "^4.19.1",
     "eslint-config-brightspace": "^0.4.0",
-    "polymer-cli": "^1.9.5"
+    "open-cli": "^5.0.0",
+    "parallelshell": "^3.0.2",
+    "polymer-cli": "^1.9.5",
+    "sleep-ms": "^2.0.1"
   }
 }
