@@ -37,11 +37,14 @@ class OutcomeNode extends LitElement {
 				padding: 4px;
 			}
 			
-			.outcome:focus {
+			li:focus {
+				outline: none;
+			}
+			
+			li:focus > .outcome {
 				border-color: var( --d2l-color-celestine );
 				background-color: var( --d2l-color-celestine-plus-2 );
 				box-shadow: inset 0 0 0 2px var( --d2l-color-white );
-				outline: none;
 			}
 			
 			.outcome-description {
@@ -118,14 +121,12 @@ class OutcomeNode extends LitElement {
 	
 	_renderChild( programNode ) {
 		return html`
-			<li>
-				<program-outcomes-picker-node
-					tabindex="-1"
-					.checkboxState="${programNode.checkboxState}"
-					._programNode="${programNode}"
-					._dataState="${this._dataState}"
-				></program-outcomes-picker-node>
-			</li>
+			<program-outcomes-picker-node
+				tabindex="-1"
+				.checkboxState="${programNode.checkboxState}"
+				._programNode="${programNode}"
+				._dataState="${this._dataState}"
+			></program-outcomes-picker-node>
 		`;
 	}
 	
@@ -178,6 +179,7 @@ class OutcomeNode extends LitElement {
 				tabindex="-1"
 				class="expander"
 				@click="${this._toggleExpansion}"
+				@focusin="${this._focusNode}"
 			></d2l-icon>
 		`;
 	}
@@ -193,34 +195,38 @@ class OutcomeNode extends LitElement {
 		
 		const outcome = this._dataState.mergedProgramForestMap[this._programNode.outcomeId].outcome;
 		return html`
-			<div
+			<li
 				id="focusable-node"
 				tabindex="-1"
-				class="outcome"
-				role="treeitem checkbox"
+				role="treeitem"
 				aria-expanded="${ifDefined(ariaExpanded)}"
-				aria-checked="${ariaChecked}"
 				aria-labelledby="outcome-description"
 				aria-setsize="${siblings.length}"
 				aria-posinset="${1 + siblings.indexOf(this)}"
+				aria-checked="${ariaChecked}"
+				aria-activedescendant="checkbox"
 				@keydown="${this._onKeyDown}"
 				@mousedown="${event => event.preventDefault()}"
 			>
-				${this._renderExpander()}
-				<d2l-input-checkbox
-					tabindex='-1'
-					id="checkbox"
-					?checked="${checked}"
-					?indeterminate="${indeterminate}"
-					@change="${this._onCheckboxChanged}"
-					aria-hidden="true"
-				>
-					<span id="outcome-description" class="d2l-body-compact outcome-description">${OutcomeFormatter.render(outcome)}</span>
-				</d2l-input-checkbox>
-			</div>
-			<div ?hidden="${!this._expanded}">
-				${this._renderChildren()}
-			</div>
+				<div class="outcome">
+					${this._renderExpander()}
+					<d2l-input-checkbox
+						role="checkbox"
+						aria-checked="${ariaChecked}"
+						tabindex="-1"
+						id="checkbox"
+						?checked="${checked}"
+						?indeterminate="${indeterminate}"
+						@change="${this._onCheckboxChanged}"
+						@focusin="${this._focusNode}"
+					>
+						<span id="outcome-description" class="d2l-body-compact outcome-description">${OutcomeFormatter.render(outcome)}</span>
+					</d2l-input-checkbox>
+				</div>
+				<div ?hidden="${!this._expanded}">
+					${this._renderChildren()}
+				</div>
+			</li>
 		`;
 	}
 	

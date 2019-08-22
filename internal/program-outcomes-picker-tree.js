@@ -31,13 +31,11 @@ class ProgramOutcomesTree extends LitElement {
 	
 	_renderNode( programStateNode ) {
 		return html`
-			<li>
-				<program-outcomes-picker-node
-					tabindex="-1"
-					._programNode="${programStateNode}"
-					._dataState="${this._dataState}"
-				></program-outcomes-picker-node>
-			</li>
+			<program-outcomes-picker-node
+				tabindex="-1"
+				._programNode="${programStateNode}"
+				._dataState="${this._dataState}"
+			></program-outcomes-picker-node>
 		`;
 	}
 	
