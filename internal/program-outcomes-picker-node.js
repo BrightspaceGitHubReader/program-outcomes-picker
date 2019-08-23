@@ -39,7 +39,6 @@ class ProgramOutcomeNode extends OutcomeTreeNode {
 	}
 	
 	renderChildren() {
-		console.info( 'heya' );
 		return this._programNode.children.map( programNode => html`
 			<program-outcomes-picker-node
 				tabindex="-1"
