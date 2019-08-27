@@ -13,5 +13,6 @@ export default {
 	"SelectItemsAvailable" : "Selecteer een van de filteropties om te zien welke items beschikbaar zijn",
 	"SelectJurisdiction" : "Rechtsgebied selecteren",
 	"SelectSubject" : "Onderwerp selecteren",
-	"Subject" : "Onderwerp"
+	"Subject" : "Onderwerp",
+	"TitleASN": "Import van Achievement Standards Network"
 };

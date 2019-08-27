@@ -13,5 +13,6 @@ export default {
 	"SelectItemsAvailable" : "사용 가능한 항목을 보려면 필터링 옵션에서 선택하십시오.",
 	"SelectJurisdiction" : "관할권 선택",
 	"SelectSubject" : "주제 선택",
-	"Subject" : "제목"
+	"Subject" : "제목",
+	"TitleASN": "성취 표준 네트워크에서 가져오기"
 };

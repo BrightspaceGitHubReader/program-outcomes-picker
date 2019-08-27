@@ -13,5 +13,6 @@ export default {
 	"SelectItemsAvailable" : "Bitte treffen eine Auswahl aus den Filteroptionen, um die verfügbaren Elemente zu sehen.",
 	"SelectJurisdiction" : "Zuständigkeit auswählen",
 	"SelectSubject" : "Thema auswählen",
-	"Subject" : "Thema"
+	"Subject" : "Thema",
+	"TitleASN": "Import von Erfolgsstandardnetzwerk"
 };

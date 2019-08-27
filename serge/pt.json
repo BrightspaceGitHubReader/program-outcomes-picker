@@ -12,5 +12,6 @@
 	"SelectItemsAvailable" : "Selecione uma das opções de filtragem para ver os itens que estão disponíveis",
 	"SelectJurisdiction" : "Selecionar Jurisdição",
 	"SelectSubject" : "Selecionar Assunto",
-	"Subject" : "Assunto"
+	"Subject" : "Assunto",
+	"TitleASN": "Importar da Achievement Standards Network"
 }

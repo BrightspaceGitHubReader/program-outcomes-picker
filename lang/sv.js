@@ -13,5 +13,6 @@ export default {
 	"SelectItemsAvailable" : "Välj bland filtreringsalternativen för att se de objekt som finns tillgängliga",
 	"SelectJurisdiction" : "Välj jurisdiktion",
 	"SelectSubject" : "Välj ämne",
-	"Subject" : "Ämne"
+	"Subject" : "Ämne",
+	"TitleASN": "Importera från Achievement Standards Network"
 };

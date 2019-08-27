@@ -13,5 +13,6 @@ export default {
 	"SelectItemsAvailable" : "フィルタリングオプションから選択して、使用可能な項目を表示してください",
 	"SelectJurisdiction" : "権利の選択",
 	"SelectSubject" : "件名の選択",
-	"Subject" : "件名"
+	"Subject" : "件名",
+	"TitleASN": "Achievement Standards Network からインポート"
 };

@@ -13,5 +13,6 @@ export default {
 	"SelectItemsAvailable" : "Veuillez faire une sélection parmi les options de filtrage pour voir les éléments disponibles",
 	"SelectJurisdiction" : "Sélectionner un territoire",
 	"SelectSubject" : "Sélectionner une matière",
-	"Subject" : "Matière"
+	"Subject" : "Matière",
+	"TitleASN": "Importer depuis ASN (Achievement Standards Network)"
 };

@@ -17,12 +17,13 @@ export default {
 	"MoveOrphanedOutcomes": "Move to Root",
 	"ProgramOutcomes": "Program {outcome, select, competencies {Competencies} expectations {Expectations} objectives {Objectives} outcomes {Outcomes} standards {Standards} other {Standards}}",
 	"SelectEducationLevel": "Select Education Level",
-	"SelectFilters": "Please select from the filtering options to see the items that are available"
+	"SelectFilters": "Please select from the filtering options to see the items that are available",
 	"SelectJurisdiction": "Select Jurisdiction",
 	"SelectProgram": "Select a program to view and import {outcome, select, competencies {competencies} expectations {expectations} objectives {learning objectives} outcomes {learning outcomes} standards {standards} other {standards}}.",
 	"SelectSubject": "Select Subject",
 	"Subject": "Subject",
 	"Title": "Import Program {outcome, select, competencies {Competencies} expectations {Expectations} objectives {Objectives} outcomes {Outcomes} standards {Standards} other {Standards}}",
+	"TitleASN": "Import from Achievement Standards Network",
 	"WarningDescription1": "You're about to remove {outcome, select, competencies {competencies} expectations {expectations} objectives {learning objectives} outcomes {learning outcomes} standards {standards} other {standards}} to which the following authored {outcome, select, competencies {competencies} expectations {expectations} objectives {learning objectives} outcomes {learning outcomes} standards {standards} other {standards}} are attached:",
 	"WarningDescription2": "What would you like to do with the authored {outcome, select, competencies {competencies} expectations {expectations} objectives {learning objectives} outcomes {learning outcomes} standards {standards} other {standards}}?",
 	"WarningHeader": "Move Authored {outcome, select, competencies {Competencies} expectations {Expectations} objectives {Objectives} outcomes {Outcomes} standards {Standards} other {Standards}}?"

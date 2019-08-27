@@ -13,5 +13,6 @@
 	"SelectItemsAvailable" : "Mevcut öğeleri görmek için lütfen filtreleme seçeneklerinden birini belirleyin",
 	"SelectJurisdiction" : "Yetki Alanını Seç",
 	"SelectSubject" : "Konuyu Seç",
-	"Subject" : "Konu"
+	"Subject" : "Konu",
+	"TitleASN": "Başarı Standartları Ağından İçe Aktar"
 }

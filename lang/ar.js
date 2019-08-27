@@ -13,5 +13,6 @@ export default {
 	"SelectItemsAvailable" : "يُرجى التحديد من خيارات التصفية للاطّلاع على العناصر المتوفرة",
 	"SelectJurisdiction" : "تحديد الاختصاص القضائي",
 	"SelectSubject" : "تحديد الموضوع",
-	"Subject" : "الموضوع"
+	"Subject" : "الموضوع",
+	"TitleASN": "الاستيراد من Achievement Standards Network"
 };

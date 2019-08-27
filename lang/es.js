@@ -13,5 +13,6 @@ export default {
 	"SelectItemsAvailable" : "Realice su selección a partir de las opciones de filtro para ver los elementos que están disponibles",
 	"SelectJurisdiction" : "Seleccionar jurisdicción",
 	"SelectSubject" : "Seleccionar asunto",
-	"Subject" : "Asunto"
+	"Subject" : "Asunto",
+	"TitleASN": "Importar desde la red de estándares de logros"
 };

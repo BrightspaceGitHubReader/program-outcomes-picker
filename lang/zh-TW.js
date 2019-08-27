@@ -13,5 +13,6 @@ export default {
 	"SelectItemsAvailable" : "請從篩選選項中選擇，以查看可用的項目",
 	"SelectJurisdiction" : "選取司法管轄區",
 	"SelectSubject" : "選取學科",
-	"Subject" : "學科"
+	"Subject" : "學科",
+	"TitleASN": "從達成標準網路匯入"
 };

@@ -13,5 +13,6 @@ export default {
 	"SelectItemsAvailable" : "请选择筛选选项以查看可用项目",
 	"SelectJurisdiction" : "选择司法管辖区",
 	"SelectSubject" : "选择主题",
-	"Subject" : "主题"
+	"Subject" : "主题",
+	"TitleASN": "从成绩标准网络导入"
 };
