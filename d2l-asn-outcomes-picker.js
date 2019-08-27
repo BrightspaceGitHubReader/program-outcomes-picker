@@ -2,17 +2,18 @@ import { css, html, LitElement } from 'lit-element/lit-element.js';
 import SelectStyle from './internal/select-style.js';
 import { bodyStandardStyles, heading2Styles, heading3Styles, labelStyles } from '@brightspace-ui/core/components/typography/styles.js';
 import Lores from './internal/lores.js';
+import ASNActions from './internal/asn-actions.js';
 import ASN from './internal/asn.js';
 import LocalizedLitElement from './internal/localized-element.js';
 import './internal/asn-outcomes-picker-tree.js';
-//import './internal/orphaned-outcomes-warning.js';
+import './internal/orphaned-outcomes-warning.js';
 import 'd2l-button/d2l-button.js';
 import 'd2l-loading-spinner/d2l-loading-spinner.js';
 import 'd2l-icons/tier3-icons.js';
 
 /*
 dataState:
-	selectedOutcomes: Set<sourceId>
+	selectedOutcomes: Map<sourceId,sourceId>
 	externalOutcomes: { parentSourceId, tree }[]
 	currentTree:
 		roots: SelectionStateNode[]
@@ -27,6 +28,7 @@ class AsnOutcomesPicker extends LocalizedLitElement {
 			loresEndpoint: { type: String, attribute: 'lores-endpoint' },
 			outcomesTerm: { type: String, attribute: 'outcome-term' },
 			noHeader: { type: Boolean, attribute: 'no-header' },
+			orgUnitId: { type: Number, attribute: 'org-unit-id' },
 			
 			_availableJurisdictions: { type: Array },
 			_availableSubjects: { type: Array },
@@ -169,7 +171,7 @@ class AsnOutcomesPicker extends LocalizedLitElement {
 		this._educationLevel = null;
 		
 		this._dataState = {
-			selectedOutcomes: new Set(),
+			selectedOutcomes: new Map(),
 			externalOutcomes: [],
 			currentTree: null
 		};
@@ -221,6 +223,44 @@ class AsnOutcomesPicker extends LocalizedLitElement {
 					@click="${this._close}"
 				></d2l-icon>
 			</div>
+		`;
+	}
+	
+	_renderWarningModal() {
+		let outcomeLookup = {};
+		
+		const buildLookup = function( forest ) {
+			forest.forEach( outcome => {
+				outcomeLookup[outcome.id] = outcome;
+				buildLookup( outcome.children || [] );
+			});
+		};
+		
+		if( this._changesToApply && this._changesToApply.orphanedOutcomes ) {
+			buildLookup( this._changesToApply.orphanedOutcomes );
+		}
+		
+		const actions = {
+			moveAndSave: () => {
+				const newTrees = this._changesToApply.newRegistryForest;
+				const existingTree = this._changesToApply.orphanedOutcomes.map( ASNActions.undecorateTree );
+				this._save( existingTree.concat( newTrees ) );
+			},
+			deleteAndSave: this._save.bind( this, this._changesToApply.newRegistryForest ),
+			cancel: () => { this._changesToApply = null; }
+		};
+		
+		return html`
+			<program-outcomes-picker-warning-modal
+				?open="${!!this._changesToApply}"
+				.outcomesTerm="${this.outcomesTerm}"
+				.outcomeLookup="${outcomeLookup}"
+				._affectedOutcomes="${(this._changesToApply || {}).orphanedOutcomes || null}"
+				?canMoveToRoot="${(this._changesToApply || {}).canMoveToRoot}"
+				@action-move="${actions.moveAndSave}"
+				@action-delete="${actions.deleteAndSave}"
+				@action-cancel="${actions.cancel}"
+			></program-outcomes-picker-warning-modal>
 		`;
 	}
 	
@@ -333,7 +373,6 @@ class AsnOutcomesPicker extends LocalizedLitElement {
 			`;
 		}
 		
-		//TODO: warning modal
 		return html`
 			<div class="main">
 				${this._renderHeader()}
@@ -364,7 +403,7 @@ class AsnOutcomesPicker extends LocalizedLitElement {
 					></program-outcomes-picker-tree>
 				</div>
 				<div class="button-tray">
-					<d2l-button primary class="done-button">${this.localize('Import')}</d2l-button>
+					<d2l-button primary class="done-button" @click="${this._onImport}">${this.localize('Import')}</d2l-button>
 					<div class="button-spacer"></div>
 					<d2l-button @click="${this._close}">${this.localize('Cancel')}</d2l-button>
 				</div>
@@ -382,26 +421,32 @@ class AsnOutcomesPicker extends LocalizedLitElement {
 			this._loading = true;
 			this._errored = false;
 			this._dataState = {
-				selectedOutcomes: new Set(),
+				selectedOutcomes: new Map(),
 				externalOutcomes: [],
 				currentTree: null
 			};
 			
 			Lores.setEndpoint( this.loresEndpoint );
-			Lores.fetchRegistryAsync( this.registryId ).then( registry => {
-				registry.objectives.forEach( this._initSelectedRecursive.bind( this ) );
-				this._loading = false;
-				this.performUpdate();
-			}).catch( exception => {
-				console.error( exception );
-				this._errored = true;
-			});
+			this._reloadRegistry();
 		}
+	}
+	
+	_reloadRegistry() {
+		this._dataState.selectedOutcomes.clear();
+		this._dataState.externalOutcomes = [];
+		Lores.fetchRegistryAsync( this.registryId ).then( registry => {
+			registry.objectives.forEach( this._initSelectedRecursive.bind( this ) );
+			this._loading = false;
+			this.performUpdate();
+		}).catch( exception => {
+			console.error( exception );
+			this._errored = true;
+		});
 	}
 	
 	_initSelectedRecursive( outcome, parent ) {
 		if( outcome.source === 'asn' ) {
-			this._dataState.selectedOutcomes.add( outcome.source_id );
+			this._dataState.selectedOutcomes.set( outcome.source_id, parent ? parent.source_id : null );
 			if( outcome.children ) {
 				outcome.children.forEach( child => this._initSelectedRecursive( child, outcome ) );
 			}
@@ -509,6 +554,52 @@ class AsnOutcomesPicker extends LocalizedLitElement {
 				{ bubbles: false } 
 			)
 		);
+	}
+	
+	_onImport() {
+		this._loading = true;
+		ASNActions.buildNewRegistryAsync(
+			this._dataState,
+			this.orgUnitId
+		).then( results => {
+			if( results.orphanedOutcomes.length ) {
+				if( results.orphanedOutcomes.some( o => o.owner !== this.registryId ) ) {
+					results.canMoveToRoot = false;
+					this._changesToApply = results;
+				} else {
+					return Lores.checkCanMoveOutcomesAsync(
+						this.registryId,
+						results.orphanedOutcomes.map( o => o.id )
+					).then( canMoveToRoot => {
+						results.canMoveToRoot = canMoveToRoot;
+						this._changesToApply = results;
+					});
+				}
+			} else {
+				this._save( results.newRegistryForest );
+			}
+		}).catch( exception => {
+			console.error( exception );
+			this._loading = false;
+			this._errored = true;
+		});
+	}
+	
+	_save( newRegistryForest ) {
+		this._loading = true;
+		Lores.updateRegistryAsync( this.registryId, newRegistryForest ).then( () => {
+			this._changesToApply = null;
+			this.dispatchEvent(
+				new CustomEvent(
+					'd2l-asn-outcomes-picker-import', {
+						bubbles: false,
+						detail: {
+							newRegistryContents: newRegistryForest
+						}
+					} 
+				)
+			);
+		}).then( this._reloadRegistry.bind( this ) );
 	}
 	
 } 

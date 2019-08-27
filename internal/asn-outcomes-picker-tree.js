@@ -2,6 +2,7 @@ import { css, html } from 'lit-element/lit-element.js';
 import { bodyStandardStyles } from '@brightspace-ui/core/components/typography/styles.js';
 import { CheckboxState } from './enums.js';
 import ASN from './asn.js';
+import ASNActions from './asn-actions.js';
 import SelectionStateNode from './selection-state-node.js';
 import LocalizedLitElement from './localized-element.js';
 import 'd2l-loading-spinner/d2l-loading-spinner.js';
@@ -62,15 +63,7 @@ class AsnOutcomesTree extends LocalizedLitElement {
 				this._fetchOutcomesPromise.cancelled = true;
 			}
 			
-			if( this._dataState.currentTree ) {
-				for( const outcomeState of this._dataState.currentTree.map.values() ) {
-					if( outcomeState.checkboxState !== CheckboxState.NOT_CHECKED ) {
-						this._dataState.selectedOutcomes.add( outcomeState.sourceId );
-					} else {
-						this._dataState.selectedOutcomes.delete( outcomeState.sourceId );
-					}
-				}
-			}
+			ASNActions.commitChanges( this._dataState );
 			
 			this._dataState.currentTree = null;
 			if( this.documentId && this.subject ) {
