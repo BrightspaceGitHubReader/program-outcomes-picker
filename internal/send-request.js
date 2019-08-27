@@ -16,7 +16,7 @@ const _sendRequestWithAuth = function( method, url, options, authToken ) {
 		xhr.setRequestHeader( 'Authorization', 'Bearer ' + authToken );
 	}
 	
-	new Promise( ( resolve, reject ) => {
+	return new Promise( ( resolve, reject ) => {
 		xhr.onreadystatechange = function() {
 			if( xhr.readyState !== XMLHttpRequest.DONE ) {
 				return;
