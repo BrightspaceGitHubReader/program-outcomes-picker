@@ -1,5 +1,5 @@
 import { css, html, LitElement } from 'lit-element/lit-element.js';
-import Actions from './internal/actions.js';
+import Actions from './internal/program-actions.js';
 import SelectStyle from './internal/select-style.js';
 import { bodyStandardStyles, bodyCompactStyles, heading2Styles, heading3Styles, labelStyles } from '@brightspace-ui/core/components/typography/styles.js';
 import Lores from './internal/lores.js';

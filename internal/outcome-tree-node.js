@@ -126,6 +126,11 @@ class OutcomeTreeNode extends LitElement {
 		super.connectedCallback();
 	}
 	
+	disconnectedCallback() {
+		CurrentLanguage.removeChangeListener( this._onLanguageChanged );
+		super.disconnectedCallback();
+	}
+	
 	updated( changedProperties ) {
 		// hack to get around hardcoded checkbox alignment
 		super.updated( changedProperties );

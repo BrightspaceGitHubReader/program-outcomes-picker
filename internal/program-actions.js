@@ -1,5 +1,5 @@
 import initializationHelper from './initialization.js';
-import ProgramStateNode from './program-state-node.js';
+import SelectionStateNode from './selection-state-node.js';
 import { SelectionState, CheckboxState } from './enums.js';
 
 const selectProgram = function( dataState, registryId ) {
@@ -32,7 +32,7 @@ const buildProgramStateRecursive = function( dataState, registryOutcome, parentN
 		)
 	);
 	
-	const thisNode = new ProgramStateNode(
+	const thisNode = new SelectionStateNode(
 		/* outcomeId */ registryOutcome.id,
 		/* parent */ parentNode,
 		/* children */ null, // gets set after children are processed

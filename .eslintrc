@@ -18,6 +18,7 @@
 	"globals": {
 		"customElements": true,
 		"Set": true,
+		"Map": true,
 		"Promise": true
 	}
 }

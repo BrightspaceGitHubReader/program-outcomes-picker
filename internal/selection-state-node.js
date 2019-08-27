@@ -1,12 +1,12 @@
 import { CheckboxState } from './enums.js';
 
-class ProgramStateNode {
+class SelectionStateNode {
 	
 	constructor( outcomeId, parent, children, checkboxState, externallySelected ) {
 		this.outcomeId = outcomeId;
 		this.checkboxState = checkboxState;
 		this.parent = parent;
-		this.externallySelected = externallySelected;
+		this.externallySelected = !!externallySelected;
 		this.children = children || [];
 		this.elementRef = null;
 	}
@@ -49,4 +49,4 @@ class ProgramStateNode {
 	
 }
 
-export default ProgramStateNode;
+export default SelectionStateNode;
