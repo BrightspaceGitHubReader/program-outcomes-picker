@@ -3,21 +3,21 @@ import Actions from './internal/program-actions.js';
 import SelectStyle from './internal/select-style.js';
 import { bodyStandardStyles, bodyCompactStyles, heading2Styles, heading3Styles, labelStyles } from '@brightspace-ui/core/components/typography/styles.js';
 import Lores from './internal/lores.js';
-import { CurrentLanguage } from './internal/language.js';
+import LocalizedLitElement from './internal/localized-element.js';
 import './internal/program-outcomes-picker-tree.js';
 import './internal/orphaned-outcomes-warning.js';
 import 'd2l-button/d2l-button.js';
 import 'd2l-loading-spinner/d2l-loading-spinner.js';
 import 'd2l-icons/tier3-icons.js';
 
-class ProgramOutcomesPicker extends LitElement {
+class ProgramOutcomesPicker extends LocalizedLitElement {
 	
 	static get properties() {
 		return {
 			registryId: { type: String, attribute: 'registry-id' },
 			programs: { type: Array },
 			loresEndpoint: { type: String, attribute: 'lores-endpoint' },
-			outcomeTerm: { type: String, attribute: 'outcome-term' },
+			outcomesTerm: { type: String, attribute: 'outcome-term' },
 			noHeader: { type: Boolean, attribute: 'no-header' },
 			
 			_dataState: { type: Object },
@@ -111,8 +111,7 @@ class ProgramOutcomesPicker extends LitElement {
 		this._loading = true;
 		this._selectedProgramRegistryId = null;
 		this._changesToApply = null;
-		this._onLanguageChanged = this.performUpdate.bind( this );
-		this.outcomeTerm = 'standards';
+		this.outcomesTerm = 'standards';
 		this._errored = false;
 		
 		this._dataState = {
@@ -130,14 +129,8 @@ class ProgramOutcomesPicker extends LitElement {
 		this._dataState.availableProgramInfo = this.programs;
 		this._dataState.selectedProgramRegistryId = this.programs[0].registryId;
 		this._selectedProgramRegistryId = this.programs[0].registryId;
-		CurrentLanguage.addChangeListener( this._onLanguageChanged );
 		Lores.setEndpoint( this.loresEndpoint );
 		super.connectedCallback();
-	}
-	
-	disconnectedCallback() {
-		CurrentLanguage.removeChangeListener( this._onLanguageChanged );
-		super.disconnectedCallback();
 	}
 	
 	_renderOptions() {
@@ -148,8 +141,8 @@ class ProgramOutcomesPicker extends LitElement {
 		});
 	}
 	
-	_localize( term ) {
-		return CurrentLanguage.localize( term, { outcome: this.outcomesTerm } );
+	localize( term ) {
+		return super.localize( term, { outcome: this.outcomesTerm } );
 	}
 	
 	_renderAlert() {
@@ -163,7 +156,7 @@ class ProgramOutcomesPicker extends LitElement {
 				has-close-button
 				@d2l-alert-closed="${() => this._errored = false}"
 			>
-				<span>${this._localize('ConnectionError')}</span>
+				<span>${this.localize('ConnectionError')}</span>
 			</d2l-alert>
 		`;
 	}
@@ -174,11 +167,11 @@ class ProgramOutcomesPicker extends LitElement {
 		}
 		return html`
 			<div class="header">
-				<h1 class="d2l-heading-2">${this._localize('Title')}</h1>
+				<h1 class="d2l-heading-2">${this.localize('Title')}</h1>
 				<div class="flex-spacer"></div>
 				<d2l-button-icon
 					icon="d2l-tier3:close-thick"
-					text="${this._localize('Close')}"
+					text="${this.localize('Close')}"
 					@click="${this._close}"
 				></d2l-icon>
 			</div>
@@ -216,14 +209,14 @@ class ProgramOutcomesPicker extends LitElement {
 				${this._renderHeader()}
 				<div class="body">
 					${this._renderAlert()}
-					<p class="d2l-body-standard">${this._localize('SelectProgram')}</p>
+					<p class="d2l-body-standard">${this.localize('SelectProgram')}</p>
 					<div>
-						<label class="d2l-label-text" for="program-selector">${this._localize('ProgramOutcomes')}</label>
+						<label class="d2l-label-text" for="program-selector">${this.localize('ProgramOutcomes')}</label>
 						<select class="d2l-body-compact" id="program-selector" @change="${this._onSelectProgram}">
 							${options}
 						</select>
 					</div>
-					<h2 class="d2l-heading-3" style="margin-bottom: 0;">${this._localize('AvailableOutcomes')}</h2>
+					<h2 class="d2l-heading-3" style="margin-bottom: 0;">${this.localize('AvailableOutcomes')}</h2>
 					<program-outcomes-picker-tree
 						role="composite"
 						tabindex="0"
@@ -235,9 +228,9 @@ class ProgramOutcomesPicker extends LitElement {
 					></program-outcomes-picker-tree>
 				</div>
 				<div class="button-tray">
-					<d2l-button primary @click="${this._finish}" class="done-button">${this._localize('Import')}</d2l-button>
+					<d2l-button primary @click="${this._finish}" class="done-button">${this.localize('Import')}</d2l-button>
 					<div class="button-spacer"></div>
-					<d2l-button @click="${this._close}">${this._localize('Cancel')}</d2l-button>
+					<d2l-button @click="${this._close}">${this.localize('Cancel')}</d2l-button>
 				</div>
 			</div>
 		`;

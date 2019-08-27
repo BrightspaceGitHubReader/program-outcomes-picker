@@ -1,10 +1,10 @@
-import { css, html, LitElement } from 'lit-element/lit-element.js';
+import { css, html } from 'lit-element/lit-element.js';
 import { bodyStandardStyles, heading3Styles } from '@brightspace-ui/core/components/typography/styles.js';
 import OutcomeFormatter from './outcome-formatter.js';
-import { CurrentLanguage } from './language.js';
+import LocalizedLitElement from './localized-element.js';
 import 'd2l-button/d2l-button.js';
 
-class OrphanedOutcomesWarning extends LitElement {
+class OrphanedOutcomesWarning extends LocalizedLitElement {
 	
 	static get properties() {
 		return {
@@ -123,21 +123,10 @@ class OrphanedOutcomesWarning extends LitElement {
 		this._dataState = null;
 		this._affectedOutcomes = [];
 		this.outcomesTerm = 'standards';
-		this._onLanguageChanged = this.performUpdate.bind( this );
 	}
 	
-	connectedCallback() {
-		CurrentLanguage.addChangeListener( this._onLanguageChanged );
-		super.connectedCallback();
-	}
-	
-	disconnectedCallback() {
-		CurrentLanguage.removeChangeListener( this._onLanguageChanged );
-		super.disconnectedCallback();
-	}
-	
-	_localize( term ) {
-		return CurrentLanguage.localize( term, { outcome: this.outcomesTerm } );
+	localize( term ) {
+		return super.localize( term, { outcome: this.outcomesTerm } );
 	}
 	
 	_focusElement( id ) {
@@ -182,28 +171,28 @@ class OrphanedOutcomesWarning extends LitElement {
 						<div class="dialog" role="dialog" aria-modal="true">
 							<div class="zero-size" tabindex="0" @focus="${() => this._focusElement('cancel-button')}"></div>
 								<div class="header">
-									<h1 class="d2l-heading-3">${this._localize('WarningHeader')}</h1>
+									<h1 class="d2l-heading-3">${this.localize('WarningHeader')}</h1>
 									<div class="flex-spacer"></div>
 									<d2l-button-icon
 										id="close-button"
 										icon="d2l-tier1:close-small"
-										text="${this._localize('CloseDialog')}"
+										text="${this.localize('CloseDialog')}"
 										@click="${() => this._fireEvent('action-cancel')}"
 									></d2l-icon>
 								</div>
-								<span class="d2l-body-standard description">${this._localize('WarningDescription1')}</span>
+								<span class="d2l-body-standard description">${this.localize('WarningDescription1')}</span>
 								<div class="affected-outcomes d2l-body-standard">
 									<ul>
 										${renderedOutcomes}
 									</ul>
 								</div>
-								<span class="d2l-body-standard">${this._localize('WarningDescription2')}</span>
+								<span class="d2l-body-standard">${this.localize('WarningDescription2')}</span>
 								<div class="button-tray">
-									<d2l-button id="move-button" primary @click="${() => this._fireEvent('action-move')}">${this._localize('MoveOrphanedOutcomes')}</d2l-button>
+									<d2l-button id="move-button" primary @click="${() => this._fireEvent('action-move')}">${this.localize('MoveOrphanedOutcomes')}</d2l-button>
 									<div class="button-spacer"></div>
-									<d2l-button id="delete-button" @click="${() => this._fireEvent('action-delete')}">${this._localize('DeleteOrphanedOutcomes')}</d2l-button>
+									<d2l-button id="delete-button" @click="${() => this._fireEvent('action-delete')}">${this.localize('DeleteOrphanedOutcomes')}</d2l-button>
 									<div class="button-spacer"></div>
-									<d2l-button id="cancel-button" @click="${() => this._fireEvent('action-cancel')}">${this._localize('Cancel')}</d2l-button>
+									<d2l-button id="cancel-button" @click="${() => this._fireEvent('action-cancel')}">${this.localize('Cancel')}</d2l-button>
 								</div>
 							<div class="zero-size" tabindex="0" @focus="${() => this._focusElement('close-button')}"></div>
 						</div>

@@ -1,8 +1,8 @@
-import { css, html, LitElement } from 'lit-element/lit-element.js';
+import { css, html } from 'lit-element/lit-element.js';
 import { ifDefined } from 'lit-html/directives/if-defined.js';
 import { CheckboxState } from './enums.js';
-import { CurrentLanguage } from './language.js';
 import { bodyCompactStyles } from '@brightspace-ui/core/components/typography/styles.js';
+import LocalizedLitElement from './localized-element.js';
 import OutcomeFormatter from './outcome-formatter.js';
 import 'd2l-inputs/d2l-input-checkbox.js';
 import 'd2l-button/d2l-button-icon.js';
@@ -19,7 +19,7 @@ const CheckboxStateInfo = {
 Abstract class extended by program-outcomes-picker-node and asn-outcomes-picker-node
 */
 
-class OutcomeTreeNode extends LitElement {
+class OutcomeTreeNode extends LocalizedLitElement {
 	
 	static get properties() {
 		return {
@@ -118,17 +118,6 @@ class OutcomeTreeNode extends LitElement {
 		super();
 		this.checkboxState = CheckboxState.NOT_CHECKED;
 		this._expanded = false;
-		this._onLanguageChanged = this.performUpdate.bind( this );
-	}
-	
-	connectedCallback() {
-		CurrentLanguage.addChangeListener( this._onLanguageChanged );
-		super.connectedCallback();
-	}
-	
-	disconnectedCallback() {
-		CurrentLanguage.removeChangeListener( this._onLanguageChanged );
-		super.disconnectedCallback();
 	}
 	
 	updated( changedProperties ) {
@@ -228,7 +217,7 @@ class OutcomeTreeNode extends LitElement {
 		return html`
 			<d2l-button-icon
 				icon="${this._expanded ? 'd2l-tier1:arrow-collapse' : 'd2l-tier1:arrow-expand'}"
-				text="${CurrentLanguage.localize(this._expanded ? 'Expand' : 'Collapse')}"
+				text="${this.localize(this._expanded ? 'Expand' : 'Collapse')}"
 				tabindex="-1"
 				class="expander"
 				@click="${this._toggleExpansion}"
