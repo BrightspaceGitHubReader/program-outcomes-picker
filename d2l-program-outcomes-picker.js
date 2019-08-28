@@ -199,8 +199,9 @@ class ProgramOutcomesPicker extends LocalizedLitElement {
 			<program-outcomes-picker-warning-modal
 				?open="${!!this._changesToApply}"
 				.outcomesTerm="${this.outcomesTerm}"
-				._dataState="${this._dataState}"
+				.outcomeLookup="${this._dataState.mergedProgramForestMap}"
 				._affectedOutcomes="${(this._changesToApply || {}).orphanedOwnedOutcomes || null}"
+				?canMoveToRoot="${(this._changesToApply || {}).canMoveToRoot}"
 				@action-move="${this._moveOrphanedOutcomesAndSave}"
 				@action-delete="${this._deleteOrphanedOutcomesAndSave}"
 				@action-cancel="${this._cancelSave}"
@@ -281,7 +282,19 @@ class ProgramOutcomesPicker extends LocalizedLitElement {
 	_finish() {
 		const result = Actions.buildNewRegistry( this._dataState, this.registryId );
 		if( result.orphanedOwnedOutcomes.length ) {
-			this._changesToApply = result;
+			this._loading = true;
+			Lores.checkCanMoveOutcomesAsync(
+				this.registryId,
+				result.orphanedOwnedOutcomes.map( o => o.id )
+			).then( canMoveToRoot => {
+				this._loading = false;
+				result.canMoveToRoot = canMoveToRoot;
+				this._changesToApply = result;
+			}).catch( exception => {
+				this._loading = false;
+				console.error( exception ); //eslint-disable-line no-console
+				this._errored = true;
+			});
 		} else {
 			this._saveAsync( result.newRegistryForest ).catch( () => null );
 		}

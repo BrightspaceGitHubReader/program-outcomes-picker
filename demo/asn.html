@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en-US">
+	<head>
+		<meta charset="utf-8">
+		<title>ASN Outcomes Picker (DEMO)</title>
+		<link rel="stylesheet" href="font.css">
+		<script src="../node_modules/@webcomponents/webcomponentsjs/webcomponents-bundle.js"></script>
+		<script type="module">
+			import '@brightspace-ui/core/components/typography/typography.js';
+			import './lores-mock.js';
+			import '../d2l-asn-outcomes-picker.js';
+		</script>
+		<style>
+			.demo {
+				max-width: 600px;
+				max-height: 800px;
+				border: 1px solid #CDD5DC;
+				margin: 8px;
+				height: 100vh;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="demo">
+			<d2l-asn-outcomes-picker
+				id="picker"
+				registry-id="0"
+				lores-endpoint="mocked"
+				outcome-term="outcomes"
+				org-unit-id="6613"
+				no-header
+			></d2l-program-outcomes-picker>
+		</div>
+	</body>
+</html>

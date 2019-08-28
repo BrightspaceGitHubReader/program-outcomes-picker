@@ -39,6 +39,32 @@ export default {
 				last_updated: new Date( Date.now() ).toISOString()
 			}
 		});
+	},
+	
+	createOutcomesAsync: function( orgUnitId, sourceData ) {
+		if( !sourceData.length ) {
+			return Promise.resolve( [] );
+		}
+		
+		if( !endpoint ) {
+			return Promise.reject( 'Lores endpoint not set.' );
+		}
+		
+		const owner = 'learning_outcomes';
+		const additionalAuthorization = encodeURIComponent( JSON.stringify({
+			_type: 'anon',
+			orgUnitId: orgUnitId
+		}));
+		
+		return sendRequest( 'POST', `${endpoint}api/lores/1.0/objectives/bulk?owner=${owner}&additionalAuthorization=${additionalAuthorization}`, {
+			authScope: Scopes.MANAGE,
+			requestBodyJson: sourceData
+		});
+	},
+	
+	checkCanMoveOutcomesAsync: function( /* registryId, outcomeIds */ ) {
+		// TODO: Once this check is added to Lores, call that API here
+		return Promise.resolve( true );
 	}
 	
 };

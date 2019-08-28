@@ -9,9 +9,10 @@ class OrphanedOutcomesWarning extends LocalizedLitElement {
 	static get properties() {
 		return {
 			open: { type: Boolean },
-			_dataState: { type: Object },
+			outcomeLookup: { type: Object },
 			_affectedOutcomes: { type: Array },
-			outcomesTerm: { type: String }
+			outcomesTerm: { type: String },
+			canMoveToRoot: { type: Boolean }
 		};
 	}
 	
@@ -120,9 +121,10 @@ class OrphanedOutcomesWarning extends LocalizedLitElement {
 	constructor() {
 		super();
 		this.open = false;
-		this._dataState = null;
+		this.outcomeLookup = null;
 		this._affectedOutcomes = [];
 		this.outcomesTerm = 'standards';
+		this.canMoveToRoot = false;
 	}
 	
 	localize( term ) {
@@ -147,7 +149,7 @@ class OrphanedOutcomesWarning extends LocalizedLitElement {
 	
 	_getRenderedOutcomes( outcomeNodes, renderList ) {
 		outcomeNodes.forEach( node => {
-			const outcome = this._dataState.mergedProgramForestMap[node.id].outcome;
+			const outcome = this.outcomeLookup[node.id].outcome;
 			renderList.push( html`<li>${OutcomeFormatter.render(outcome)}</li>` );
 			this._getRenderedOutcomes( node.children, renderList );
 		});
@@ -188,7 +190,7 @@ class OrphanedOutcomesWarning extends LocalizedLitElement {
 								</div>
 								<span class="d2l-body-standard">${this.localize('WarningDescription2')}</span>
 								<div class="button-tray">
-									<d2l-button id="move-button" primary @click="${() => this._fireEvent('action-move')}">${this.localize('MoveOrphanedOutcomes')}</d2l-button>
+									<d2l-button id="move-button" ?primary="${this.canMoveToRoot}" ?disabled="${!this.canMoveToRoot}" @click="${() => this._fireEvent('action-move')}">${this.localize('MoveOrphanedOutcomes')}</d2l-button>
 									<div class="button-spacer"></div>
 									<d2l-button id="delete-button" @click="${() => this._fireEvent('action-delete')}">${this.localize('DeleteOrphanedOutcomes')}</d2l-button>
 									<div class="button-spacer"></div>
@@ -207,7 +209,7 @@ class OrphanedOutcomesWarning extends LocalizedLitElement {
 	updated( changedProperties ) {
 		super.updated( changedProperties );
 		if( this.open && changedProperties.has( 'open' ) && !changedProperties.get( 'open' ) ) {
-			this._focusElement( 'move-button' );
+			this.canMoveToRoot ? this._focusElement( 'move-button' ) : this._focusElement( 'delete-button' );
 		}
 	}
 	

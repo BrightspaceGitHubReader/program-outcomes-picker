@@ -83,6 +83,12 @@ const MOCK_PROGRAM_2 = {
 	last_updated: '1970-01-01'
 };
 
+const MOCK_PROGRAM_3 = {
+	id: '3',
+	objectives: [],
+	last_updated: '1970-01-01'
+};
+
 const delayedSuccess = function( result ) {
 	return new Promise( ( resolve, reject ) => {
 		setTimeout( () => resolve( result ), 0 );
@@ -100,10 +106,20 @@ Lores.fetchRegistryAsync = function( registryId ) {
 		case 0: return delayedSuccess( MOCK_REGISTRY );
 		case 1: return delayedSuccess( MOCK_PROGRAM_1 );
 		case 2: return delayedSuccess( MOCK_PROGRAM_2 );
+		case 3: return delayedSuccess( MOCK_PROGRAM_3 );
 		default: return delayedFailure( 'Not Found' );
 	}
 };
 
 Lores.updateRegistryAsync = function( resgitryId, newRegistryContents ) {
 	return delayedSuccess( 'OK' );
+};
+
+Lores.createOutcomesAsync = function( orgUnitId, sourceData ) {
+	return delayedSuccess(
+		sourceData.map( source => ({
+			id: `mock-${Math.random()}`,
+			source: source
+		}))
+	);
 };
