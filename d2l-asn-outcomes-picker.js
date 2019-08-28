@@ -436,6 +436,7 @@ class AsnOutcomesPicker extends LocalizedLitElement {
 		this._dataState.externalOutcomes = [];
 		Lores.fetchRegistryAsync( this.registryId ).then( registry => {
 			registry.objectives.forEach( this._initSelectedRecursive.bind( this ) );
+			this._onJurisdictionChanged( null );
 			this._loading = false;
 			this.performUpdate();
 		}).catch( exception => {

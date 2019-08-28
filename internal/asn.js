@@ -108,7 +108,7 @@ const fetchOutcomesAsync = function( documentId, subject, educationLevel ) {
 		`?key=${API_KEY}` +
 		`&bq=${query}` +
 		`&return-fields=${RELEVANT_FIELDS.join( ',' )}` +
-		'&rank=subling_order' +
+		'&rank=sibling_order' +
 		`&size=${MAX_RESULTS}`;
 		
 	return sendRequest( 'GET', url, {
