@@ -30,7 +30,7 @@ A Lit Element webcomponent for importing learning outcomes from ASN.
 `registry-id`: The registryId of the course or program to which the outcomes will be imported  
 `lores-endpoint`: The endpoint of the Lores service  
 `outcome-term` *(Optional)*: Which lang term to use for outcomes. Valid values are `competencies`, `expectations`, `objectives`, `outcomes`, and `standards`. Default is `standards`  
-`no-header` *(Boolean)*: If included, the header (title and close button) will not be rendered.
+`no-header` *(Boolean)*: If included, the header (title and close button) will not be rendered.  
 `org-unit-id`: The orgUnitId of the course
 
 ### Events
