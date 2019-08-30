@@ -12,10 +12,6 @@ class AsnOutcomeNode extends OutcomeTreeNode {
 		);
 	}
 	
-	static get styles() {
-		return OutcomeTreeNode.styles;
-	}
-	
 	update( changedProperties ) {
 		super.update( changedProperties );
 		this._treeData.map.get( this.sourceId ).elementRef = this;
@@ -40,29 +36,17 @@ class AsnOutcomeNode extends OutcomeTreeNode {
 		return this._treeData.map.get( this.sourceId ).children.map( node => html`
 			<asn-outcomes-picker-node
 				tabindex="-1"
+				.htmlId="node_${window.btoa( node.sourceId ).replace( '+', '-' ).replace( '/', '_' )}"
 				.sourceId="${node.sourceId}"
 				.checkboxState="${node.checkboxState}"
 				._treeData="${this._treeData}"
+				._depth="${this._depth + 1}"
 			></asn-outcomes-picker-node>
 		`);
 	}
 	
-	onCheckboxChanged( isChecked ) {
-		const selectionNode = this._treeData.map.get( this.sourceId );
-		isChecked ? selectionNode.select() : selectionNode.deselect();
-	}
-	
-	hasChildren() {
-		return this._treeData.map.get( this.sourceId ).children.length > 0;
-	}
-	
-	getChildren() {
-		return this._treeData.map.get( this.sourceId ).children.map( node => node.elementRef );
-	}
-	
-	getParent() {
-		const parentData = this._treeData.map.get( this.sourceId ).parent;
-		return parentData ? parentData.elementRef : null;
+	getSelectionNode() {
+		return this._treeData.map.get( this.sourceId );
 	}
 	
 	getRoots() {

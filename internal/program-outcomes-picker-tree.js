@@ -1,45 +1,33 @@
-import { css, html, LitElement } from 'lit-element/lit-element.js';
+import { html } from 'lit-element/lit-element.js';
+import OutcomeTree from './outcome-tree.js';
 import './program-outcomes-picker-node.js';
 
-class ProgramOutcomesTree extends LitElement {
+class ProgramOutcomesTree extends OutcomeTree {
 	
 	static get properties() {
-		return {
+		return Object.assign( {}, OutcomeTree.properties, {
 			programRegistryId: { type: String },
 			_dataState: { type: Object }
-		};
+		});
 	}
 	
 	static get styles() {
-		return css`
-			.outcomes-tree {
-				overflow-y: auto;
-				overflow-x: hidden;
-			}
-
-			.root-outcomes {
-				display: flex;
-				flex-direction: column;
-			}
-			
-			ul, li {
-				list-style-type: none;
-				padding: 0;
-			}
-		`;
+		return OutcomeTree.styles;
 	}
 	
 	_renderNode( programStateNode ) {
 		return html`
 			<program-outcomes-picker-node
 				tabindex="-1"
+				.htmlId="node_${programStateNode.outcomeId}"
 				._programNode="${programStateNode}"
 				._dataState="${this._dataState}"
+				._depth="${1}"
 			></program-outcomes-picker-node>
 		`;
 	}
 	
-	render() {
+	_renderTree() {
 		const programState = this._dataState.programState;
 		
 		let programRoots = [];
@@ -47,13 +35,11 @@ class ProgramOutcomesTree extends LitElement {
 			programRoots = programState.forest.map( this._renderNode.bind( this ) );
 		}
 		
-		return html`
-			<div class="outcomes-tree">
-				<ul class="root-outcomes" role="tree">
-					${programRoots}
-				</ul>
-			</div>
-		`;
+		return programRoots || '';
+	}
+	
+	_getFirstNode() {
+		return (this._dataState.programState.forest[0] || {}).elementRef;
 	}
 	
 }

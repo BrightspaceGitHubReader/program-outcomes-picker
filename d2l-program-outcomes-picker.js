@@ -219,13 +219,9 @@ class ProgramOutcomesPicker extends LocalizedLitElement {
 					</div>
 					<h2 class="d2l-heading-3" style="margin-bottom: 0;">${this.localize('AvailableOutcomes')}</h2>
 					<program-outcomes-picker-tree
-						role="composite"
-						tabindex="0"
 						.programRegistryId="${this._selectedProgramRegistryId}"
 						._dataState="${this._dataState}"
-						@focus="${this._onFocusTree}"
 						@mousedown="${event => event.preventDefault()}"
-						@onkeydown="${this._onKeyDown}"
 					></program-outcomes-picker-tree>
 				</div>
 				<div class="button-tray">
@@ -360,17 +356,6 @@ class ProgramOutcomesPicker extends LocalizedLitElement {
 	
 	_cancelSave() {
 		this._changesToApply = null;
-	}
-	
-	_onFocusTree() {
-		this._dataState.programState.forest[0].elementRef._focusNode();
-	}
-	
-	_onKeyDown( event ) {
-		if( event.keyCode === 9 && !event.shiftKey ) {
-			this.blur();
-			event.preventDefault();
-		}
 	}
 	
 	_close() {
