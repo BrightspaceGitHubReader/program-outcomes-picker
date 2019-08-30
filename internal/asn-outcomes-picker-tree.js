@@ -1,17 +1,17 @@
-import { css, html } from 'lit-element/lit-element.js';
+import { html } from 'lit-element/lit-element.js';
 import { bodyStandardStyles } from '@brightspace-ui/core/components/typography/styles.js';
 import { CheckboxState } from './enums.js';
 import ASN from './asn.js';
 import ASNActions from './asn-actions.js';
 import SelectionStateNode from './selection-state-node.js';
-import LocalizedLitElement from './localized-element.js';
+import OutcomeTree from './outcome-tree.js';
 import 'd2l-loading-spinner/d2l-loading-spinner.js';
 import './asn-outcomes-picker-node.js';
 
-class AsnOutcomesTree extends LocalizedLitElement {
+class AsnOutcomesTree extends OutcomeTree {
 	
 	static get properties() {
-		return {
+		return Object.assign( {}, OutcomeTree.properties, {
 			documentId: { type: String },
 			subject: { type: String },
 			educationLevel: { type: String },
@@ -19,31 +19,13 @@ class AsnOutcomesTree extends LocalizedLitElement {
 			_loading: { type: Boolean },
 			_dataState: { type: Object },
 			_error: { type: Boolean }
-		};
+		});
 	}
 	
 	static get styles() {
-		const componentStyle = css`
-			.outcomes-tree {
-				overflow-y: auto;
-				overflow-x: hidden;
-			}
-
-			.root-outcomes {
-				display: flex;
-				flex-direction: column;
-				margin-top: 0;
-			}
-			
-			ul, li {
-				list-style-type: none;
-				padding: 0;
-			}
-		`;
-		
 		return [
 			bodyStandardStyles,
-			componentStyle
+			OutcomeTree.styles
 		];
 	}
 	
@@ -99,6 +81,22 @@ class AsnOutcomesTree extends LocalizedLitElement {
 		super.updated( changedProperties );
 	}
 	
+	_renderTree() {
+		return this._dataState.currentTree.roots.map( rootNode => html`
+			<asn-outcomes-picker-node
+				tabindex="-1"
+				.htmlId="node_${window.btoa( rootNode.sourceId ).replace( '+', '-' ).replace( '/', '_' )}"
+				.sourceId="${rootNode.sourceId}"
+				._treeData="${this._dataState.currentTree}"
+				._depth="${1}"
+			></asn-outcomes-picker-node>
+		` );
+	}
+	
+	_getFirstNode() {
+		return (this._dataState.currentTree.roots[0] || {}).elementRef;
+	}
+	
 	render() {
 		if( this._loading ) {
 			return html`
@@ -114,21 +112,7 @@ class AsnOutcomesTree extends LocalizedLitElement {
 			`;
 		}
 		
-		const rootNodes = this._dataState.currentTree.roots.map( rootNode => html`
-			<asn-outcomes-picker-node
-				tabindex="-1"
-				.sourceId="${rootNode.sourceId}"
-				._treeData="${this._dataState.currentTree}"
-			></asn-outcomes-picker-node>
-		`);
-		
-		return html`
-			<div class="outcomes-tree">
-				<ul class="root-outcomes" role="tree">
-					${rootNodes}
-				</ul>
-			</div>
-		`;
+		super.render();
 	}
 	
 	_raiseBasicEvent( eventName ) {

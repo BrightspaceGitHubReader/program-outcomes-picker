@@ -389,15 +389,10 @@ class AsnOutcomesPicker extends LocalizedLitElement {
 					</table>
 					<h2 class="d2l-heading-3">${this.localize('AvailableOutcomes')}</h2>
 					<asn-outcomes-picker-tree
-						role="composite"
-						tabindex="0"
 						._dataState="${this._dataState}"
 						.documentId="${this._documentId}"
 						.subject="${this._subject}"
 						.educationLevel="${this._educationLevel}"
-						@focus="${this._onFocusTree}"
-						@mousedown="${event => event.preventDefault()}"
-						@onkeydown="${this._onKeyDown}"
 						@connection-error="${() => this._errored = true}"
 						@connection-error-resolved="${() => this._errored = false}"
 					></program-outcomes-picker-tree>
@@ -533,19 +528,6 @@ class AsnOutcomesPicker extends LocalizedLitElement {
 	
 	_onEducationLevelChanged( educationLevel ) {
 		this._educationLevel = educationLevel || null;
-	}
-	
-	_onFocusTree() {
-		if( this._dataState.currentTree && this._dataState.currentTree.roots.length ) {
-			this._dataState.currentTree.roots[0].elementRef._focusNode();
-		}
-	}
-	
-	_onKeyDown( event ) {
-		if( event.keyCode === 9 && !event.shiftKey ) {
-			this.blur();
-			event.preventDefault();
-		}
 	}
 	
 	_close() {

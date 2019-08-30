@@ -12,10 +12,6 @@ class ProgramOutcomeNode extends OutcomeTreeNode {
 		);
 	}
 	
-	static get styles() {
-		return OutcomeTreeNode.styles;
-	}
-	
 	update( changedProperties ) {
 		super.update( changedProperties );
 		this._programNode.elementRef = this;
@@ -42,34 +38,17 @@ class ProgramOutcomeNode extends OutcomeTreeNode {
 		return this._programNode.children.map( programNode => html`
 			<program-outcomes-picker-node
 				tabindex="-1"
+				.htmlId="node_${programNode.outcomeId}"
 				.checkboxState="${programNode.checkboxState}"
 				._programNode="${programNode}"
 				._dataState="${this._dataState}"
+				._depth="${this._depth + 1}"
 			></program-outcomes-picker-node>
 		`);
 	}
 	
-	onCheckboxChanged( isChecked ) {
-		isChecked ? this._programNode.select() : this._programNode.deselect();
-	}
-
-	onSetExpanded( isExpanded ) {
-		const programRegistryId = this._dataState.programState.registryId;
-		const outcomeId = this._programNode.outcomeId;
-		this._dataState.expandState[programRegistryId][outcomeId] = isExpanded;
-	}
-	
-	hasChildren() {
-		return !!this._programNode.children.length;
-	}
-	
-	getChildren() {
-		return this._programNode.children.map( pn => pn.elementRef );
-	}
-	
-	getParent() {
-		const parentData = this._programNode.parent;
-		return parentData ? parentData.elementRef : null;
+	getSelectionNode() {
+		return this._programNode;
 	}
 	
 	getRoots() {
@@ -78,6 +57,12 @@ class ProgramOutcomeNode extends OutcomeTreeNode {
 	
 	getOutcome() {
 		return this._dataState.mergedProgramForestMap[this._programNode.outcomeId].outcome;
+	}
+
+	onSetExpanded( isExpanded ) {
+		const programRegistryId = this._dataState.programState.registryId;
+		const outcomeId = this._programNode.outcomeId;
+		this._dataState.expandState[programRegistryId][outcomeId] = isExpanded;
 	}
 	
 }
