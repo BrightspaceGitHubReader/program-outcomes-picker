@@ -36,7 +36,6 @@ class OutcomeTree extends LocalizedLitElement {
 	
 	updated( changedProperties ) {
 		super.updated( changedProperties );
-		
 		const firstNode = this._getFirstNode();
 		if( firstNode && ( !this._focusedNode || !this.shadowRoot.contains( this._focusedNode ) ) ) {
 			this._focusedNode = firstNode;

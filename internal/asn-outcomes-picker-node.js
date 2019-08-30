@@ -36,13 +36,20 @@ class AsnOutcomeNode extends OutcomeTreeNode {
 		return this._treeData.map.get( this.sourceId ).children.map( node => html`
 			<asn-outcomes-picker-node
 				tabindex="-1"
-				.htmlId="node_${window.btoa( node.sourceId ).replace( '+', '-' ).replace( '/', '_' )}"
+				.htmlId="${this._generateHtmlId( node.sourceId )}"
 				.sourceId="${node.sourceId}"
 				.checkboxState="${node.checkboxState}"
 				._treeData="${this._treeData}"
 				._depth="${this._depth + 1}"
 			></asn-outcomes-picker-node>
 		`);
+	}
+	
+	_generateHtmlId( sourceId ) {
+		return 'node_' + window.btoa( sourceId )
+			.replace( /\+/g, '-' )
+			.replace( /\//g, '_' )
+			.replace( /=/g, '' );
 	}
 	
 	getSelectionNode() {

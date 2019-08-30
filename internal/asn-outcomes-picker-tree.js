@@ -85,7 +85,7 @@ class AsnOutcomesTree extends OutcomeTree {
 		return this._dataState.currentTree.roots.map( rootNode => html`
 			<asn-outcomes-picker-node
 				tabindex="-1"
-				.htmlId="node_${window.btoa( rootNode.sourceId ).replace( '+', '-' ).replace( '/', '_' )}"
+				.htmlId="${this._generateHtmlId( rootNode.sourceId )}"
 				.sourceId="${rootNode.sourceId}"
 				._treeData="${this._dataState.currentTree}"
 				._depth="${1}"
@@ -93,7 +93,17 @@ class AsnOutcomesTree extends OutcomeTree {
 		` );
 	}
 	
+	_generateHtmlId( sourceId ) {
+		return 'node_' + window.btoa( sourceId )
+			.replace( /\+/g, '-' )
+			.replace( /\//g, '_' )
+			.replace( /=/g, '' );
+	}
+	
 	_getFirstNode() {
+		if( !this._dataState.currentTree ) {
+			return null;
+		}
 		return (this._dataState.currentTree.roots[0] || {}).elementRef;
 	}
 	
@@ -112,7 +122,7 @@ class AsnOutcomesTree extends OutcomeTree {
 			`;
 		}
 		
-		super.render();
+		return super.render();
 	}
 	
 	_raiseBasicEvent( eventName ) {
