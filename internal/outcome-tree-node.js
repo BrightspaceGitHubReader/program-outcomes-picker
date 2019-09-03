@@ -119,6 +119,12 @@ class OutcomeTreeNode extends LocalizedLitElement {
 			li.outcome-node d2l-button-icon:dir(rtl) {
 				transform: scaleX(-1);
 			}
+			
+			li.outcome-node .lock-icon {
+				vertical-align: top;
+				margin-top: 3px;
+				margin-right: 0.5ch;
+			}
 		`;
 		return [ bodyCompactStyles, componentStyle ];
 	}
@@ -155,6 +161,10 @@ class OutcomeTreeNode extends LocalizedLitElement {
 		const _ariaSelected = Browser.isSafari() ? ariaSelected : undefined;
 		
 		const locked = this.getSelectionNode().locked;
+		let lockIcon = '';
+		if( locked ) {
+			lockIcon = html`<d2l-icon icon="d2l-tier1:lock-locked" class="lock-icon"></d2l-icon>`;
+		}
 		
 		return html`
 			<li
@@ -182,9 +192,12 @@ class OutcomeTreeNode extends LocalizedLitElement {
 						?checked="${checked}"
 						?indeterminate="${indeterminate}"
 						?disabled="${locked}"
-						@change="${this._onCheckboxChanged}"
+						@change="${ev => this._onCheckboxChanged( ev.target.checked )}"
 					>
-						<span id="${this.htmlId}:outcome-description" class="d2l-body-compact outcome-description">${OutcomeFormatter.render(this.getOutcome())}</span>
+						<span
+							id="${this.htmlId}:outcome-description"
+							class="d2l-body-compact outcome-description"
+						>${lockIcon}${OutcomeFormatter.render(this.getOutcome())}</span>
 					</d2l-input-checkbox>
 				</div>
 				<div ?hidden="${!this._expanded}">
@@ -246,16 +259,20 @@ class OutcomeTreeNode extends LocalizedLitElement {
 		return window.getComputedStyle( this ).direction === 'rtl';
 	}
 	
-	_onCheckboxChanged( event ) {
-		let isChecked = event.target.checked;
+	_onCheckboxChanged( isChecked ) {
 		const selectionNode = this.getSelectionNode();
 		if( selectionNode.checkboxState ===  CheckboxState.PARTIAL ) {
 			isChecked = true;
 		}
 		isChecked ? selectionNode.select() : selectionNode.deselect();
-		const newState = CheckboxStateInfo[selectionNode.checkboxState];
-		event.target.checked = newState.checked;
-		event.target.indeterminate = newState.indeterminate;
+		this.checkboxState = selectionNode.checkboxState;
+		
+		const checkbox = this.querySelector(`#${this.htmlId}\\:checkbox`);
+		if( checkbox ) {
+			const newState = CheckboxStateInfo[selectionNode.checkboxState];
+			checkbox.checked = newState.checked;
+			checkbox.indeterminate = newState.indeterminate;
+		}
 	}
 	
 	_hasChildren() {
