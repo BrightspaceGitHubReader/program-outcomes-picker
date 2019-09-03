@@ -14,6 +14,7 @@ import 'd2l-icons/tier3-icons.js';
 /*
 dataState:
 	selectedOutcomes: Map<sourceId,sourceId>
+	lockedOutcomes: Set<sourceId>
 	externalOutcomes: { parentSourceId, tree }[]
 	currentTree:
 		roots: SelectionStateNode[]
@@ -172,6 +173,7 @@ class AsnOutcomesPicker extends LocalizedLitElement {
 		
 		this._dataState = {
 			selectedOutcomes: new Map(),
+			lockedOutcomes: new Set(),
 			externalOutcomes: [],
 			currentTree: null
 		};
@@ -430,28 +432,51 @@ class AsnOutcomesPicker extends LocalizedLitElement {
 		this._dataState.selectedOutcomes.clear();
 		this._dataState.externalOutcomes = [];
 		Lores.fetchRegistryAsync( this.registryId ).then( registry => {
-			registry.objectives.forEach( this._initSelectedRecursive.bind( this ) );
-			this._onJurisdictionChanged( null );
-			this._loading = false;
-			this.performUpdate();
+			return Lores.getLockedOutcomesAsync( this.registryId ).then( lockedOutcomes => {
+				let lockedOutcomesSet = new Set();
+				lockedOutcomes.forEach( outcomeId => lockedOutcomesSet.add( outcomeId ) );
+				
+				registry.objectives.forEach( this._initSelectedRecursive.bind( this, null, lockedOutcomesSet ) );
+				this._onJurisdictionChanged( null );
+				this._loading = false;
+				this.performUpdate();
+			});
 		}).catch( exception => {
 			console.error( exception );
 			this._errored = true;
 		});
 	}
 	
-	_initSelectedRecursive( outcome, parent ) {
+	_initSelectedRecursive( outcome, parent, lockedOutcomes ) {
 		if( outcome.source === 'asn' ) {
 			this._dataState.selectedOutcomes.set( outcome.source_id, parent ? parent.source_id : null );
 			if( outcome.children ) {
-				outcome.children.forEach( child => this._initSelectedRecursive( child, outcome ) );
+				let locked = false;
+				outcome.children.forEach( child => {
+					locked = this._initSelectedRecursive( child, outcome, lockedOutcomes ) || locked;
+				});
+				if( locked ) {
+					this._dataState.lockedOutcomes.add( outcome.source_id );
+				}
+				return locked;
 			}
+			return false;
 		} else {
 			this._dataState.externalOutcomes.push({
 				parentSourceId: parent ? parent.source_id : null,
 				tree: outcome
 			});
+			return this._hasLockedDescendant( outcome, lockedOutcomes );
 		}
+	}
+	
+	_hasLockedDescendant( outcome, lockedOutcomes ) {
+		if( lockedOutcomes.has( outcome.id ) ) {
+			return true;
+		} else if( !outcome.children || !outcome.children.length ) {
+			return false;
+		}
+		return outcome.children.some( c => this._hasLockedDescendant( c, lockedOutcomes ) );
 	}
 	
 	_onJurisdictionChanged( jurisdiction ) {
@@ -546,18 +571,8 @@ class AsnOutcomesPicker extends LocalizedLitElement {
 			this.orgUnitId
 		).then( results => {
 			if( results.orphanedOutcomes.length ) {
-				if( results.orphanedOutcomes.some( o => o.owner !== this.registryId ) ) {
-					results.canMoveToRoot = false;
-					this._changesToApply = results;
-				} else {
-					return Lores.checkCanMoveOutcomesAsync(
-						this.registryId,
-						results.orphanedOutcomes.map( o => o.id )
-					).then( canMoveToRoot => {
-						results.canMoveToRoot = canMoveToRoot;
-						this._changesToApply = results;
-					});
-				}
+				results.canMoveToRoot = !results.orphanedOutcomes.some( o => o.owner !== this.registryId );
+				this._changesToApply = results
 			} else {
 				this._save( results.newRegistryForest );
 			}

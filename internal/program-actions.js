@@ -37,7 +37,8 @@ const buildProgramStateRecursive = function( dataState, registryOutcome, parentN
 		/* parent */ parentNode,
 		/* children */ null, // gets set after children are processed
 		/* checkboxState */ null, // gets set after children are processed
-		/* externallySelected */ externallySelected
+		/* externallySelected */ externallySelected,
+		/* locked */ !children.length && dataState.mergedProgramForestMap[registryOutcome.id].locked
 	);
 	
 	thisNode.children = children.map( child => buildProgramStateRecursive( dataState, child, thisNode ) );
@@ -146,7 +147,8 @@ const buildNewRegistry = function( dataState, registryId ) {
 	
 	return {
 		newRegistryForest: newForest,
-		orphanedOwnedOutcomes: orphanedOwnedOutcomes
+		orphanedOwnedOutcomes: orphanedOwnedOutcomes,
+		canMoveToRoot: true
 	};
 };
 

@@ -23,13 +23,16 @@ const makeOutcome = function( id, notation, description, isAuthored, owner ) {
 const OBJECTIVES = [
 	makeOutcome( 0, 'ASN.1', 'Root 1' ),
 	makeOutcome( 1, 'ASN.2', 'Root 2' ),
-	makeOutcome( 2, 'ASN1.A', 'Alpha' ),
-	makeOutcome( 3, 'ASN1.B', 'Beta' ),
-	makeOutcome( 4, 'ASN1.C', 'Gamma' ),
+	makeOutcome( 2, 'ASN.1.A', 'Alpha' ),
+	makeOutcome( 3, 'ASN.1.B', 'Beta' ),
+	makeOutcome( 4, 'ASN.1.C', 'Gamma' ),
 	makeOutcome( 5, 'AO.B.i', 'Authored 1', true, '1' ),
 	makeOutcome( 6, 'AO.B.ii', 'Authored 2', true, '1' ),
 	makeOutcome( 7, 'AO.C.i', 'Authored 3', true, '0' ),
-	makeOutcome( 8, 'ASN.2.B', 'ASN outcome with <i>HTML content</i>' )
+	makeOutcome( 8, 'ASN.2.B', 'ASN outcome with <i>HTML content</i>' ),
+	makeOutcome( 9, 'ASN.3', 'Root 3' ),
+	makeOutcome( 10, 'ASN.3.A', 'Delta' ),
+	makeOutcome( 11, 'AO.3.B', 'Authored 4 (Shared)', true, '0' )
 ];
 
 const buildObjective = function( outcomeId, children ) {
@@ -48,6 +51,9 @@ const MOCK_REGISTRY = {
 			buildObjective( 4, [
 				buildObjective( 7 )
 			])
+		]),
+		buildObjective( 9, [
+			buildObjective( 11 )
 		])
 	],
 	last_updated: '1970-01-01'
@@ -63,7 +69,8 @@ const MOCK_PROGRAM_1 = {
 				buildObjective( 6 )
 			]),
 			buildObjective( 4 )
-		])
+		]),
+		buildObjective( 9 )
 	],
 	last_updated: '1970-01-01'
 };
@@ -78,6 +85,10 @@ const MOCK_PROGRAM_2 = {
 		]),
 		buildObjective( 1, [
 			buildObjective( 8 )
+		]),
+		buildObjective( 9, [
+			buildObjective( 10 ),
+			buildObjective( 11 )
 		])
 	],
 	last_updated: '1970-01-01'
@@ -122,4 +133,11 @@ Lores.createOutcomesAsync = function( orgUnitId, sourceData ) {
 			source: source
 		}))
 	);
+};
+
+Lores.getLockedOutcomesAsync = function( registryId ) {
+	if( registryId !== MOCK_REGISTRY.id ) {
+		return delayedSuccess( [] );
+	}
+	return delayedSuccess( [ '11' ] );
 };

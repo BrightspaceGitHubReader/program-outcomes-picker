@@ -36,6 +36,7 @@ class AsnOutcomeNode extends OutcomeTreeNode {
 		return this._treeData.map.get( this.sourceId ).children.map( node => html`
 			<asn-outcomes-picker-node
 				tabindex="-1"
+				?disabled="${node.locked}"
 				.htmlId="${this._generateHtmlId( node.sourceId )}"
 				.sourceId="${node.sourceId}"
 				.checkboxState="${node.checkboxState}"

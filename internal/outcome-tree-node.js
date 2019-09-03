@@ -154,6 +154,8 @@ class OutcomeTreeNode extends LocalizedLitElement {
 		const _ariaChecked = Browser.isSafari() ? undefined : ariaChecked;
 		const _ariaSelected = Browser.isSafari() ? ariaSelected : undefined;
 		
+		const locked = this.getSelectionNode().locked;
+		
 		return html`
 			<li
 				id="${this.htmlId}"
@@ -168,6 +170,7 @@ class OutcomeTreeNode extends LocalizedLitElement {
 				aria-posinset="${1 + siblings.indexOf(this)}"
 				aria-checked="${ifDefined(_ariaChecked)}"
 				aria-selected="${ifDefined(_ariaSelected)}"
+				aria-disabled="${locked}"
 				@keydown="${this.handleKeyDownEvent}"
 			>
 				<div class="outcome">
@@ -178,7 +181,8 @@ class OutcomeTreeNode extends LocalizedLitElement {
 						id="${this.htmlId}:checkbox"
 						?checked="${checked}"
 						?indeterminate="${indeterminate}"
-						@change="${ev => this._onCheckboxChanged( ev.target.checked )}"
+						?disabled="${locked}"
+						@change="${this._onCheckboxChanged}"
 					>
 						<span id="${this.htmlId}:outcome-description" class="d2l-body-compact outcome-description">${OutcomeFormatter.render(this.getOutcome())}</span>
 					</d2l-input-checkbox>
@@ -242,9 +246,16 @@ class OutcomeTreeNode extends LocalizedLitElement {
 		return window.getComputedStyle( this ).direction === 'rtl';
 	}
 	
-	_onCheckboxChanged( isChecked ) {
+	_onCheckboxChanged( event ) {
+		let isChecked = event.target.checked;
 		const selectionNode = this.getSelectionNode();
+		if( selectionNode.checkboxState ===  CheckboxState.PARTIAL ) {
+			isChecked = true;
+		}
 		isChecked ? selectionNode.select() : selectionNode.deselect();
+		const newState = CheckboxStateInfo[selectionNode.checkboxState];
+		event.target.checked = newState.checked;
+		event.target.indeterminate = newState.indeterminate;
 	}
 	
 	_hasChildren() {

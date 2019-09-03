@@ -278,19 +278,7 @@ class ProgramOutcomesPicker extends LocalizedLitElement {
 	_finish() {
 		const result = Actions.buildNewRegistry( this._dataState, this.registryId );
 		if( result.orphanedOwnedOutcomes.length ) {
-			this._loading = true;
-			Lores.checkCanMoveOutcomesAsync(
-				this.registryId,
-				result.orphanedOwnedOutcomes.map( o => o.id )
-			).then( canMoveToRoot => {
-				this._loading = false;
-				result.canMoveToRoot = canMoveToRoot;
-				this._changesToApply = result;
-			}).catch( exception => {
-				this._loading = false;
-				console.error( exception ); //eslint-disable-line no-console
-				this._errored = true;
-			});
+			this._changesToApply = result;
 		} else {
 			this._saveAsync( result.newRegistryForest ).catch( () => null );
 		}

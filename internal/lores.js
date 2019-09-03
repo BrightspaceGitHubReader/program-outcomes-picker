@@ -62,9 +62,9 @@ export default {
 		});
 	},
 	
-	checkCanMoveOutcomesAsync: function( /* registryId, outcomeIds */ ) {
+	getLockedOutcomesAsync: function( /* registryId */ ) {
 		// TODO: Once this check is added to Lores, call that API here
-		return Promise.resolve( true );
+		return Promise.resolve( [] );
 	}
 	
 };

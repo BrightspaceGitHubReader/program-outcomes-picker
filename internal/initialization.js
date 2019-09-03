@@ -18,6 +18,16 @@ const initializeAsync = function( dataState, registryId, programRegistryIds ) {
 				dataState.ownedAuthoredLeafOutcomes.add( outcomeId );
 			}
 		});
+		
+		return Lores.getLockedOutcomesAsync( registryId ).then( lockedOutcomes => {
+			lockedOutcomes.forEach( outcomeId => {
+				let outcomeNode = dataState.mergedProgramForestMap[outcomeId];
+				while( outcomeNode && !outcomeNode.locked ) {
+					outcomeNode.locked = true;
+					outcomeNode = outcomeNode.parent;
+				}
+			});
+		});
 	});
 };
 
@@ -35,7 +45,8 @@ const processOutcome = function( dataState, selectedLeafOutcomes, outcome, paren
 			outcome: outcome,
 			parent: parentNode,
 			children: [],
-			selected: isProgram ? SelectionState.NO : ( hasChildren ? SelectionState.IMPLICIT : SelectionState.EXPLICIT )
+			selected: isProgram ? SelectionState.NO : ( hasChildren ? SelectionState.IMPLICIT : SelectionState.EXPLICIT ),
+			locked: false
 		};
 		dataState.mergedProgramForestMap[outcome.id] = newNode;
 		if( parentNode ) {

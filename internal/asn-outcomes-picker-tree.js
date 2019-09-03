@@ -151,7 +151,8 @@ class AsnOutcomesTree extends OutcomeTree {
 			/* parent */ parent,
 			/* children */ null, // gets set after children are processed
 			/* checkboxState */ null, // gets set after children are processed
-			/* externallySelected */ false
+			/* externallySelected */ false,
+			/* locked */ false
 		);
 		stateNode.sourceId = outcome.source_id;
 		stateNode.outcome = outcomeData;
@@ -166,6 +167,7 @@ class AsnOutcomesTree extends OutcomeTree {
 				stateNode.checkboxState = CheckboxState.NOT_CHECKED;
 			}
 		} else {
+			stateNode.locked = this._dataState.lockedOutcomes.has( outcome.source_id );
 			stateNode.checkboxState = this._dataState.selectedOutcomes.has( outcome.source_id ) ? CheckboxState.CHECKED : CheckboxState.NOT_CHECKED;
 		}
 		
