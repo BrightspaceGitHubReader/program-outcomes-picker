@@ -11,9 +11,9 @@ import 'd2l-icons/tier1-icons.js';
 import 'd2l-alert/d2l-alert.js';
 
 const CheckboxStateInfo = {
-	[ CheckboxState.NOT_CHECKED ]: { checked: false, indeterminate: false, ariaChecked: 'false', ariaSelected: 'false', checkedTerm: 'CheckedFalse' },
-	[ CheckboxState.PARTIAL ]: { checked: true, indeterminate: true, ariaChecked: 'mixed', ariaSelected: 'false', checkedTerm: 'CheckedMixed' },
-	[ CheckboxState.CHECKED ]: { checked: true, indeterminate: false, ariaChecked: 'true', ariaSelected: 'true', checkedTerm: 'CheckedTrue' },
+	[ CheckboxState.NOT_CHECKED ]: { checked: false, indeterminate: false, ariaChecked: 'false', checkedTerm: 'CheckedFalse' },
+	[ CheckboxState.PARTIAL ]: { checked: true, indeterminate: true, ariaChecked: 'mixed', checkedTerm: 'CheckedMixed' },
+	[ CheckboxState.CHECKED ]: { checked: true, indeterminate: false, ariaChecked: 'true', checkedTerm: 'CheckedTrue' },
 };
 
 /*
@@ -163,16 +163,13 @@ class OutcomeTreeNode extends LocalizedLitElement {
 	}
 	
 	render() {
-		const { checked, indeterminate, ariaChecked, ariaSelected, checkedTerm } = CheckboxStateInfo[this.checkboxState];
+		const { checked, indeterminate, ariaChecked, checkedTerm } = CheckboxStateInfo[this.checkboxState];
 		const siblings = this._getSiblings();
 		
 		let ariaExpanded = undefined;
 		if( this._hasChildren() ) {
 			ariaExpanded = this._expanded ? 'true' : 'false';
 		}
-		
-		const _ariaChecked = OS.isMac() ? undefined : ariaChecked;
-		const _ariaSelected = Browser.isSafari() ? ariaSelected : undefined;
 		
 		const locked = this.getSelectionNode().locked;
 		let lockIcon = '';
@@ -200,8 +197,7 @@ class OutcomeTreeNode extends LocalizedLitElement {
 				aria-level="${this._depth}"
 				aria-setsize="${siblings.length}"
 				aria-posinset="${1 + siblings.indexOf(this)}"
-				aria-checked="${ifDefined(_ariaChecked)}"
-				aria-selected="${ifDefined(_ariaSelected)}"
+				aria-checked="${ariaChecked}"
 				aria-disabled="${locked}"
 				@keydown="${this.handleKeyDownEvent}"
 			>
@@ -345,6 +341,7 @@ class OutcomeTreeNode extends LocalizedLitElement {
 		const li = this.querySelector( '#' + this.htmlId );
 		if( li ) {
 			if( Browser.isSafari() ) {
+				treeRoot.blur();
 				const dummyElement = document.createElement( 'div' );
 				dummyElement.setAttribute( 'tabindex', '-1' );
 				document.body.appendChild( dummyElement );

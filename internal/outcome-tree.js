@@ -63,7 +63,6 @@ class OutcomeTree extends LocalizedLitElement {
 					id="tree-root"
 					role="tree"
 					aria-activedescendant="${ifDefined(activeDescendant)}"
-					aria-multiselectable="${ifDefined(Browser.isSafari() ? 'true' : undefined)}"
 					tabindex="0"
 					@keydown="${this._onKeyDown}"
 					@focus="${this._onFocus}"
