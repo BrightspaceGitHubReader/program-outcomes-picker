@@ -420,7 +420,8 @@ class AsnOutcomesPicker extends LocalizedLitElement {
 			this._dataState = {
 				selectedOutcomes: new Map(),
 				externalOutcomes: [],
-				currentTree: null
+				currentTree: null,
+				lockedOutcomes: new Set()
 			};
 			
 			Lores.setEndpoint( this.loresEndpoint );
@@ -431,12 +432,15 @@ class AsnOutcomesPicker extends LocalizedLitElement {
 	_reloadRegistry() {
 		this._dataState.selectedOutcomes.clear();
 		this._dataState.externalOutcomes = [];
+		this._dataState.lockedOutcomes = new Set();
 		Lores.fetchRegistryAsync( this.registryId ).then( registry => {
 			return Lores.getLockedOutcomesAsync( this.registryId ).then( lockedOutcomes => {
 				let lockedOutcomesSet = new Set();
 				lockedOutcomes.forEach( outcomeId => lockedOutcomesSet.add( outcomeId ) );
 				
-				registry.objectives.forEach( this._initSelectedRecursive.bind( this, null, lockedOutcomesSet ) );
+				registry.objectives.forEach(
+					outcome => this._initSelectedRecursive( outcome, null, lockedOutcomesSet )
+				);
 				this._onJurisdictionChanged( null );
 				this._loading = false;
 				this.performUpdate();
