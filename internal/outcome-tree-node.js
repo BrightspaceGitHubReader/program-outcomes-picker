@@ -171,7 +171,7 @@ class OutcomeTreeNode extends LocalizedLitElement {
 			ariaExpanded = this._expanded ? 'true' : 'false';
 		}
 		
-		const _ariaChecked = Browser.isSafari() ? undefined : ariaChecked;
+		const _ariaChecked = OS.isMac() ? undefined : ariaChecked;
 		const _ariaSelected = Browser.isSafari() ? ariaSelected : undefined;
 		
 		const locked = this.getSelectionNode().locked;
@@ -180,12 +180,11 @@ class OutcomeTreeNode extends LocalizedLitElement {
 			lockIcon = html`<d2l-icon icon="d2l-tier1:lock-locked" class="lock-icon"></d2l-icon>`;
 		}
 		
-		let explicitCheckedState = undefined;
-		let checkStateLabel = undefined;
-		if( OS.isMac() && !Browser.isSafari() ) {
-			checkStateLabel = this.htmlId + ':check-state';
-			explicitCheckedState = html`
-				<span id="${checkStateLabel}" class="offscreen">${this.localize( checkedTerm )}</span>
+		let voiceoverFix = undefined;
+		if( OS.isMac()  ) {
+			const disabledText = locked ? html`&nbsp;${this.localize( 'Disabled' )}` : '';
+			voiceoverFix = html`
+				&nbsp;<span class="offscreen">${this.localize( checkedTerm )}${disabledText}</span>
 			`;
 		}
 		
@@ -198,7 +197,6 @@ class OutcomeTreeNode extends LocalizedLitElement {
 				role="${Browser.isSafari() ? 'treeitem' : 'treeitem checkbox'}"
 				aria-expanded="${ifDefined(ariaExpanded)}"
 				aria-labelledby="${this.htmlId}:outcome-description"
-				aria-describedby="${ifDefined(checkStateLabel)}"
 				aria-level="${this._depth}"
 				aria-setsize="${siblings.length}"
 				aria-posinset="${1 + siblings.indexOf(this)}"
@@ -221,11 +219,10 @@ class OutcomeTreeNode extends LocalizedLitElement {
 						<span
 							id="${this.htmlId}:outcome-description"
 							class="d2l-body-compact outcome-description"
-						>${lockIcon}${OutcomeFormatter.render(this.getOutcome())}</span>
-						${explicitCheckedState}
+						>${lockIcon}${OutcomeFormatter.render(this.getOutcome())}${voiceoverFix}</span>
 					</d2l-input-checkbox>
 				</div>
-				<div ?hidden="${!this._expanded}">
+				<div ?hidden="${!this._expanded}" ?aria-hidden="${this._hasFocus && Browser.isSafari()}">
 					<ul class="outcome-children" role="group">
 						${this.renderChildren()}
 					</ul>
@@ -298,6 +295,14 @@ class OutcomeTreeNode extends LocalizedLitElement {
 			checkbox.checked = newState.checked;
 			checkbox.indeterminate = newState.indeterminate;
 		}
+		
+		if( OS.isMac() ) {
+			const notification = document.createElement( 'div' );
+			notification.setAttribute( 'role', 'alert' );
+			notification.textContent = this.localize( CheckboxStateInfo[selectionNode.checkboxState].checkedTerm );
+			document.body.appendChild( notification );
+			setTimeout( () => document.body.removeChild( notification ), 500 );
+		}
 	}
 	
 	_hasChildren() {
@@ -344,16 +349,8 @@ class OutcomeTreeNode extends LocalizedLitElement {
 				dummyElement.setAttribute( 'tabindex', '-1' );
 				document.body.appendChild( dummyElement );
 				dummyElement.focus();
-				
-				setTimeout( () => {
-					li.setAttribute( 'tabindex', '0' );
-					li.tabIndex = 0;
-					li.focus();
-					li.setAttribute( 'tabindex', '-1' );
-					li.tabIndex = -1;
-					treeRoot.focus();
-					document.body.removeChild( dummyElement );
-				}, 0 );
+				treeRoot.focus();
+				document.body.removeChild( dummyElement );
 			} else {
 				li.focus();
 			}
