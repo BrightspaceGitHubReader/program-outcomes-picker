@@ -179,9 +179,9 @@ class OutcomeTreeNode extends LocalizedLitElement {
 		
 		let voiceoverFix = undefined;
 		if( OS.isMac()  ) {
-			const disabledText = locked ? html`&nbsp;${this.localize( 'Disabled' )}` : '';
+			const disabledText = locked ? html`, ${this.localize( 'Disabled' )}` : '';
 			voiceoverFix = html`
-				&nbsp;<span class="offscreen">${this.localize( checkedTerm )}${disabledText}</span>
+				<span class="offscreen">, ${this.localize( checkedTerm )}${disabledText}</span>
 			`;
 		}
 		
