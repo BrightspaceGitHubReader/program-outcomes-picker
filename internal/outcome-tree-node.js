@@ -2,18 +2,18 @@ import { css, html } from 'lit-element/lit-element.js';
 import { ifDefined } from 'lit-html/directives/if-defined.js';
 import { CheckboxState } from './enums.js';
 import { bodyCompactStyles } from '@brightspace-ui/core/components/typography/styles.js';
+import { Browser, OS } from './browser-check.js';
 import LocalizedLitElement from './localized-element.js';
 import OutcomeFormatter from './outcome-formatter.js';
-import Browser from './browser-check.js';
 import 'd2l-inputs/d2l-input-checkbox.js';
 import 'd2l-button/d2l-button-icon.js';
 import 'd2l-icons/tier1-icons.js';
 import 'd2l-alert/d2l-alert.js';
 
 const CheckboxStateInfo = {
-	[ CheckboxState.NOT_CHECKED ]: { checked: false, indeterminate: false, ariaChecked: 'false', ariaSelected: 'false' },
-	[ CheckboxState.PARTIAL ]: { checked: true, indeterminate: true, ariaChecked: 'mixed', ariaSelected: 'false' },
-	[ CheckboxState.CHECKED ]: { checked: true, indeterminate: false, ariaChecked: 'true', ariaSelected: 'true' },
+	[ CheckboxState.NOT_CHECKED ]: { checked: false, indeterminate: false, ariaChecked: 'false', ariaSelected: 'false', checkedTerm: 'CheckedFalse' },
+	[ CheckboxState.PARTIAL ]: { checked: true, indeterminate: true, ariaChecked: 'mixed', ariaSelected: 'false', checkedTerm: 'CheckedMixed' },
+	[ CheckboxState.CHECKED ]: { checked: true, indeterminate: false, ariaChecked: 'true', ariaSelected: 'true', checkedTerm: 'CheckedTrue' },
 };
 
 /*
@@ -125,6 +125,20 @@ class OutcomeTreeNode extends LocalizedLitElement {
 				margin-top: 3px;
 				margin-right: 0.5ch;
 			}
+			
+			li.outcome-node span.offscreen {
+				position: absolute;
+				overflow: hidden;
+				width: 1px;
+				height: 1px;
+				white-space: nowrap;
+				left: -10000px;
+			}
+			
+			li.outcome-node span.offscreen:dir(rtl) {
+				left: 0;
+				right: -10000px;
+			}
 		`;
 		return [ bodyCompactStyles, componentStyle ];
 	}
@@ -149,7 +163,7 @@ class OutcomeTreeNode extends LocalizedLitElement {
 	}
 	
 	render() {
-		const { checked, indeterminate, ariaChecked, ariaSelected } = CheckboxStateInfo[this.checkboxState];
+		const { checked, indeterminate, ariaChecked, ariaSelected, checkedTerm } = CheckboxStateInfo[this.checkboxState];
 		const siblings = this._getSiblings();
 		
 		let ariaExpanded = undefined;
@@ -166,6 +180,15 @@ class OutcomeTreeNode extends LocalizedLitElement {
 			lockIcon = html`<d2l-icon icon="d2l-tier1:lock-locked" class="lock-icon"></d2l-icon>`;
 		}
 		
+		let explicitCheckedState = undefined;
+		let checkStateLabel = undefined;
+		if( OS.isMac() && !Browser.isSafari() ) {
+			checkStateLabel = this.htmlId + ':check-state';
+			explicitCheckedState = html`
+				<span id="${checkStateLabel}" class="offscreen">${this.localize( checkedTerm )}</span>
+			`;
+		}
+		
 		return html`
 			<li
 				id="${this.htmlId}"
@@ -175,6 +198,7 @@ class OutcomeTreeNode extends LocalizedLitElement {
 				role="${Browser.isSafari() ? 'treeitem' : 'treeitem checkbox'}"
 				aria-expanded="${ifDefined(ariaExpanded)}"
 				aria-labelledby="${this.htmlId}:outcome-description"
+				aria-describedby="${ifDefined(checkStateLabel)}"
 				aria-level="${this._depth}"
 				aria-setsize="${siblings.length}"
 				aria-posinset="${1 + siblings.indexOf(this)}"
@@ -198,6 +222,7 @@ class OutcomeTreeNode extends LocalizedLitElement {
 							id="${this.htmlId}:outcome-description"
 							class="d2l-body-compact outcome-description"
 						>${lockIcon}${OutcomeFormatter.render(this.getOutcome())}</span>
+						${explicitCheckedState}
 					</d2l-input-checkbox>
 				</div>
 				<div ?hidden="${!this._expanded}">
@@ -315,12 +340,20 @@ class OutcomeTreeNode extends LocalizedLitElement {
 		const li = this.querySelector( '#' + this.htmlId );
 		if( li ) {
 			if( Browser.isSafari() ) {
-				li.setAttribute( 'tabindex', '0' );
-				li.tabIndex = 0;
-				li.focus();
-				li.setAttribute( 'tabindex', '-1' );
-				li.tabIndex = -1;
-				treeRoot.focus();
+				const dummyElement = document.createElement( 'div' );
+				dummyElement.setAttribute( 'tabindex', '-1' );
+				document.body.appendChild( dummyElement );
+				dummyElement.focus();
+				
+				setTimeout( () => {
+					li.setAttribute( 'tabindex', '0' );
+					li.tabIndex = 0;
+					li.focus();
+					li.setAttribute( 'tabindex', '-1' );
+					li.tabIndex = -1;
+					treeRoot.focus();
+					document.body.removeChild( dummyElement );
+				}, 0 );
 			} else {
 				li.focus();
 			}

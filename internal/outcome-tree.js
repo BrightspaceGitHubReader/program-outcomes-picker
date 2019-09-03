@@ -1,8 +1,8 @@
 import { css, html } from 'lit-element/lit-element.js';
 import { ifDefined } from 'lit-html/directives/if-defined.js';
+import { Browser } from './browser-check.js';
 import OutcomeTreeNode from './outcome-tree-node.js';
 import LocalizedLitElement from './localized-element.js';
-import Browser from './browser-check.js';
 
 class OutcomeTree extends LocalizedLitElement {
 	
@@ -52,12 +52,17 @@ class OutcomeTree extends LocalizedLitElement {
 	}
 	
 	render() {
+		let activeDescendant = undefined;
+		if( Browser.isSafari() && this._focusedNode ) {
+			activeDescendant = this._focusedNode.htmlId;
+		}
+		
 		return html`
 			<div class="outcomes-tree">
 				<ul
 					id="tree-root"
 					role="tree"
-					aria-activedescendant="${ifDefined((this._focusedNode || {}).htmlId)}"
+					aria-activedescendant="${ifDefined(activeDescendant)}"
 					aria-multiselectable="${ifDefined(Browser.isSafari() ? 'true' : undefined)}"
 					tabindex="0"
 					@keydown="${this._onKeyDown}"

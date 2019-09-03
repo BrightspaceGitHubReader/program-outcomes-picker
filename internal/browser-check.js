@@ -24,6 +24,12 @@ const browserTable = {
 	}
 };
 
+const operatingSystemTable = {
+	windows: /\(Windows/,
+	mac: /Macintosh;/,
+	linux: /Linux/
+};
+
 const isBrowser = function( browser ) {
 	const browserChecker = browserTable[browser];
 	const uaString = window.navigator.userAgent;
@@ -34,7 +40,11 @@ const isBrowser = function( browser ) {
 	);
 };
 
-export default {
+const isOS = function( os ) {
+	return operatingSystemTable[os].test( window.navigator.userAgent );
+};
+
+export const Browser = {
 	isFirefox: isBrowser.bind( null, 'firefox' ),
 	isChrome: isBrowser.bind( null, 'chrome' ),
 	isEdge: isBrowser.bind( null, 'edge' ),
@@ -44,4 +54,10 @@ export default {
 	isMicrosoftBrowser: () => isBrowser( 'edge' ) || isBrowser( 'internetExplorer' ),
 	isOldOpera: isBrowser.bind( null, 'operaOld' ),
 	isNewOpera: isBrowser.bind( null, 'operaNew' )
+};
+
+export const OS = {
+	isWindows: isOS.bind( null, 'windows' ),
+	isMac: isOS.bind( null, 'mac' ),
+	isLinux: isOS.bind( null, 'linux' )
 };
