@@ -1,7 +1,7 @@
 import sendRequest from './send-request.js';
 
 const callAsnAsync = function( action, queryParams ) {
-	let url = `/api/le/unstable/lo/asn/search/${action}`;
+	let url = `/d2l/api/le/unstable/lo/asn/search/${action}`;
 	if( queryParams ) {
 		const params = Object.keys( queryParams ).map( p => `${p}=${encodeURIComponent( queryParams[p] )}` );
 		if( params.length ) {

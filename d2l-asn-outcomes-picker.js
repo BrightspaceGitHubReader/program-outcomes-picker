@@ -96,6 +96,10 @@ class AsnOutcomesPicker extends LocalizedLitElement {
 				width: 100%;
 			}
 			
+			td:last-child {
+				width: 100%;
+			}
+			
 			asn-outcomes-picker-tree {
 				flex-grow: 1;
 				overflow-y: auto;
