@@ -98,6 +98,14 @@ class AsnOutcomesPicker extends LocalizedLitElement {
 			
 			td:last-child {
 				width: 100%;
+				position: relative;
+			}
+			
+			td:last-child > d2l-loading-spinner {
+				position: absolute;
+				top: 0.2rem;
+				left: 0.2rem;
+				--d2l-loading-spinner-size: calc( 1.6rem + 10px );
 			}
 			
 			asn-outcomes-picker-tree {
@@ -270,11 +278,17 @@ class AsnOutcomesPicker extends LocalizedLitElement {
 		`;
 	}
 	
+	_renderLoadingOption( condition ) {
+		return ( this._loadingFilters && condition ) ? html`<d2l-loading-spinner></d2l-loading-spinner>` : '';
+	}
+	
 	_renderJurisdictionSelector() {
 		const options = this._availableJurisdictions.map( jurisdiction => html`
 			<option value="${jurisdiction}">${jurisdiction}</option>
 		` );
-		options.unshift( html`<option value="" class="nonselection">${this.localize( 'SelectJurisdiction' )}</option>` );
+		if( options.length > 0 ) {
+			options.unshift( html`<option value="" class="nonselection">${this.localize( 'SelectJurisdiction' )}</option>` );
+		}
 		
 		return html`<tr ?data-disabled="${this._loadingFilters}">
 			<td>
@@ -288,6 +302,7 @@ class AsnOutcomesPicker extends LocalizedLitElement {
 					.value="${this._jurisdiction || ''}"
 					@change="${event => this._onJurisdictionChanged( event.target.value )}"
 				>${options}</select>
+				${this._renderLoadingOption( !this._jurisdiction )}
 			</td>
 		</tr>`;
 	}
@@ -312,6 +327,7 @@ class AsnOutcomesPicker extends LocalizedLitElement {
 					.value="${this._subject || ''}"
 					@change="${event => this._onSubjectChanged( event.target.value )}"
 				>${options}</select>
+				${this._renderLoadingOption( this._jurisdiction && !this._subject )}
 			</td>
 		</tr>`;
 	}
@@ -336,6 +352,7 @@ class AsnOutcomesPicker extends LocalizedLitElement {
 					.value="${this._documentId || ''}"
 					@change="${event => this._onFrameworkChanged( event.target.value )}"
 				>${options}</select>
+				${this._renderLoadingOption( this._subject && !this._documentId )}
 			</td>
 		</tr>`;
 	}
@@ -359,6 +376,7 @@ class AsnOutcomesPicker extends LocalizedLitElement {
 					.value="${this._educationLevel}"
 					@change="${event => this._onEducationLevelChanged( event.target.value )}"
 				>${options}</select>
+				${this._renderLoadingOption( this._documentId )}
 			</td>
 		</tr>`;
 	}
