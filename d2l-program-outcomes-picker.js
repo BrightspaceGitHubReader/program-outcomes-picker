@@ -325,12 +325,16 @@ class ProgramOutcomesPicker extends LocalizedLitElement {
 		this._errored = false;
 		return Lores.updateRegistryAsync( this.registryId, newRegistryContents ).then( () => {
 			this._loading = false;
+			
+			let outcomeMappings = [];
+			this._buildOutcomeMappingsRecursive( newRegistryContents, outcomeMappings );
 			this.dispatchEvent(
 				new CustomEvent(
 					'd2l-program-outcomes-picker-import', {
 						bubbles: false,
 						detail: {
-							newRegistryContents: newRegistryContents
+							ObjectivesWithSource: outcomeMappings,
+							ObjectiveTree: newRegistryContents
 						}
 					} 
 				)
@@ -339,6 +343,24 @@ class ProgramOutcomesPicker extends LocalizedLitElement {
 			this._loading = false;
 			this._errored = true;
 			throw exception;
+		});
+	}
+	
+	_buildOutcomeMappingsRecursive( nodes, results ) {
+		nodes.forEach( node => {
+			let outcome = this._dataState.mergedProgramForestMap[node.id];
+			if( outcome ) {
+				results.push({
+					id: node.id,
+					source: {
+						source_id: outcome.source_id,
+						source_type: outcome.source
+					}
+				});
+			}
+			if( node.children && node.children.length ) {
+				this._buildOutcomeMappingsRecursive( node.children, results );
+			}
 		});
 	}
 	

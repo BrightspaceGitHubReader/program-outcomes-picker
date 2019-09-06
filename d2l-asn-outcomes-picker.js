@@ -250,7 +250,7 @@ class AsnOutcomesPicker extends LocalizedLitElement {
 			moveAndSave: () => {
 				const newTrees = this._changesToApply.newRegistryForest;
 				const existingTree = this._changesToApply.orphanedOutcomes.map( ASNActions.undecorateTree );
-				this._save( existingTree.concat( newTrees ) );
+				this._save( existingTree.concat( newTrees ), this._changesToApply.mappings );
 			},
 			deleteAndSave: this._save.bind( this, this._changesToApply.newRegistryForest ),
 			cancel: () => { this._changesToApply = null; }
@@ -582,7 +582,7 @@ class AsnOutcomesPicker extends LocalizedLitElement {
 				results.canMoveToRoot = !results.orphanedOutcomes.some( o => o.owner !== this.registryId );
 				this._changesToApply = results
 			} else {
-				this._save( results.newRegistryForest );
+				this._save( results.newRegistryForest, results.mappings );
 			}
 		}).catch( exception => {
 			console.error( exception );
@@ -591,7 +591,7 @@ class AsnOutcomesPicker extends LocalizedLitElement {
 		});
 	}
 	
-	_save( newRegistryForest ) {
+	_save( newRegistryForest, mappings ) {
 		this._loading = true;
 		Lores.updateRegistryAsync( this.registryId, newRegistryForest ).then( () => {
 			this._changesToApply = null;
@@ -600,7 +600,8 @@ class AsnOutcomesPicker extends LocalizedLitElement {
 					'd2l-asn-outcomes-picker-import', {
 						bubbles: false,
 						detail: {
-							newRegistryContents: newRegistryForest
+							ObjectivesWithSource: mappings,
+							ObjectiveTree: newRegistryForest
 						}
 					} 
 				)
