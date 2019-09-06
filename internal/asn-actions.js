@@ -78,7 +78,8 @@ const buildNewRegistryAsync = function( dataState, orgUnitId ) {
 		
 		return {
 			newRegistryForest: newRoots,
-			orphanedOutcomes: orphanedOutcomes
+			orphanedOutcomes: orphanedOutcomes,
+			mappings: mappings
 		};
 	});
 };

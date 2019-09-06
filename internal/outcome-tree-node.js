@@ -259,7 +259,6 @@ class OutcomeTreeNode extends LocalizedLitElement {
 				tabindex="-1"
 				class="expander"
 				@click="${this._toggleExpansion}"
-				@focusin="${this._focusNode}"
 			></d2l-icon>
 		`;
 	}

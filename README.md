@@ -17,7 +17,28 @@ A Lit Element webcomponent for importing learning outcomes from programs.
 The component emits the following events:
 
 `d2l-program-outcomes-picker-cancel`: The close or cancel button was clicked.  
-`d2l-program-outcomes-picker-import`: The import was completed successfully. The `detail.newRegistryContents` property of the event contains the new registry contents.
+`d2l-program-outcomes-picker-import`: The import was completed successfully. The `detail` property of the event contains an object with the following format:  
+```
+{
+	ObjectivesWithSource: [
+		{
+			id: <ObjectiveId>,
+			source: {
+				source_id: <SourceId>,
+				source_type: <SourceType>
+			}
+		},
+		...
+	],
+	ObjectiveTree: [
+		{
+			id: <ObjectiveId>,
+			children: <ObjectiveTree>
+		},
+		...
+	]
+}
+```
 
 # d2l-asn-outcomes-picker
 
@@ -38,4 +59,4 @@ A Lit Element webcomponent for importing learning outcomes from ASN.
 The component emits the following events:
 
 `d2l-asn-outcomes-picker-cancel`: The close or cancel button was clicked.  
-`d2l-asn-outcomes-picker-import`: The import was completed successfully. The `detail.newRegistryContents` property of the event contains the new registry contents.
+`d2l-asn-outcomes-picker-import`: The import was completed successfully. Same format as `d2l-program-outcomes-picker-import` above.
