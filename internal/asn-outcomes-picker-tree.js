@@ -76,6 +76,7 @@ class AsnOutcomesTree extends OutcomeTree {
 			} else {
 				this._loading = false;
 				this._fetchOutcomesPromise = null;
+				this.performUpdate();
 			}
 		}
 		super.updated( changedProperties );
