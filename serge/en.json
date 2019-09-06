@@ -11,7 +11,7 @@
 	"Collapse": "Collapse",
 	"ConnectionError": "Oops! We're having trouble connecting you. You might want to refresh the page, or try again later.",
 	"DeleteOrphanedOutcomes": "Delete {outcome, select, competencies {Competencies} expectations {Expectations} objectives {Objectives} outcomes {Outcomes} standards {Standards} other {Standards}}",
-	"Disabled", "disabled",
+	"Disabled": "disabled",
 	"EducationLevel": "Education Level",
 	"Expand": "Expand",
 	"FilteringOptions": "Filtering Options",
