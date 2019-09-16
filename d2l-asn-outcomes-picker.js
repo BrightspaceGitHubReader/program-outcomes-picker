@@ -364,7 +364,7 @@ class AsnOutcomesPicker extends LocalizedLitElement {
 			<option value="${educationLevel}">${educationLevel}</option>
 		` );
 		if( options.length > 1 ) {
-			options.unshift( html`<option value="">${this.localize( 'All' )}</option>` );
+			options.unshift( html`<option value="*">${this.localize( 'All' )}</option>` );
 		}
 		
 		return html`<tr ?data-disabled="${this._loadingFilters || !this._documentId}">
@@ -375,7 +375,7 @@ class AsnOutcomesPicker extends LocalizedLitElement {
 				<select
 					id="education-level-select"
 					?disabled="${this._loadingFilters || !this._documentId}"
-					.value="${this._educationLevel}"
+					.value="${this._educationLevel || '*'}"
 					@change="${event => this._onEducationLevelChanged( event.target.value )}"
 				>${options}</select>
 				${this._renderLoadingOption( this._documentId )}
@@ -580,7 +580,7 @@ class AsnOutcomesPicker extends LocalizedLitElement {
 	}
 	
 	_onEducationLevelChanged( educationLevel ) {
-		this._educationLevel = educationLevel || null;
+		this._educationLevel = educationLevel === '*' ? null : educationLevel || null;
 	}
 	
 	_close() {
