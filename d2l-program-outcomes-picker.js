@@ -55,6 +55,7 @@ class ProgramOutcomesPicker extends LocalizedLitElement {
 				flex-grow: 1;
 				padding: 0 40px;
 				height: 0;
+				overflow-y: auto;
 			}
 			
 			select {
@@ -65,6 +66,7 @@ class ProgramOutcomesPicker extends LocalizedLitElement {
 			program-outcomes-picker-tree {
 				flex-grow: 1;
 				overflow-y: auto;
+				min-height: 200px;
 			}
 			
 			.button-tray {

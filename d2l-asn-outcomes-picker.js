@@ -76,6 +76,7 @@ class AsnOutcomesPicker extends LocalizedLitElement {
 				flex-grow: 1;
 				padding: 0 40px;
 				height: 0;
+				overflow-y: auto;
 			}
 			
 			tr[data-disabled] {
@@ -111,6 +112,7 @@ class AsnOutcomesPicker extends LocalizedLitElement {
 			asn-outcomes-picker-tree {
 				flex-grow: 1;
 				overflow-y: auto;
+				min-height: 200px;
 			}
 			
 			.button-tray {
