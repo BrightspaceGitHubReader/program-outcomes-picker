@@ -2,7 +2,7 @@
   "name": "d2l-program-outcomes-picker",
   "version": "3.0.1",
   "scripts": {
-    "lint": "eslint program-outcomes-picker.js internal/*.js",
+    "lint": "eslint *.js internal/*.js",
     "serve": "polymer serve --hostname 0.0.0.0",
     "demo": "parallelshell \"npm run serve\" \"sleepms 2000 && open-cli http://localhost:8081/components/d2l-program-outcomes-picker/demo/\""
   },

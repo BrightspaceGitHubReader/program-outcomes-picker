@@ -1,4 +1,4 @@
-import { css, html, LitElement } from 'lit-element/lit-element.js';
+import { css, html } from 'lit-element/lit-element.js';
 import SelectStyle from './internal/select-style.js';
 import { bodyStandardStyles, heading2Styles, heading3Styles, labelStyles } from '@brightspace-ui/core/components/typography/styles.js';
 import Lores from './internal/lores.js';
@@ -243,7 +243,7 @@ class AsnOutcomesPicker extends LocalizedLitElement {
 	}
 	
 	_renderWarningModal() {
-		let outcomeLookup = {};
+		const outcomeLookup = {};
 		
 		const buildLookup = function( forest ) {
 			forest.forEach( outcome => {
@@ -459,7 +459,7 @@ class AsnOutcomesPicker extends LocalizedLitElement {
 		this._dataState.lockedOutcomes = new Set();
 		Lores.fetchRegistryAsync( this.registryId ).then( registry => {
 			return Lores.getLockedOutcomesAsync( this.registryId ).then( lockedOutcomes => {
-				let lockedOutcomesSet = new Set();
+				const lockedOutcomesSet = new Set();
 				lockedOutcomes.forEach( outcomeId => lockedOutcomesSet.add( outcomeId ) );
 				
 				registry.objectives.forEach(
@@ -470,7 +470,7 @@ class AsnOutcomesPicker extends LocalizedLitElement {
 				this.performUpdate();
 			});
 		}).catch( exception => {
-			console.error( exception );
+			console.error( exception ); // eslint-disable-line no-console
 			this._errored = true;
 		});
 	}
@@ -551,7 +551,7 @@ class AsnOutcomesPicker extends LocalizedLitElement {
 					this._onFrameworkChanged( frameworks[0].documentId );
 				}
 			}).catch( exception => {
-				console.error( exception );
+				console.error( exception ); // eslint-disable-line no-console
 				this._loadingFilters = false;
 				this._errored = true;
 			});
@@ -572,7 +572,7 @@ class AsnOutcomesPicker extends LocalizedLitElement {
 				this._availableEducationLevels = educationLevels;
 				this._onEducationLevelChanged( educationLevels.length === 1 ? educationLevels[0] : null );
 			}).catch( exception => {
-				console.error( exception );
+				console.error( exception ); // eslint-disable-line no-console
 				this._loadingFilters = false;
 				this._errored = true;
 			});
@@ -600,12 +600,12 @@ class AsnOutcomesPicker extends LocalizedLitElement {
 		).then( results => {
 			if( results.orphanedOutcomes.length ) {
 				results.canMoveToRoot = !results.orphanedOutcomes.some( o => o.owner !== this.registryId );
-				this._changesToApply = results
+				this._changesToApply = results;
 			} else {
 				this._save( results.newRegistryForest, results.mappings );
 			}
 		}).catch( exception => {
-			console.error( exception );
+			console.error( exception ); // eslint-disable-line no-console
 			this._loading = false;
 			this._errored = true;
 		});

@@ -1,4 +1,4 @@
-import { css, html, LitElement } from 'lit-element/lit-element.js';
+import { css, html } from 'lit-element/lit-element.js';
 import Actions from './internal/program-actions.js';
 import SelectStyle from './internal/select-style.js';
 import { bodyStandardStyles, bodyCompactStyles, heading2Styles, heading3Styles, labelStyles } from '@brightspace-ui/core/components/typography/styles.js';
@@ -328,7 +328,7 @@ class ProgramOutcomesPicker extends LocalizedLitElement {
 		return Lores.updateRegistryAsync( this.registryId, newRegistryContents ).then( () => {
 			this._loading = false;
 			
-			let outcomeMappings = [];
+			const outcomeMappings = [];
 			this._buildOutcomeMappingsRecursive( newRegistryContents, outcomeMappings );
 			this.dispatchEvent(
 				new CustomEvent(
@@ -350,7 +350,7 @@ class ProgramOutcomesPicker extends LocalizedLitElement {
 	
 	_buildOutcomeMappingsRecursive( nodes, results ) {
 		nodes.forEach( node => {
-			let outcome = this._dataState.mergedProgramForestMap[node.id];
+			const outcome = this._dataState.mergedProgramForestMap[node.id];
 			if( outcome ) {
 				results.push({
 					id: node.id,
