@@ -22,7 +22,7 @@ class ProgramOutcomesTree extends OutcomeTree {
 				.htmlId="node_${programStateNode.outcomeId}"
 				._programNode="${programStateNode}"
 				._dataState="${this._dataState}"
-				._depth="${1}"
+				._depth="1"
 			></program-outcomes-picker-node>
 		`;
 	}

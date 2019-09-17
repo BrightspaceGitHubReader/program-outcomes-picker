@@ -89,7 +89,7 @@ class AsnOutcomesTree extends OutcomeTree {
 				.htmlId="${this._generateHtmlId( rootNode.sourceId )}"
 				.sourceId="${rootNode.sourceId}"
 				._treeData="${this._dataState.currentTree}"
-				._depth="${1}"
+				._depth="1"
 			></asn-outcomes-picker-node>
 		` );
 	}

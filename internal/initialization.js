@@ -3,15 +3,15 @@ import { SelectionState } from './enums.js';
 
 const initializeAsync = function( dataState, registryId, programRegistryIds ) {
 	const selectedLeafOutcomes = new Set();
-	return Lores.fetchRegistryAsync( registryId ).then( function( registry ) {
+	return Lores.fetchRegistryAsync( registryId ).then( registry => {
 		processRegistry( dataState, selectedLeafOutcomes, registry, false );
-		return Promise.all( programRegistryIds.map( function( programRegistryId ) {
-			return Lores.fetchRegistryAsync( programRegistryId ).then( function( programRegistry ) {
+		return Promise.all( programRegistryIds.map( programRegistryId => {
+			return Lores.fetchRegistryAsync( programRegistryId ).then( programRegistry => {
 				dataState.programRegistries[programRegistryId] = programRegistry;
 				processRegistry( dataState, selectedLeafOutcomes, programRegistry, true );
 			});
 		}));
-	}).then( function() {
+	}).then( () => {
 		selectedLeafOutcomes.forEach( outcomeId => {
 			const outcome = dataState.mergedProgramForestMap[outcomeId];
 			if( outcome.owner === registryId ) {
@@ -32,7 +32,7 @@ const initializeAsync = function( dataState, registryId, programRegistryIds ) {
 };
 
 const processRegistry = function( dataState, selectedLeafOutcomes, registry, isProgram ) {
-	registry.objectives.forEach( function( rootOutcome ) {
+	registry.objectives.forEach( rootOutcome => {
 		dataState.rootOutcomes.add( rootOutcome.id );
 		processOutcome( dataState, selectedLeafOutcomes, rootOutcome, null, isProgram );
 	});
@@ -54,7 +54,7 @@ const processOutcome = function( dataState, selectedLeafOutcomes, outcome, paren
 		}
 	}
 	if( hasChildren ) {
-		outcome.children.forEach( function( child ) {
+		outcome.children.forEach( child => {
 			processOutcome( dataState, selectedLeafOutcomes, child, dataState.mergedProgramForestMap[outcome.id], isProgram );
 		});
 	} else if( !isProgram ) {

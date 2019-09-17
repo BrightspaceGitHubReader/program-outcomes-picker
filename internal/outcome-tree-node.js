@@ -22,11 +22,6 @@ Abstract class extended by program-outcomes-picker-node and asn-outcomes-picker-
 
 class OutcomeTreeNode extends LocalizedLitElement {
 	
-	createRenderRoot() {
-		// Render into the light DOM instead of the shadow DOM
-		return this;
-	}
-	
 	static get properties() {
 		return {
 			htmlId: { type: String },
@@ -151,6 +146,11 @@ class OutcomeTreeNode extends LocalizedLitElement {
 		this._hasFocus = false;
 	}
 	
+	createRenderRoot() {
+		// Render into the light DOM instead of the shadow DOM
+		return this;
+	}
+	
 	updated( changedProperties ) {
 		// hack to get around hardcoded checkbox alignment
 		super.updated( changedProperties );
@@ -210,7 +210,7 @@ class OutcomeTreeNode extends LocalizedLitElement {
 						?checked="${checked}"
 						?indeterminate="${indeterminate}"
 						?disabled="${locked}"
-						@change="${ev => this._onCheckboxChanged( ev.target.checked )}"
+						@change="${this._onCheckboxChanged}"
 					>
 						<span
 							id="${this.htmlId}:outcome-description"
@@ -277,6 +277,10 @@ class OutcomeTreeNode extends LocalizedLitElement {
 	}
 	
 	_onCheckboxChanged( isChecked ) {
+		if( isChecked instanceof Event ) {
+			isChecked = isChecked.target.checked;
+		}
+		
 		const selectionNode = this.getSelectionNode();
 		if( selectionNode.checkboxState ===  CheckboxState.PARTIAL ) {
 			isChecked = true;

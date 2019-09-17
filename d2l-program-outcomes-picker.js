@@ -136,7 +136,7 @@ class ProgramOutcomesPicker extends LocalizedLitElement {
 	}
 	
 	_renderOptions() {
-		return this.programs.map( function( program ) {
+		return this.programs.map( program => {
 			return html`
 				<option value="${program.registryId}">${program.name}</option>
 			`;
@@ -145,6 +145,10 @@ class ProgramOutcomesPicker extends LocalizedLitElement {
 	
 	localize( term ) {
 		return super.localize( term, { outcome: this.outcomesTerm } );
+	}
+	
+	_onAlertClosed() {
+		this._errored = false;
 	}
 	
 	_renderAlert() {
@@ -156,7 +160,7 @@ class ProgramOutcomesPicker extends LocalizedLitElement {
 				class="d2l-body-standard"
 				type="critical"
 				has-close-button
-				@d2l-alert-closed="${() => this._errored = false}"
+				@d2l-alert-closed="${this._onAlertClosed}"
 			>
 				<span>${this.localize('ConnectionError')}</span>
 			</d2l-alert>
@@ -178,6 +182,10 @@ class ProgramOutcomesPicker extends LocalizedLitElement {
 				></d2l-icon>
 			</div>
 		`;
+	}
+	
+	_suppressEventBehaviour( event ) {
+		event.preventDefault();
 	}
 	
 	render() {
@@ -223,7 +231,7 @@ class ProgramOutcomesPicker extends LocalizedLitElement {
 					<program-outcomes-picker-tree
 						.programRegistryId="${this._selectedProgramRegistryId}"
 						._dataState="${this._dataState}"
-						@mousedown="${event => event.preventDefault()}"
+						@mousedown="${this._suppressEventBehaviour}"
 					></program-outcomes-picker-tree>
 				</div>
 				<div class="button-tray">

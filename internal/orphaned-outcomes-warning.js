@@ -155,6 +155,26 @@ class OrphanedOutcomesWarning extends LocalizedLitElement {
 		});
 	}
 	
+	_focusCancelButton() {
+		this._focusElement( 'cancel-button' );
+	}
+	
+	_focusCloseButton() {
+		this._focusElement( 'close-button' );
+	}
+	
+	_cancel() {
+		this._fireEvent( 'action-cancel' );
+	}
+	
+	_delete() {
+		this._fireEvent( 'action-delete' );
+	}
+	
+	_move() {
+		this._fireEvent( 'action-move' );
+	}
+	
 	render() {
 		if( !this.open ) {
 			return html`<div hidden></div>`;
@@ -171,7 +191,7 @@ class OrphanedOutcomesWarning extends LocalizedLitElement {
 					<div class="centre-v">
 						<div class="flex-spacer"></div>
 						<div class="dialog" role="dialog" aria-modal="true">
-							<div class="zero-size" tabindex="0" @focus="${() => this._focusElement('cancel-button')}"></div>
+							<div class="zero-size" tabindex="0" @focus="${this._focusCancelButton}"></div>
 								<div class="header">
 									<h1 class="d2l-heading-3">${this.localize('WarningHeader')}</h1>
 									<div class="flex-spacer"></div>
@@ -179,7 +199,7 @@ class OrphanedOutcomesWarning extends LocalizedLitElement {
 										id="close-button"
 										icon="d2l-tier1:close-small"
 										text="${this.localize('CloseDialog')}"
-										@click="${() => this._fireEvent('action-cancel')}"
+										@click="${this._cancel}"
 									></d2l-icon>
 								</div>
 								<span class="d2l-body-standard description">${this.localize('WarningDescription1')}</span>
@@ -190,13 +210,13 @@ class OrphanedOutcomesWarning extends LocalizedLitElement {
 								</div>
 								<span class="d2l-body-standard">${this.localize('WarningDescription2')}</span>
 								<div class="button-tray">
-									<d2l-button id="move-button" ?primary="${this.canMoveToRoot}" ?disabled="${!this.canMoveToRoot}" @click="${() => this._fireEvent('action-move')}">${this.localize('MoveOrphanedOutcomes')}</d2l-button>
+									<d2l-button id="move-button" ?primary="${this.canMoveToRoot}" ?disabled="${!this.canMoveToRoot}" @click="${this._move}">${this.localize('MoveOrphanedOutcomes')}</d2l-button>
 									<div class="button-spacer"></div>
-									<d2l-button id="delete-button" @click="${() => this._fireEvent('action-delete')}">${this.localize('DeleteOrphanedOutcomes')}</d2l-button>
+									<d2l-button id="delete-button" @click="${this._delete}">${this.localize('DeleteOrphanedOutcomes')}</d2l-button>
 									<div class="button-spacer"></div>
-									<d2l-button id="cancel-button" @click="${() => this._fireEvent('action-cancel')}">${this.localize('Cancel')}</d2l-button>
+									<d2l-button id="cancel-button" @click="${this._cancel}">${this.localize('Cancel')}</d2l-button>
 								</div>
-							<div class="zero-size" tabindex="0" @focus="${() => this._focusElement('close-button')}"></div>
+							<div class="zero-size" tabindex="0" @focus="${this._focusCloseButton}"></div>
 						</div>
 						<div class="flex-spacer"></div>
 					</div>

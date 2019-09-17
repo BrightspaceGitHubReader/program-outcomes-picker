@@ -209,6 +209,10 @@ class AsnOutcomesPicker extends LocalizedLitElement {
 		return super.localize( term, { outcome: this.outcomesTerm } );
 	}
 	
+	_onAlertClosed() {
+		this._errored = false;
+	}
+	
 	_renderAlert() {
 		if( !this._errored ) {
 			return '';
@@ -218,7 +222,7 @@ class AsnOutcomesPicker extends LocalizedLitElement {
 				class="d2l-body-standard"
 				type="critical"
 				has-close-button
-				@d2l-alert-closed="${() => this._errored = false}"
+				@d2l-alert-closed="${this._onAlertClosed}"
 			>
 				<span>${this.localize('ConnectionError')}</span>
 			</d2l-alert>
@@ -302,7 +306,7 @@ class AsnOutcomesPicker extends LocalizedLitElement {
 					?disabled="${this._loadingFilters}"
 					?data-nonselection="${!this._jurisdiction}"
 					.value="${this._jurisdiction || ''}"
-					@change="${event => this._onJurisdictionChanged( event.target.value )}"
+					@change="${this._onJurisdictionChanged}"
 				>${options}</select>
 				${this._renderLoadingOption( !this._jurisdiction )}
 			</td>
@@ -327,7 +331,7 @@ class AsnOutcomesPicker extends LocalizedLitElement {
 					?disabled="${this._loadingFilters || !this._jurisdiction}"
 					?data-nonselection="${!this._subject}"
 					.value="${this._subject || ''}"
-					@change="${event => this._onSubjectChanged( event.target.value )}"
+					@change="${this._onSubjectChanged}"
 				>${options}</select>
 				${this._renderLoadingOption( this._jurisdiction && !this._subject )}
 			</td>
@@ -352,7 +356,7 @@ class AsnOutcomesPicker extends LocalizedLitElement {
 					id="framework-select"
 					?disabled="${this._loadingFilters || !this._subject}"
 					.value="${this._documentId || ''}"
-					@change="${event => this._onFrameworkChanged( event.target.value )}"
+					@change="${this._onFrameworkChanged}"
 				>${options}</select>
 				${this._renderLoadingOption( this._subject && !this._documentId )}
 			</td>
@@ -376,11 +380,19 @@ class AsnOutcomesPicker extends LocalizedLitElement {
 					id="education-level-select"
 					?disabled="${this._loadingFilters || !this._documentId}"
 					.value="${this._educationLevel || '*'}"
-					@change="${event => this._onEducationLevelChanged( event.target.value )}"
+					@change="${this._onEducationLevelChanged}"
 				>${options}</select>
 				${this._renderLoadingOption( this._documentId )}
 			</td>
 		</tr>`;
+	}
+	
+	_onConnectionError() {
+		this._errored = true;
+	}
+	
+	_onConnectionErrorResolved() {
+		this._errored = false;
 	}
 	
 	render() {
@@ -419,8 +431,8 @@ class AsnOutcomesPicker extends LocalizedLitElement {
 						.documentId="${this._documentId}"
 						.subject="${this._subject}"
 						.educationLevel="${this._educationLevel}"
-						@connection-error="${() => this._errored = true}"
-						@connection-error-resolved="${() => this._errored = false}"
+						@connection-error="${this._onConnectionError}"
+						@connection-error-resolved="${this._onConnectionErrorResolved}"
 					></program-outcomes-picker-tree>
 				</div>
 				<div class="button-tray">
@@ -508,6 +520,10 @@ class AsnOutcomesPicker extends LocalizedLitElement {
 	}
 	
 	_onJurisdictionChanged( jurisdiction ) {
+		if( jurisdiction instanceof Event ) {
+			jurisdiction = jurisdiction.target.value;
+		}
+		
 		this._jurisdiction = jurisdiction || null;
 		this._subject = null;
 		this._documentId = null;
@@ -534,6 +550,10 @@ class AsnOutcomesPicker extends LocalizedLitElement {
 	}
 	
 	_onSubjectChanged( subject ) {
+		if( subject instanceof Event ) {
+			subject = subject.target.value;
+		}
+		
 		this._subject = subject || null;
 		this._documentId = null;
 		this._educationLevel = null;
@@ -559,6 +579,10 @@ class AsnOutcomesPicker extends LocalizedLitElement {
 	}
 	
 	_onFrameworkChanged( documentId ) {
+		if( documentId instanceof Event ) {
+			documentId = documentId.target.value;
+		}
+		
 		this._documentId = documentId || null;
 		this._educationLevel = null;
 		
@@ -580,6 +604,10 @@ class AsnOutcomesPicker extends LocalizedLitElement {
 	}
 	
 	_onEducationLevelChanged( educationLevel ) {
+		if( educationLevel instanceof Event ) {
+			educationLevel = educationLevel.target.value;
+		}
+		
 		this._educationLevel = educationLevel === '*' ? null : educationLevel || null;
 	}
 	
