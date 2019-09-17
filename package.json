@@ -1,19 +1,18 @@
 {
   "name": "d2l-program-outcomes-picker",
-  "version": "3.0.1",
+  "version": "3.0.2",
   "scripts": {
     "lint": "eslint program-outcomes-picker.js internal/*.js",
     "serve": "polymer serve --hostname 0.0.0.0",
     "demo": "parallelshell \"npm run serve\" \"sleepms 2000 && open-cli http://localhost:8081/components/d2l-program-outcomes-picker/demo/\""
   },
   "dependencies": {
-    "@brightspace-ui/core": "^1.0.0",
+    "@brightspace-ui/core": "^1.8.3",
     "d2l-alert": "BrightspaceUI/alert#semver:^4",
     "d2l-button": "BrightspaceUI/button#semver:^5",
     "d2l-icons": "BrightspaceUI/icons#semver:^6",
     "d2l-inputs": "BrightspaceUI/inputs#semver:^2",
     "d2l-loading-spinner": "BrightspaceUI/loading-spinner#semver:^7",
-    "intl-messageformat": "^2.2.0",
     "lit-element": "^2.2.1"
   },
   "devDependencies": {
