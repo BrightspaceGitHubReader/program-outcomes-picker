@@ -27,7 +27,7 @@
    "SelectSubject" : "Sélectionner un objet",
    "Subject" : "Objet",
    "Title" : "Importer les {outcome, select, competencies {compétences} expectations {attentes} objectives {objectifs} outcomes {résultats} standards {normes} other {normes}} du programme",
-   "TitleASN" : "Importer depuis le réseau Achievement Standards Network",
+   "TitleASN" : "Importer depuis ASN (Achievement Standards Network)",
    "WarningDescription1" : "Vous êtes sur le point de supprimer le/la {résultat, sélection, compétences {competencies} attentes {expectations} objectifs {learning objectives} résultats {learning outcomes} normes {standards} autre {standards}}, mais les {résultat, sélection, compétences {competencies} attentes {expectations} objectifs {learning objectives} résultats {learning outcomes} normes {standards} autre {standards}} déjà créés y sont joints :",
    "WarningDescription2" : "Que voulez-vous faire avec le/la {résultat, sélection, compétences {competencies} attentes {expectations} objectifs {learning objectives} résultats {learning outcomes} normes {standards} autre {standards}} déjà créé(e)?",
    "WarningHeader" : "Déplacer les {outcome, select, competencies {compétences} expectations {attentes} objectives {objectifs} outcomes {résultats} standards {normes} other {normes}} déjà créés/ées?"

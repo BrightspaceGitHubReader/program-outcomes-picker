@@ -27,7 +27,7 @@
    "SelectSubject" : "Gegenstand auswählen",
    "Subject" : "Thema",
    "Title" : "Programm-{outcome, select, competencies {Kompetenzen} expectations {Erwartungen} objectives {Ziele} outcomes {Ergebnisse} standards {Standards} other {Standards}} importieren.",
-   "TitleASN" : "Aus dem Achievement Standards Network importieren",
+   "TitleASN" : "Import von Erfolgsstandardnetzwerk",
    "WarningDescription1" : "Sie sind dabei, {outcome, select, competencies {Kompetenzen} expectations {Erwartungen} objectives {Ziele} outcomes {Ergebnisse} standards {Standards} other {Standards}} zu entfernen, denen die folgenden verfassten {outcome, select, competencies {Kompetenzen} expectations {Erwartungen} objectives {Ziele} outcomes {Ergebnisse} standards {Standards} other {Standards}} angehängt sind:",
    "WarningDescription2" : "Was möchten Sie mit den verfassten {outcome, select, competencies {Kompetenzen} expectations {Erwartungen} objectives {Zielen} outcomes {Ergebnissen} standards {Standards} other {Standards}} tun?",
    "WarningHeader" : "Verfasste {outcome, select, competencies {Kompetenzen} expectations {Erwartungen} objectives {Ziele} outcomes {Ergebnisse} standards {Standards} other {Standards}} verschieben?"
