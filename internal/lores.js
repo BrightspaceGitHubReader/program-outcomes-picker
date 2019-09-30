@@ -62,9 +62,18 @@ export default {
 		});
 	},
 	
-	getLockedOutcomesAsync: function( /* registryId */ ) {
-		// TODO: Once this check is added to Lores, call that API here
-		return Promise.resolve( [] );
+	getLockedOutcomesAsync: function( registryId ) {
+		if( !endpoint ) {
+			return Promise.reject( 'Lores endpoint not set.' );
+		}
+		
+		return sendRequest( 'GET', `${endpoint}api/lores/1.0/registries/${registryId}/locked_objectives?filter=owned`, {
+			authScope: Scopes.READ,
+			expectJson: true
+		}).catch( exception => {
+			console.error( exception ); // eslint-disable-line no-console
+			return [];
+		});
 	}
 	
 };
