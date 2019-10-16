@@ -1,6 +1,6 @@
 {
   "name": "d2l-program-outcomes-picker",
-  "version": "3.0.3",
+  "version": "3.0.4",
   "scripts": {
     "lint": "eslint *.js internal/*.js",
     "serve": "polymer serve --hostname 0.0.0.0",
