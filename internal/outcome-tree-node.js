@@ -79,6 +79,8 @@ class OutcomeTreeNode extends LocalizedLitElement {
 			
 			li.outcome-node .expander {
 				cursor: pointer;
+				--d2l-button-icon-min-height: 30px;
+				--d2l-button-icon-min-width: 30px;
 			}
 
 			li.outcome-node .outcome-children {
