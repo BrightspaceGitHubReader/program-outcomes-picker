@@ -111,6 +111,7 @@ class AsnOutcomesPicker extends LocalizedLitElement {
 			
 			asn-outcomes-picker-tree {
 				flex-grow: 1;
+				overflow-y: auto;
 				min-height: 200px;
 			}
 			
