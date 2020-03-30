@@ -23,12 +23,12 @@
    "SelectEducationLevel" : "Sélectionner un niveau de scolarité",
    "SelectFilters" : "Veuillez faire une sélection parmi les options de filtrage pour voir les éléments disponibles",
    "SelectJurisdiction" : "Sélectionner un territoire",
-   "SelectProgram" : "Sélectionner un programme à afficher et importer le/la {résultat, sélection, compéteces {competencies} attentes {expectations} objectifs {learning objectives} résultats {learning outcomes} normes {standards} autre {standards}}.",
+   "SelectProgram" : "Sélectionner un programme à afficher et importer le/la {outcome, select, competencies {compétences} expectations {attentes} objectives {objectifs} outcomes {résultats} standards {normes} other {normes}}.",
    "SelectSubject" : "Sélectionner un objet",
    "Subject" : "Objet",
    "Title" : "Importer les {outcome, select, competencies {compétences} expectations {attentes} objectives {objectifs} outcomes {résultats} standards {normes} other {normes}} du programme",
    "TitleASN" : "Importer depuis ASN (Achievement Standards Network)",
-   "WarningDescription1" : "Vous êtes sur le point de supprimer le/la {résultat, sélection, compétences {competencies} attentes {expectations} objectifs {learning objectives} résultats {learning outcomes} normes {standards} autre {standards}}, mais les {résultat, sélection, compétences {competencies} attentes {expectations} objectifs {learning objectives} résultats {learning outcomes} normes {standards} autre {standards}} déjà créés y sont joints :",
-   "WarningDescription2" : "Que voulez-vous faire avec le/la {résultat, sélection, compétences {competencies} attentes {expectations} objectifs {learning objectives} résultats {learning outcomes} normes {standards} autre {standards}} déjà créé(e)?",
+   "WarningDescription1" : "Vous êtes sur le point de supprimer le/la {outcome, select, competencies {compétences} expectations {attentes} objectives {objectifs} outcomes {résultats} standards {normes} other {normes}}, mais les {outcome, select, competencies {compétences} expectations {attentes} objectives {objectifs} outcomes {résultats} standards {normes} other {normes}} déjà créés y sont joints :",
+   "WarningDescription2" : "Que voulez-vous faire avec le/la {outcome, select, competencies {compétences} expectations {attentes} objectives {objectifs} outcomes {résultats} standards {normes} other {normes}} déjà créé(e)?",
    "WarningHeader" : "Déplacer les {outcome, select, competencies {compétences} expectations {attentes} objectives {objectifs} outcomes {résultats} standards {normes} other {normes}} déjà créés/ées?"
 }
