@@ -8,7 +8,7 @@
   },
   "dependencies": {
     "@brightspace-ui/core": "^1.42.1",
-    "d2l-alert": "BrightspaceUI/alert#semver:^4",
+    "d2l-alert": "BrightspaceUI/alert#semver:4.13.0",
     "lit-element": "^2.2.1"
   },
   "devDependencies": {
