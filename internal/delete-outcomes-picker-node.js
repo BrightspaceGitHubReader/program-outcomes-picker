@@ -3,6 +3,11 @@ import OutcomeTreeNode from './outcome-tree-node.js';
 
 class DeleteOutcomeNode extends OutcomeTreeNode {
 	
+	constructor() {
+		super();
+		this._expanded = true;
+	}
+	
 	static get properties() {
 		return Object.assign( {},
 			OutcomeTreeNode.properties, {
