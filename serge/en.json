@@ -10,6 +10,7 @@
 	"CloseDialog": "Close this dialog",
 	"Collapse": "Collapse",
 	"ConnectionError": "Oops! We're having trouble connecting you. You might want to refresh the page, or try again later.",
+	"Delete": "Delete",
 	"DeleteOrphanedOutcomes": "Delete {outcome, select, competencies {Competencies} expectations {Expectations} objectives {Objectives} outcomes {Outcomes} standards {Standards} other {Standards}}",
 	"Disabled": "disabled",
 	"EducationLevel": "Education Level",
@@ -28,6 +29,7 @@
 	"Subject": "Subject",
 	"Title": "Import Program {outcome, select, competencies {Competencies} expectations {Expectations} objectives {Objectives} outcomes {Outcomes} standards {Standards} other {Standards}}",
 	"TitleASN": "Import from Achievement Standards Network",
+	"TitleDelete": "Select {outcome, select, competencies {competencies} expectations {expectations} objectives {learning objectives} outcomes {learning outcomes} standards {standards} other {standards}} to delete",
 	"WarningDescription1": "You're about to remove {outcome, select, competencies {competencies} expectations {expectations} objectives {learning objectives} outcomes {learning outcomes} standards {standards} other {standards}} to which the following authored {outcome, select, competencies {competencies} expectations {expectations} objectives {learning objectives} outcomes {learning outcomes} standards {standards} other {standards}} are attached:",
 	"WarningDescription2": "What would you like to do with the authored {outcome, select, competencies {competencies} expectations {expectations} objectives {learning objectives} outcomes {learning outcomes} standards {standards} other {standards}}?",
 	"WarningHeader": "Move Authored {outcome, select, competencies {Competencies} expectations {Expectations} objectives {Objectives} outcomes {Outcomes} standards {Standards} other {Standards}}?"

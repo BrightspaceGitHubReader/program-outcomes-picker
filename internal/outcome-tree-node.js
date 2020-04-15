@@ -5,9 +5,8 @@ import { bodyCompactStyles } from '@brightspace-ui/core/components/typography/st
 import { Browser, OS } from './browser-check.js';
 import LocalizedLitElement from './localized-element.js';
 import OutcomeFormatter from './outcome-formatter.js';
-import 'd2l-inputs/d2l-input-checkbox.js';
-import 'd2l-button/d2l-button-icon.js';
-import 'd2l-icons/tier1-icons.js';
+import '@brightspace-ui/core/components/button/button-icon.js';
+import '@brightspace-ui/core/components/inputs/input-checkbox.js';
 import 'd2l-alert/d2l-alert.js';
 
 const CheckboxStateInfo = {
@@ -156,12 +155,17 @@ class OutcomeTreeNode extends LocalizedLitElement {
 	updated( changedProperties ) {
 		// hack to get around hardcoded checkbox alignment
 		super.updated( changedProperties );
+		
 		const checkboxShadowRoot = (this.querySelector(`#${this.htmlId}\\:checkbox`) || {}).shadowRoot;
-		if( checkboxShadowRoot ) {
-			const checkboxLabelContainer = checkboxShadowRoot.querySelector( '.d2l-input-checkbox-label' );
-			checkboxLabelContainer.style['vertical-align'] = 'top';
-			checkboxLabelContainer.style['margin-top'] = '0.2rem';
-		}
+		window.requestAnimationFrame( () => {
+			if( checkboxShadowRoot ) {
+				const checkboxLabelContainer = checkboxShadowRoot.querySelector( '.d2l-input-checkbox-text' );
+				if( checkboxLabelContainer ) {
+					checkboxLabelContainer.style['vertical-align'] = 'top';
+					checkboxLabelContainer.style['margin-top'] = '0.2em';
+				}
+			}
+		});
 	}
 	
 	render() {
@@ -261,7 +265,7 @@ class OutcomeTreeNode extends LocalizedLitElement {
 				tabindex="-1"
 				class="expander"
 				@click="${this._toggleExpansion}"
-			></d2l-icon>
+			></d2l-button-icon>
 		`;
 	}
 	
@@ -278,16 +282,9 @@ class OutcomeTreeNode extends LocalizedLitElement {
 		return window.getComputedStyle( this ).direction === 'rtl';
 	}
 	
-	_onCheckboxChanged( isChecked ) {
-		if( isChecked instanceof Event ) {
-			isChecked = isChecked.target.checked;
-		}
-		
+	_onCheckboxChanged() {
 		const selectionNode = this.getSelectionNode();
-		if( selectionNode.checkboxState ===  CheckboxState.PARTIAL ) {
-			isChecked = true;
-		}
-		isChecked ? selectionNode.select() : selectionNode.deselect();
+		selectionNode.toggle();
 		this.checkboxState = selectionNode.checkboxState;
 		
 		const checkbox = this.querySelector(`#${this.htmlId}\\:checkbox`);
@@ -458,7 +455,7 @@ class OutcomeTreeNode extends LocalizedLitElement {
 			}
 			case 32: // Space
 			case 13: // Enter
-				this._onCheckboxChanged( this.checkboxState === CheckboxState.NOT_CHECKED );
+				this._onCheckboxChanged();
 				break;
 			default:
 				return true;

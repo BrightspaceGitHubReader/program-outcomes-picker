@@ -1,5 +1,5 @@
 import initializationHelper from './initialization.js';
-import SelectionStateNode from './selection-state-node.js';
+import { createNode, TreeBehaviour } from './selection-state-node.js';
 import { SelectionState, CheckboxState } from './enums.js';
 
 const selectProgram = function( dataState, registryId ) {
@@ -32,14 +32,14 @@ const buildProgramStateRecursive = function( dataState, registryOutcome, parentN
 		)
 	);
 	
-	const thisNode = new SelectionStateNode(
-		/* outcomeId */ registryOutcome.id,
-		/* parent */ parentNode,
-		/* children */ null, // gets set after children are processed
-		/* checkboxState */ null, // gets set after children are processed
-		/* externallySelected */ externallySelected,
-		/* locked */ !children.length && dataState.mergedProgramForestMap[registryOutcome.id].locked
-	);
+	const thisNode = createNode( TreeBehaviour.VirtualParents, {
+		outcomeId: registryOutcome.id,
+		parent: parentNode,
+		children: null, // gets set after children are processed
+		checkboxState: null, // gets set after children are processed
+		externallySelected: externallySelected,
+		locked: !children.length && dataState.mergedProgramForestMap[registryOutcome.id].locked
+	});
 	
 	thisNode.children = children.map( child => buildProgramStateRecursive( dataState, child, thisNode ) );
 	if( thisNode.children.length ) {

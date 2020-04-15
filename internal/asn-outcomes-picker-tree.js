@@ -3,9 +3,9 @@ import { bodyStandardStyles } from '@brightspace-ui/core/components/typography/s
 import { CheckboxState } from './enums.js';
 import ASN from './asn.js';
 import ASNActions from './asn-actions.js';
-import SelectionStateNode from './selection-state-node.js';
+import { createNode, TreeBehaviour } from './selection-state-node.js';
 import OutcomeTree from './outcome-tree.js';
-import 'd2l-loading-spinner/d2l-loading-spinner.js';
+import '@brightspace-ui/core/components/loading-spinner/loading-spinner.js';
 import './asn-outcomes-picker-node.js';
 
 class AsnOutcomesTree extends OutcomeTree {
@@ -147,14 +147,14 @@ class AsnOutcomesTree extends OutcomeTree {
 		const outcomeData = Object.assign( {}, outcome );
 		delete outcomeData.children;
 		
-		const stateNode = new SelectionStateNode(
-			/* outcomeId */ outcome.source_id,
-			/* parent */ parent,
-			/* children */ null, // gets set after children are processed
-			/* checkboxState */ null, // gets set after children are processed
-			/* externallySelected */ false,
-			/* locked */ false
-		);
+		const stateNode = createNode( TreeBehaviour.VirtualParents, {
+			outcomeId: outcome.source_id,
+			parent: parent,
+			children: null, // gets set after children are processed
+			checkboxState: null, // gets set after children are processed
+			externallySelected: false,
+			locked: false
+		});
 		stateNode.sourceId = outcome.source_id;
 		stateNode.outcome = outcomeData;
 		
