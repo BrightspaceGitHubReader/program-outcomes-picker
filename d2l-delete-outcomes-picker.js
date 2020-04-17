@@ -139,7 +139,7 @@ class DeleteOutcomesPicker extends LocalizedLitElement {
 					icon="d2l-tier3:close-thick"
 					text="${this.localize('Close')}"
 					@click="${this._close}"
-				></d2l-icon>
+				></d2l-button-icon>
 			</div>
 		`;
 	}
