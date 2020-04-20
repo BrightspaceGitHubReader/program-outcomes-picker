@@ -6,9 +6,9 @@ import Lores from './internal/lores.js';
 import LocalizedLitElement from './internal/localized-element.js';
 import './internal/program-outcomes-picker-tree.js';
 import './internal/orphaned-outcomes-warning.js';
-import 'd2l-button/d2l-button.js';
-import 'd2l-loading-spinner/d2l-loading-spinner.js';
-import 'd2l-icons/tier3-icons.js';
+import '@brightspace-ui/core/components/button/button.js';
+import '@brightspace-ui/core/components/icons/icon.js';
+import '@brightspace-ui/core/components/loading-spinner/loading-spinner.js';
 
 class ProgramOutcomesPicker extends LocalizedLitElement {
 	

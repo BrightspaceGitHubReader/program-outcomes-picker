@@ -7,12 +7,8 @@
     "demo": "parallelshell \"npm run serve\" \"sleepms 2000 && open-cli http://localhost:8081/components/d2l-program-outcomes-picker/demo/\""
   },
   "dependencies": {
-    "@brightspace-ui/core": "^1.8.3",
-    "d2l-alert": "BrightspaceUI/alert#semver:^4",
-    "d2l-button": "BrightspaceUI/button#semver:^5",
-    "d2l-icons": "BrightspaceUI/icons#semver:^6",
-    "d2l-inputs": "BrightspaceUI/inputs#semver:^2",
-    "d2l-loading-spinner": "BrightspaceUI/loading-spinner#semver:^7",
+    "@brightspace-ui/core": "^1.42.1",
+    "d2l-alert": "BrightspaceUI/alert#semver:4.13.0",
     "lit-element": "^2.2.1"
   },
   "devDependencies": {
