@@ -152,22 +152,6 @@ class OutcomeTreeNode extends LocalizedLitElement {
 		return this;
 	}
 	
-	updated( changedProperties ) {
-		// hack to get around hardcoded checkbox alignment
-		super.updated( changedProperties );
-		
-		const checkboxShadowRoot = (this.querySelector(`#${this.htmlId}\\:checkbox`) || {}).shadowRoot;
-		window.requestAnimationFrame( () => {
-			if( checkboxShadowRoot ) {
-				const checkboxLabelContainer = checkboxShadowRoot.querySelector( '.d2l-input-checkbox-text' );
-				if( checkboxLabelContainer ) {
-					checkboxLabelContainer.style['vertical-align'] = 'top';
-					checkboxLabelContainer.style['margin-top'] = '0.2em';
-				}
-			}
-		});
-	}
-	
 	render() {
 		const { checked, indeterminate, ariaChecked, checkedTerm } = CheckboxStateInfo[this.checkboxState];
 		const siblings = this._getSiblings();
