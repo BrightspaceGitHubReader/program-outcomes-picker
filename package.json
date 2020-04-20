@@ -7,7 +7,7 @@
     "demo": "parallelshell \"npm run serve\" \"sleepms 2000 && open-cli http://localhost:8081/components/d2l-program-outcomes-picker/demo/\""
   },
   "dependencies": {
-    "@brightspace-ui/core": "^1.42.1",
+    "@brightspace-ui/core": "^1.43.2",
     "d2l-alert": "BrightspaceUI/alert#semver:4.13.0",
     "lit-element": "^2.2.1"
   },
