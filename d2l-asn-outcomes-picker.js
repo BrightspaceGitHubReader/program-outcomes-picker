@@ -470,7 +470,7 @@ class AsnOutcomesPicker extends LocalizedLitElement {
 		this._dataState.externalOutcomes = [];
 		this._dataState.lockedOutcomes = new Set();
 		Lores.fetchRegistryAsync( this.registryId ).then( registry => {
-			return Lores.getLockedOutcomesAsync( this.registryId ).then( lockedOutcomes => {
+			return Lores.getOwnedLockedOutcomesAsync( this.registryId ).then( lockedOutcomes => {
 				const lockedOutcomesSet = new Set();
 				lockedOutcomes.forEach( outcomeId => lockedOutcomesSet.add( outcomeId ) );
 				

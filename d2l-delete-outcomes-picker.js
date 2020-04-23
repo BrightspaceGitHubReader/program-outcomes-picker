@@ -199,7 +199,7 @@ class DeleteOutcomesPicker extends LocalizedLitElement {
 			Lores.setEndpoint( this.loresEndpoint );
 			Promise.all([
 				Lores.fetchRegistryAsync( this.registryId ),
-				Lores.getLockedOutcomesAsync( this.registryId )
+				Lores.getOwnedLockedOutcomesAsync( this.registryId )
 			]).then( responses => {
 				const lockedOutcomes = new Set();
 				responses[1].forEach( outcomeId => lockedOutcomes.add( outcomeId ) );
