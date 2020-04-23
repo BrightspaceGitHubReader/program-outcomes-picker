@@ -2,7 +2,7 @@ import { CheckboxState } from './enums.js';
 
 class ISelectionStateNode {
 	
-	constructor( outcomeId, parent, children, checkboxState, externallySelected, locked ) {
+	constructor( outcomeId, parent, children, checkboxState, externallySelected, locked, assessed, disabled ) {
 		this.outcomeId = outcomeId;
 		this.checkboxState = checkboxState;
 		this.parent = parent;
@@ -10,12 +10,18 @@ class ISelectionStateNode {
 		this.children = children || [];
 		this.elementRef = null;
 		this.locked = !!locked;
+		this.assessed = !!assessed;
+		this.disabled = !!disabled;
 	}
 	
 	_sync() {
 		if( this.elementRef ) {
 			this.elementRef.checkboxState = this.checkboxState;
 		}
+	}
+
+	isDisabled() {
+		return this.locked || this.disabled;
 	}
 	
 	select() {
@@ -41,23 +47,23 @@ it is in an intermediate state.
 class SelectionStateNode_VirtualParents extends ISelectionStateNode {
 	
 	_propegateDown( newState ) {
-		if( this.locked ) {
+		if( this.isDisabled() ) {
 			return true;
 		}
 		
 		this.externallySelected = false;
 		
-		let hasLockedDescendant = false;
-		this.children.forEach( c => hasLockedDescendant = c._propegateDown( newState ) || hasLockedDescendant );
+		let hasDisabledDescendant = false;
+		this.children.forEach( c => hasDisabledDescendant = c._propegateDown( newState ) || hasDisabledDescendant );
 		
-		if( newState === CheckboxState.NOT_CHECKED && hasLockedDescendant ) {
+		if( newState === CheckboxState.NOT_CHECKED && hasDisabledDescendant ) {
 			this.checkboxState = CheckboxState.PARTIAL;
 		} else {
 			this.checkboxState = newState;
 		}
 		
 		this._sync();
-		return hasLockedDescendant;
+		return hasDisabledDescendant;
 	}
 	
 	select() {
@@ -98,20 +104,20 @@ children are selected).
 class SelectionStateNode_CascadesDown extends ISelectionStateNode {
 	
 	_propegateDown( newState ) {
-		if( this.locked ) {
+		if( this.isDisabled() ) {
 			return true;
 		}
 		
-		let hasLockedDescendant = false;
-		this.children.forEach( c => hasLockedDescendant = c._propegateDown( newState ) || hasLockedDescendant );
+		let hasDisabledDescendant = false;
+		this.children.forEach( c => hasDisabledDescendant = c._propegateDown( newState ) || hasDisabledDescendant );
 		
-		if( !hasLockedDescendant ) {
+		if( !hasDisabledDescendant ) {
 			this.checkboxState = newState;
 			this.externallySelected = false;
 		}
 		
 		this._sync();
-		return hasLockedDescendant;
+		return hasDisabledDescendant;
 	}
 	
 	select() {
@@ -161,7 +167,9 @@ const createNode = function( behaviour, params ) {
 				params.children || [],
 				params.checkboxState || CheckboxState.NOT_CHECKED,
 				!!params.externallySelected,
-				!!params.locked
+				!!params.locked,
+				!!params.assessed,
+				!!params.disabled
 			);
 		case TreeBehaviour.CascadesDown:
 			return new SelectionStateNode_CascadesDown(
@@ -170,7 +178,9 @@ const createNode = function( behaviour, params ) {
 				params.children || [],
 				params.checkboxState || CheckboxState.NOT_CHECKED,
 				!!params.externallySelected,
-				!!params.locked
+				!!params.locked,
+				!!params.assessed,
+				!!params.disabled
 			);
 		default:
 			throw 'Unknown TreeBehaviour';
