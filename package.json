@@ -2,6 +2,8 @@
   "name": "d2l-program-outcomes-picker",
   "version": "3.0.4",
   "scripts": {
+    "lang:build": "lang-build -edc langtools/config.json",
+    "lang:copy": "lang-copy -svc langtools/config.json",
     "lint": "eslint *.js internal/*.js",
     "serve": "polymer serve --hostname 0.0.0.0",
     "demo": "parallelshell \"npm run serve\" \"sleepms 2000 && open-cli http://localhost:8081/components/d2l-program-outcomes-picker/demo/\""
@@ -14,6 +16,7 @@
   "devDependencies": {
     "@webcomponents/webcomponentsjs": "^2.2.10",
     "babel-eslint": "^10.0.3",
+    "d2l-polymer-langtools": "^1.4.0",
     "eslint": "^4.19.1",
     "eslint-config-brightspace": "^0.6.4",
     "eslint-plugin-html": "^6.0.0",

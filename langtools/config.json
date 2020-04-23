@@ -1,0 +1,22 @@
+{
+    "buildDir": "lang",
+    "buildTemplateFile": "langtools/build.template",
+    "copySourceLang": "en",
+    "langDir": "serge",
+    "langNames": [
+        "ar",
+        "de",
+        "en",
+        "es",
+        "fr",
+        "ja",
+        "ko",
+        "nb",
+        "nl",
+        "pt",
+        "sv",
+        "tr",
+        "zh-tw",
+        "zh"
+    ]
+}

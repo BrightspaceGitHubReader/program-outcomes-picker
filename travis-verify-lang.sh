@@ -14,7 +14,7 @@ do
 done
 
 if [ $status -ne 0 ]; then
-	echo "Files in the lang folder do not match the expected generated files from serge. Did you forget to run copy-to-lang.sh?" 1>&2
+	echo "Files in the lang folder do not match the expected generated files from serge. Did you forget to run `npm run lang:build`?" 1>&2
 fi
 
 exit $status;
