@@ -1,5 +1,6 @@
 export default {
     "All": "الكل",
+    "Assessed": "Assessed",
     "AvailableItems": "العناصر المتوفرة",
     "AvailableOutcomes": "{outcome, select, competencies {الكفاءات} expectations {التوقعات} objectives {الأهداف} outcomes {النتائج} standards {المعايير} other {المعايير}} المتوفرة",
     "Cancel": "إلغاء",
@@ -30,6 +31,8 @@ export default {
     "Title": "استيراد {outcome, select, competencies {الكفاءات} expectations {التوقعات} objectives {الأهداف} outcomes {النتائج} standards {المعايير} other {المعايير}} الخاصة بالبرنامج",
     "TitleASN": "الاستيراد من Achievement Standards Network",
     "TitleDelete": "Select {outcome, select, competencies {competencies} expectations {expectations} objectives {learning objectives} outcomes {learning outcomes} standards {standards} other {standards}} to delete",
+    "TitleUnlink": "Select {outcome, select, competencies {competencies} expectations {expectations} objectives {learning objectives} outcomes {learning outcomes} standards {standards} other {standards}} to unlink from source",
+    "Unlink": "Unlink",
     "WarningDescription1": "أنت على وشك إزالة {outcome, select, competencies {الكفاءات} expectations {التوقعات} objectives {أهداف التعلّم} outcomes {نتائج التعلّم} standards {المعايير} other {المعايير}} التي تم إرفاق ما يلي من العناصر المكتوبة بها {outcome, select, competencies {الكفاءات} expectations {التوقعات} objectives {أهداف التعلّم} outcomes {نتائج التعلّم} standards {المعايير} other {المعايير}}:",
     "WarningDescription2": "ما هو الإجراء الذي تريد اتّخاذه في ما يتعلق بالعناصر المكتوبة {outcome, select, competencies {الكفاءات} expectations {التوقعات} objectives {أهداف التعلّم} outcomes {نتائج التعلّم} standards {المعايير} other {المعايير}}؟",
     "WarningHeader": "هل تريد نقل العناصر المكتوبة {outcome, select, competencies {الكفاءات} expectations {التوقعات} objectives {الأهداف} outcomes {النتائج} standards {المعايير} other {المعايير}}؟"

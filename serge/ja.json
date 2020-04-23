@@ -1,5 +1,6 @@
 {
     "All": "すべて",
+    "Assessed": "Assessed",
     "AvailableItems": "使用可能な項目",
     "AvailableOutcomes": "使用可能な{outcome, select, competencies {コンピテンシ} expectations {期待} objectives {目的} outcomes {結果} standards {標準} other {標準}}",
     "Cancel": "キャンセル",
@@ -30,6 +31,8 @@
     "Title": "プログラムの{outcome, select, competencies {コンピテンシ} expectations {期待} objectives {目的} outcomes {結果} standards {標準} other {標準}}のインポート",
     "TitleASN": "Achievement Standards Network からインポート",
     "TitleDelete": "Select {outcome, select, competencies {competencies} expectations {expectations} objectives {learning objectives} outcomes {learning outcomes} standards {standards} other {standards}} to delete",
+    "TitleUnlink": "Select {outcome, select, competencies {competencies} expectations {expectations} objectives {learning objectives} outcomes {learning outcomes} standards {standards} other {standards}} to unlink from source",
+    "Unlink": "Unlink",
     "WarningDescription1": "次の作成済み{outcome, select, competencies {コンピテンシ} expectations {期待} objectives {学習オブジェクト} outcomes {学習結果} standards {標準} other {標準}} が添付されている{outcome, select, competencies {コンピテンシ} expectations {期待} objectives {学習オブジェクト} outcomes {学習結果} standards {標準} other {標準}}を削除しようとしています:",
     "WarningDescription2": "作成済みの{outcome, select, competencies {コンピテンシ} expectations {期待} objectives {学習オブジェクト} outcomes {学習結果} standards {標準} other {標準}}を使用して、何を行いますか？",
     "WarningHeader": "作成済みの{outcome, select, competencies {コンピテンシ} expectations {期待} objectives {目的} outcomes {結果} standards {標準} other {標準}}を移動しますか？"

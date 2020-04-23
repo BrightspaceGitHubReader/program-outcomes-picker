@@ -1,5 +1,6 @@
 {
     "All": "Alla",
+    "Assessed": "Assessed",
     "AvailableItems": "Tillgängliga objekt",
     "AvailableOutcomes": "Tillgängliga {outcome, select, competencies {Kompetenser} expectations {Förväntningar} objectives {Mål} outcomes {Resultat} standards {Standarder} other {Standarder}}",
     "Cancel": "Avbryt",
@@ -30,6 +31,8 @@
     "Title": "Importera program {outcome, select, competencies {Kompetenser} expectations {Förväntningar} objectives {Mål} outcomes {Resultat} standards {Standarder} other {Standarder}}",
     "TitleASN": "Importera från Achievement Standards Network",
     "TitleDelete": "Select {outcome, select, competencies {competencies} expectations {expectations} objectives {learning objectives} outcomes {learning outcomes} standards {standards} other {standards}} to delete",
+    "TitleUnlink": "Select {outcome, select, competencies {competencies} expectations {expectations} objectives {learning objectives} outcomes {learning outcomes} standards {standards} other {standards}} to unlink from source",
+    "Unlink": "Unlink",
     "WarningDescription1": "Du håller på att ta bort {outcome, select, competencies {kompetenser} expectations {förväntningar} objectives {inlärningsmål} outcomes {utbildningsresultat} standards {standarder} other {standarder}} för vilka följande ändrade {outcome, select, competencies {kompetenser} expectations {förväntningar} objectives {inlärningsmål} outcomes {utbildningsresultat} standards {standarder} other {standarder}} har bifogats:",
     "WarningDescription2": "Vad vill du göra med de ändrade {outcome, select, competencies {kompetenserna} expectations {förväntningarna} objectives {inlärningsmålen} outcomes {utbildningsresultaten} standarderna {standards} other {standarderna}}?",
     "WarningHeader": "Vill du flytta ändrade {outcome, select, competencies {Kompetenser} expectations {Förväntningar} objectives {Mål} outcomes {Resultat} standards {Standarder} other {Standarder}}?"

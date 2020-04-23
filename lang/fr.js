@@ -1,5 +1,6 @@
 export default {
     "All": "Tous",
+    "Assessed": "Assessed",
     "AvailableItems": "Éléments disponibles",
     "AvailableOutcomes": "{outcome, select, competencies {Compétences} expectations {Attentes} objectives {Objectifs} outcomes {Résultats} standards {Normes} other {Normes}} disponibles",
     "Cancel": "Annuler",
@@ -30,6 +31,8 @@ export default {
     "Title": "Importer les {outcome, select, competencies {compétences} expectations {attentes} objectives {objectifs} outcomes {résultats} standards {normes} other {normes}} du programme",
     "TitleASN": "Importer depuis ASN (Achievement Standards Network)",
     "TitleDelete": "Select {outcome, select, competencies {competencies} expectations {expectations} objectives {learning objectives} outcomes {learning outcomes} standards {standards} other {standards}} to delete",
+    "TitleUnlink": "Select {outcome, select, competencies {competencies} expectations {expectations} objectives {learning objectives} outcomes {learning outcomes} standards {standards} other {standards}} to unlink from source",
+    "Unlink": "Unlink",
     "WarningDescription1": "Vous êtes sur le point de supprimer le/la {outcome, select, competencies {compétences} expectations {attentes} objectives {objectifs} outcomes {résultats} standards {normes} other {normes}}, mais les {outcome, select, competencies {compétences} expectations {attentes} objectives {objectifs} outcomes {résultats} standards {normes} other {normes}} déjà créés y sont joints :",
     "WarningDescription2": "Que voulez-vous faire avec le/la {outcome, select, competencies {compétences} expectations {attentes} objectives {objectifs} outcomes {résultats} standards {normes} other {normes}} déjà créé(e)?",
     "WarningHeader": "Déplacer les {outcome, select, competencies {compétences} expectations {attentes} objectives {objectifs} outcomes {résultats} standards {normes} other {normes}} déjà créés/ées?"

@@ -1,5 +1,6 @@
 {
     "All": "全部",
+    "Assessed": "Assessed",
     "AvailableItems": "可用项目",
     "AvailableOutcomes": "可用 {outcome, select, competencies {能力} expectations {预期} objectives {目标} outcomes {成果} standards {标准} other {标准}}",
     "Cancel": "取消",
@@ -30,6 +31,8 @@
     "Title": "导入程序 {outcome, select, competencies {能力} expectations {预期} objectives {目标} outcomes {成果} standards {标准} other {标准}}",
     "TitleASN": "从成绩标准网络导入",
     "TitleDelete": "Select {outcome, select, competencies {competencies} expectations {expectations} objectives {learning objectives} outcomes {learning outcomes} standards {standards} other {standards}} to delete",
+    "TitleUnlink": "Select {outcome, select, competencies {competencies} expectations {expectations} objectives {learning objectives} outcomes {learning outcomes} standards {standards} other {standards}} to unlink from source",
+    "Unlink": "Unlink",
     "WarningDescription1": "您将移动 {outcome, select, competencies {能力} expectations {预期} objectives {学习目标} outcomes {学习成果} standards {标准} other {标准}} 至随附以下已编写 {outcome, select, competencies {能力} expectations {预期} objectives {学习目标} outcomes {学习成果} standards {标准} other {标准}} 的内容：",
     "WarningDescription2": "您想怎么处理已编写 {outcome, select, competencies {能力} expectations {预期} objectives {学习目标} outcomes {学习成果} standards {标准} other {标准}}？",
     "WarningHeader": "移动已编写内容 {outcome, select, competencies {能力} expectations {预期} objectives {目标} outcomes {成果} standards {标准} other {标准}}？"

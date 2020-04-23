@@ -1,5 +1,6 @@
 {
     "All": "Todos",
+    "Assessed": "Assessed",
     "AvailableItems": "Itens disponíveis",
     "AvailableOutcomes": "{outcome, select, competencies {Competências} expectations {Expectativas} objectives {Objetivos} outcomes {Resultados} standards {Padrões} other {Padrões}} disponíveis",
     "Cancel": "Cancelar",
@@ -30,6 +31,8 @@
     "Title": "Importar {outcome, select, competencies {Competências} expectations {Expectativas} objectives {Objetivos} outcomes {Resultados} standards {Padrões} other {Padrões}} do programa",
     "TitleASN": "Importar da Achievement Standards Network",
     "TitleDelete": "Select {outcome, select, competencies {competencies} expectations {expectations} objectives {learning objectives} outcomes {learning outcomes} standards {standards} other {standards}} to delete",
+    "TitleUnlink": "Select {outcome, select, competencies {competencies} expectations {expectations} objectives {learning objectives} outcomes {learning outcomes} standards {standards} other {standards}} to unlink from source",
+    "Unlink": "Unlink",
     "WarningDescription1": "Você está prestes a remover {outcome, select, competencies {competências} expectations {expectativas} objectives {objetivos da aprendizagem} outcomes {resultados da aprendizagem} standards {padrões} other {padrões}} para os(as) quais os(as) seguintes referidos(as) {outcome, select, competencies {competencies} expectations {expectations} objectives {learning objectives} outcomes {learning outcomes} standards {standards} other {standards}} estão anexados(as):",
     "WarningDescription2": "O que você gostaria de fazer com os(as) {output, select, competencies {competências} expectations {expectativas} objectives {objetivos da aprendizagem} outcomes {resultados da aprendizagem} standards {padrões} other {padrões}} referidos(as)?",
     "WarningHeader": "Mover os(as) referidos(as) {outcome, select, competencies {Competências} expectations {Expectativas} objectives {Objetivos} outcomes {Resultados} standards {Padrões} other {Padrões}}?"
