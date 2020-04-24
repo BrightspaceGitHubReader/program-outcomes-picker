@@ -333,14 +333,14 @@ class UnlinkOutcomesPicker extends LocalizedLitElement {
 			this._close();
 			return;
 		}
-		
+
 		this.dispatchEvent(
 			new CustomEvent(
 				'd2l-unlink-outcomes-picker-confirm',
 				{
 					bubbles: false,
 					detail: {
-						outcomeIds: toUnlink,
+						unlinkAction: () => Valence.bulkUnlinkOutcomes( this.registryId, toUnlink ),
 						assessedOutcomes: assessedSelected
 					}
 				}
