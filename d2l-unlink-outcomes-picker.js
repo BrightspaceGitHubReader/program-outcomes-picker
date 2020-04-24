@@ -290,19 +290,6 @@ class UnlinkOutcomesPicker extends LocalizedLitElement {
 			return acc;
 		}, []);
 	}
-	
-	_buildUpdate( stateNodes ) {
-		const newTrees = [];
-		stateNodes.forEach( node => {
-			if( node.checkboxState !== CheckboxState.CHECKED ) {
-				newTrees.push({
-					id: node.outcomeId,
-					children: this._buildUpdate( node.children )
-				});
-			}
-		});
-		return newTrees;
-	}
 
 	/**
 	 * Build optimized list of objectiveIds to unlink. If parent is being unlinked, it
