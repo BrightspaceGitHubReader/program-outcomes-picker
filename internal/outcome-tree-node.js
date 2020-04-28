@@ -1,7 +1,7 @@
 import { css, html } from 'lit-element/lit-element.js';
 import { ifDefined } from 'lit-html/directives/if-defined.js';
 import { CheckboxState } from './enums.js';
-import { bodyCompactStyles } from '@brightspace-ui/core/components/typography/styles.js';
+import { bodyCompactStyles, labelStyles } from '@brightspace-ui/core/components/typography/styles.js';
 import { Browser, OS } from './browser-check.js';
 import LocalizedLitElement from './localized-element.js';
 import OutcomeFormatter from './outcome-formatter.js';
@@ -135,8 +135,12 @@ class OutcomeTreeNode extends LocalizedLitElement {
 				left: 0;
 				right: -10000px;
 			}
+
+			li.outcome-node .outcome-label {
+				margin-left: 8px;
+			}
 		`;
-		return [ bodyCompactStyles, componentStyle ];
+		return [ bodyCompactStyles, componentStyle, labelStyles ];
 	}
 	
 	constructor() {
@@ -167,12 +171,19 @@ class OutcomeTreeNode extends LocalizedLitElement {
 			lockIcon = html`<d2l-icon icon="d2l-tier1:lock-locked" class="lock-icon"></d2l-icon>`;
 		}
 		
+		const disabled = this.getSelectionNode().isDisabled();
 		let voiceoverFix = undefined;
 		if( OS.isMac()  ) {
-			const disabledText = locked ? html`, ${this.localize( 'Disabled' )}` : '';
+			const disabledText = disabled ? html`, ${this.localize( 'Disabled' )}` : '';
 			voiceoverFix = html`
 				<span class="offscreen">, ${this.localize( checkedTerm )}${disabledText}</span>
 			`;
+		}
+
+		const assessed = this.getSelectionNode().assessed;
+		let labelText = '';
+		if ( assessed ) {
+			labelText = this.localize( 'Assessed' );
 		}
 		
 		return html`
@@ -188,7 +199,7 @@ class OutcomeTreeNode extends LocalizedLitElement {
 				aria-setsize="${siblings.length}"
 				aria-posinset="${1 + siblings.indexOf(this)}"
 				aria-checked="${ariaChecked}"
-				aria-disabled="${locked}"
+				aria-disabled="${disabled}"
 				@keydown="${this.handleKeyDownEvent}"
 			>
 				<div class="outcome">
@@ -199,13 +210,13 @@ class OutcomeTreeNode extends LocalizedLitElement {
 						id="${this.htmlId}:checkbox"
 						?checked="${checked}"
 						?indeterminate="${indeterminate}"
-						?disabled="${locked}"
+						?disabled="${disabled}"
 						@change="${this._onCheckboxChanged}"
 					>
 						<span
 							id="${this.htmlId}:outcome-description"
 							class="d2l-body-compact outcome-description"
-						>${lockIcon}${OutcomeFormatter.render(this.getOutcome())}${voiceoverFix}</span>
+						>${lockIcon}${OutcomeFormatter.render(this.getOutcome())}${voiceoverFix}<span class="outcome-label d2l-label-text">${labelText}</span></span>
 					</d2l-input-checkbox>
 				</div>
 				<div ?hidden="${!this._expanded}" ?aria-hidden="${this._hasFocus && Browser.isSafari()}">

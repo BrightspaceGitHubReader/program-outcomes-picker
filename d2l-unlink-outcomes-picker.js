@@ -4,13 +4,14 @@ import { createNode, TreeBehaviour } from './internal/selection-state-node.js';
 import { CheckboxState } from './internal/enums.js';
 import Lores from './internal/lores.js';
 import LocalizedLitElement from './internal/localized-element.js';
-import './internal/delete-outcomes-picker-tree.js';
+import Valence from './internal/valence.js';
+import './internal/unlink-outcomes-picker-tree.js';
 import './internal/orphaned-outcomes-warning.js';
 import '@brightspace-ui/core/components/loading-spinner/loading-spinner.js';
 import '@brightspace-ui/core/components/icons/icon.js';
 import 'd2l-alert/d2l-alert.js';
 
-class DeleteOutcomesPicker extends LocalizedLitElement {
+class UnlinkOutcomesPicker extends LocalizedLitElement {
 	
 	static get properties() {
 		return {
@@ -18,6 +19,7 @@ class DeleteOutcomesPicker extends LocalizedLitElement {
 			loresEndpoint: { type: String, attribute: 'lores-endpoint' },
 			outcomesTerm: { type: String, attribute: 'outcome-term' },
 			noHeader: { type: Boolean, attribute: 'no-header' },
+			valenceHost: { type: String, attribute: 'valence-host' },
 			
 			_dataState: { type: Object },
 			_loading: { type: Boolean },
@@ -60,7 +62,7 @@ class DeleteOutcomesPicker extends LocalizedLitElement {
 				overflow-y: auto;
 			}
 			
-			delete-outcomes-picker-tree {
+			unlink-outcomes-picker-tree {
 				flex-grow: 1;
 				overflow-y: auto;
 				min-height: 200px;
@@ -88,6 +90,7 @@ class DeleteOutcomesPicker extends LocalizedLitElement {
 		this.registryId = null;
 		this.loresEndpoint = null;
 		this.outcomesTerm = 'standards';
+		this.valenceHost = null;
 		this._loading = true;
 		this._errored = false;
 		
@@ -100,6 +103,7 @@ class DeleteOutcomesPicker extends LocalizedLitElement {
 	
 	connectedCallback() {
 		Lores.setEndpoint( this.loresEndpoint );
+		Valence.setHost( this.valenceHost );
 		super.connectedCallback();
 	}
 	
@@ -109,6 +113,20 @@ class DeleteOutcomesPicker extends LocalizedLitElement {
 	
 	_onAlertClosed() {
 		this._errored = false;
+	}
+
+	_onError( err ) {
+		console.error( err );  //eslint-disable-line no-console
+		this._errored = true;
+		this._loading = false;
+	}
+	
+	_outcomeIsCourseLevel( outcome, registrySources ) {
+		return outcome.owner && registrySources[outcome.owner].type === 'course';
+	}
+    
+	_outcomeIsLinked( outcome ) {
+		return outcome.owner && outcome.owner !== this.registryId;
 	}
 	
 	_renderAlert() {
@@ -133,7 +151,7 @@ class DeleteOutcomesPicker extends LocalizedLitElement {
 		}
 		return html`
 			<div class="header">
-				<h1 class="d2l-heading-2">${this.localize('TitleDelete')}</h1>
+				<h1 class="d2l-heading-2">${this.localize('TitleUnlink')}</h1>
 				<div style="flex-grow: 1"></div>
 				<d2l-button-icon
 					icon="d2l-tier3:close-thick"
@@ -169,13 +187,13 @@ class DeleteOutcomesPicker extends LocalizedLitElement {
 				${this._renderHeader()}
 				<div class="body">
 					${this._renderAlert()}
-					<delete-outcomes-picker-tree
+					<unlink-outcomes-picker-tree
 						._dataState="${this._dataState}"
 						@mousedown="${this._suppressEventBehaviour}"
-					></delete-outcomes-picker-tree>
+					></unlink-outcomes-picker-tree>
 				</div>
 				<div class="button-tray">
-					<d2l-button primary @click="${this._delete}">${this.localize('Delete')}</d2l-button>
+					<d2l-button primary @click="${this._unlink}">${this.localize('Unlink')}</d2l-button>
 					<div class="button-spacer"></div>
 					<d2l-button @click="${this._close}">${this.localize('Cancel')}</d2l-button>
 				</div>
@@ -186,8 +204,9 @@ class DeleteOutcomesPicker extends LocalizedLitElement {
 	updated( changedProperties ) {
 		super.updated( changedProperties );
 		if(
-			changedProperties.has( 'loresEndpoint' ) ||
-			changedProperties.has( 'registryId' )
+			changedProperties.has( 'loresEndpoint' )
+			|| changedProperties.has( 'registryId' )
+			|| changedProperties.has( 'valenceHost' )
 		) {
 			this._loading = true;
 			this._errored = false;
@@ -197,61 +216,142 @@ class DeleteOutcomesPicker extends LocalizedLitElement {
 			};
 			
 			Lores.setEndpoint( this.loresEndpoint );
+			Valence.setHost( this.valenceHost );
 			Promise.all([
 				Lores.fetchRegistryAsync( this.registryId ),
-				Lores.getOwnedLockedOutcomesAsync( this.registryId )
+				Lores.getOwnedLockedOutcomesAsync( this.registryId ),
+				Valence.getAlignedOutcomesStatus( this.registryId )
 			]).then( responses => {
+				const registry = responses[0];
+
 				const lockedOutcomes = new Set();
-				responses[1].forEach( outcomeId => lockedOutcomes.add( outcomeId ) );
-				this._dataState.stateNodes = this._buildState( responses[0].objectives, lockedOutcomes, null );
-				this._loading = false;
-			}).catch( err => {
-				console.error( err );  //eslint-disable-line no-console
-				this._errored = true;
-				this._loading = false;
-			});
+				responses[1].forEach( x => lockedOutcomes.add( x ) );
+
+				const assessedOutcomes = new Set();
+				responses[2].forEach( objInfo => {
+					if ( objInfo.HasAssessments ) {
+						assessedOutcomes.add( objInfo.ObjectiveId );
+					}
+				} );
+
+				const outcomeRegistrySet = new Set();
+				const addRegistriesRecursive = function( outcomes ) {
+					outcomes.forEach( outcome => {
+						outcome.owner && outcomeRegistrySet.add( outcome.owner );
+						outcome.children && addRegistriesRecursive( outcome.children );
+					} );
+				};
+				addRegistriesRecursive( registry.objectives );
+
+				Valence.getRegistrySources( Array.from( outcomeRegistrySet ) ).then( sourceData => {
+
+					const registrySources = sourceData.reduce( ( acc, data ) => {
+						const id = data.registry_id;
+						delete data.registry_id;
+						acc[id] = data;
+						return acc;
+					}, {} );
+
+					this._dataState.stateNodes = this._buildState( registry.objectives, lockedOutcomes, assessedOutcomes, registrySources, null );
+					this._loading = false;
+					
+				} ).catch( this._onError.bind( this ) );
+			}).catch( this._onError.bind( this ));
 		}
 
 	}
 	
-	_buildState( outcomes, lockedOutcomes, parent ) {
-		return outcomes.map( outcome => {
+	_buildState( outcomes, lockedOutcomes, assessedOutcomes, registrySources, parent ) {
+		return outcomes.reduce( ( acc, outcome ) => {
 			this._dataState.outcomesMap.set( outcome.id, outcome );
+
+			const isAssessed = !outcome.children.length && assessedOutcomes.has( outcome.id );
+			const isLinked = ( this._outcomeIsLinked( outcome ) && this._outcomeIsCourseLevel( outcome, registrySources ) )
+				|| lockedOutcomes.has( outcome.id );
+			const isLocked = lockedOutcomes.has( outcome.id );
+
 			const stateNode = createNode( TreeBehaviour.CascadesDown, {
 				outcomeId: outcome.id,
 				parent: parent,
 				children: null, // gets set after children are processed
 				checkboxState: CheckboxState.NOT_CHECKED,
-				locked: lockedOutcomes.has( outcome.id )
+				assessed: isAssessed,
+				disabled: isLocked || !isLinked
 			});
-			stateNode.children = this._buildState( outcome.children, lockedOutcomes, stateNode );
-			stateNode.locked |= stateNode.children.some( child => child.locked );
-			return stateNode;
-		});
-	}
-	
-	_buildUpdate( stateNodes ) {
-		const newTrees = [];
-		stateNodes.forEach( node => {
-			if( node.checkboxState !== CheckboxState.CHECKED ) {
-				newTrees.push({
-					id: node.outcomeId,
-					children: this._buildUpdate( node.children )
-				});
+
+			stateNode.children = this._buildState( outcome.children, lockedOutcomes, assessedOutcomes, registrySources, stateNode );
+			stateNode.disabled |= stateNode.children.some( childNode => childNode.disabled );
+			stateNode.hasLinkedDescendant = isLinked || stateNode.children.some( childNode => childNode.hasLinkedDescendant );
+
+			if ( stateNode.hasLinkedDescendant ) {
+				acc.push( stateNode );
 			}
-		});
-		return newTrees;
+
+			return acc;
+		}, []);
+	}
+
+	/**
+	 * Build optimized list of objectiveIds to unlink. If parent is being unlinked, it
+	 * is implied that children are also being unlinked.
+	 */
+	_buildUnlinkList( stateNodes ) {
+		const toUnlink = [];
+
+		stateNodes.forEach( node => {
+			if ( node.checkboxState === CheckboxState.CHECKED ) {
+				toUnlink.push( node.outcomeId );
+			} else if ( node.checkboxState === CheckboxState.PARTIAL ) {
+				this._buildUnlinkList( node.children ).forEach( child => toUnlink.push( child ) );
+			}
+		} );
+
+		return toUnlink;
+	}
+
+	_getAssessedSelected( stateNodes ) {
+		const assessed = [];
+
+		stateNodes.forEach( node => {
+			if ( node.checkboxState === CheckboxState.CHECKED && node.assessed ) {
+				assessed.push( this._dataState.outcomesMap.get( node.outcomeId ) );
+			}
+
+			if ( node.checkboxState !== CheckboxState.NOT_CHECKED ) {
+				this._getAssessedSelected( node.children ).forEach( child => assessed.push( child ) );
+			}
+		} );
+
+		return assessed;
 	}
 	
-	_delete() {
-		//TODO
+	_unlink() {
+		const assessedSelected = this._getAssessedSelected( this._dataState.stateNodes );
+		const toUnlink = this._buildUnlinkList( this._dataState.stateNodes );
+
+		if ( !toUnlink.length ) {
+			this._close();
+			return;
+		}
+
+		this.dispatchEvent(
+			new CustomEvent(
+				'd2l-unlink-outcomes-picker-confirm',
+				{
+					bubbles: false,
+					detail: {
+						unlinkAction: () => Valence.bulkUnlinkOutcomes( this.registryId, toUnlink ),
+						assessedOutcomes: assessedSelected
+					}
+				}
+			)
+		);
 	}
 	
 	_close() {
-		// TODO: include number of outcomes deleted
 		this.dispatchEvent(
 			new CustomEvent(
-				'd2l-outcomes-delete-picker-cancel',
+				'd2l-unlink-outcomes-picker-cancel',
 				{ bubbles: false } 
 			)
 		);
@@ -259,4 +359,4 @@ class DeleteOutcomesPicker extends LocalizedLitElement {
 	
 } 
 
-customElements.define( 'd2l-delete-outcomes-picker', DeleteOutcomesPicker );
+customElements.define( 'd2l-unlink-outcomes-picker', UnlinkOutcomesPicker );

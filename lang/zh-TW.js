@@ -1,5 +1,6 @@
 export default {
     "All": "全部",
+    "Assessed": "Assessed",
     "AvailableItems": "可用項目",
     "AvailableOutcomes": "可用的 {outcome, select, competencies {能力} expectations {預期} objectives {目標} outcomes {成果} standards {標準} other {標準}}",
     "Cancel": "取消",
@@ -30,6 +31,8 @@ export default {
     "Title": "匯入計畫 {outcome, select, competencies {能力} expectations {預期} objectives {目標} outcomes {成果} standards {標準} other {標準}}",
     "TitleASN": "從達成標準網路匯入",
     "TitleDelete": "Select {outcome, select, competencies {competencies} expectations {expectations} objectives {learning objectives} outcomes {learning outcomes} standards {standards} other {standards}} to delete",
+    "TitleUnlink": "Select {outcome, select, competencies {competencies} expectations {expectations} objectives {learning objectives} outcomes {learning outcomes} standards {standards} other {standards}} to unlink from source",
+    "Unlink": "Unlink",
     "WarningDescription1": "您即將移除 {outcome, select, competencies {能力} expectations {預期} objectives {學習目標} outcomes {學習成果} standards {標準} other {標準}}，而下列已撰寫的 {outcome, select, competencies {能力} expectations {預期} objectives {學習目標} outcomes {學習成果} standards {標準} other {標準}} 附加於其中：",
     "WarningDescription2": "您希望如何處理該些已撰寫的 {outcome, select, competencies {能力} expectations {預期} objectives {學習目標} outcomes {學習成果} standards {標準} other {標準}}？",
     "WarningHeader": "移動已撰寫的 {outcome, select, competencies {能力} expectations {預期} objectives {目標} outcomes {成果} standards {標準} other {標準}}？"

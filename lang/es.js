@@ -1,5 +1,6 @@
 export default {
     "All": "Todo",
+    "Assessed": "Assessed",
     "AvailableItems": "Elementos disponibles",
     "AvailableOutcomes": "{outcome, select, competencies {Competencias} expectations {Expectativas} objectives {Objetivos} outcomes {Resultados} standards {Estándares} other {Estándares}} disponibles",
     "Cancel": "Cancelar",
@@ -30,6 +31,8 @@ export default {
     "Title": "Importar programa de {outcome, select, competencies {Competencias} expectations {Expectativas} objectives {Objetivos} outcomes {Resultados} standards {Estándares} other {Estándares}}",
     "TitleASN": "Importar desde la red de estándares de logros",
     "TitleDelete": "Select {outcome, select, competencies {competencies} expectations {expectations} objectives {learning objectives} outcomes {learning outcomes} standards {standards} other {standards}} to delete",
+    "TitleUnlink": "Select {outcome, select, competencies {competencies} expectations {expectations} objectives {learning objectives} outcomes {learning outcomes} standards {standards} other {standards}} to unlink from source",
+    "Unlink": "Unlink",
     "WarningDescription1": "Está a punto de eliminar {outcome, select, competencies {competencias} expectations {expectativas} objectives {objetivos de aprendizaje} outcomes {objetivos de aprendizaje} standards {estándares} other {estándares}} a los que los siguientes {outcome, select, competencies {competencias} expectations {expectativas} objectives {objetivos de aprendizaje} outcomes {objetivos de aprendizaje} standards {estándares} other {estándares}} creados se encuentran adjuntos:",
     "WarningDescription2": "¿Qué le gustaría hacer con {outcome, select, competencies {competencias} expectations {expectativas} objectives {objetivos de aprendizaje} outcomes {objetivos de aprendizaje} standards {estándares} other {estándares}} creados?",
     "WarningHeader": "¿Desea mover {outcome, select, competencies {Competencias} expectations {Expectativas} objectives {Objetivos} outcomes {Resultados} standards {Estándares} other {Estándares}} creados?"

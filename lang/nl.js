@@ -1,5 +1,6 @@
 export default {
     "All": "Alle",
+    "Assessed": "Assessed",
     "AvailableItems": "Beschikbare items",
     "AvailableOutcomes": "Beschikbare {outcome, select, competencies {Competenties} expectations {Verwachtingen} objectives {Doelstellingen} outcomes {Resultaten} standards {Standaarden} other {Standaarden}}",
     "Cancel": "Annuleren",
@@ -30,6 +31,8 @@ export default {
     "Title": "Importeer programma {outcome, select, competencies {Competenties} expectations {Verwachtingen} objectives {Doelstellingen} outcomes {Resultaten} standards {Standaarden} other {Standaarden}}",
     "TitleASN": "Import van Achievement Standards Network",
     "TitleDelete": "Select {outcome, select, competencies {competencies} expectations {expectations} objectives {learning objectives} outcomes {learning outcomes} standards {standards} other {standards}} to delete",
+    "TitleUnlink": "Select {outcome, select, competencies {competencies} expectations {expectations} objectives {learning objectives} outcomes {learning outcomes} standards {standards} other {standards}} to unlink from source",
+    "Unlink": "Unlink",
     "WarningDescription1": "U staat op het punt {outcome, select, competencies {Competenties} expectations {Verwachtingen} objectives {Cursusdoelstellingen} outcomes {Leerresultaten} standards {Standaarden} other {Standaarden}} te verwijderen, waaraan de volgende opgestelde outcome, select, competencies {Competenties} expectations {Verwachtingen} objectives {Cursusdoelstellingen} outcomes {Leerresultaten} standards {Standaarden} other {Standaarden}} zijn verbonden:",
     "WarningDescription2": "Wat wilt u doen met de opgestelde outcome, select, competencies {Competenties} expectations {Verwachtingen} objectives {Cursusdoelstellingen} outcomes {Leerresultaten} standards {Standaarden} other {Standaarden}}?",
     "WarningHeader": "Opgestelde {outcome, select, competencies {Competenties} expectations {Verwachtingen} objectives {Doelstellingen} outcomes {Resultaten} standards {Standaarden} other {Standaarden}} verplaatsen?"

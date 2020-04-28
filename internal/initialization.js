@@ -19,7 +19,7 @@ const initializeAsync = function( dataState, registryId, programRegistryIds ) {
 			}
 		});
 		
-		return Lores.getLockedOutcomesAsync( registryId ).then( lockedOutcomes => {
+		return Lores.getOwnedLockedOutcomesAsync( registryId ).then( lockedOutcomes => {
 			lockedOutcomes.forEach( outcomeId => {
 				let outcomeNode = dataState.mergedProgramForestMap[outcomeId];
 				while( outcomeNode && !outcomeNode.locked ) {

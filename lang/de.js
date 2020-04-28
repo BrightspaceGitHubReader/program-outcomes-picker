@@ -1,5 +1,6 @@
 export default {
     "All": "Alle",
+    "Assessed": "Assessed",
     "AvailableItems": "Verfügbare Elemente",
     "AvailableOutcomes": "Verfügbare {outcome, select, competencies {Kompetenzen} expectations {Erwartungen} objectives {Ziele} outcomes {Ergebnisse} standards {Standards} other {Standards}}",
     "Cancel": "Abbrechen",
@@ -30,6 +31,8 @@ export default {
     "Title": "Programm-{outcome, select, competencies {Kompetenzen} expectations {Erwartungen} objectives {Ziele} outcomes {Ergebnisse} standards {Standards} other {Standards}} importieren.",
     "TitleASN": "Import von Erfolgsstandardnetzwerk",
     "TitleDelete": "Select {outcome, select, competencies {competencies} expectations {expectations} objectives {learning objectives} outcomes {learning outcomes} standards {standards} other {standards}} to delete",
+    "TitleUnlink": "Select {outcome, select, competencies {competencies} expectations {expectations} objectives {learning objectives} outcomes {learning outcomes} standards {standards} other {standards}} to unlink from source",
+    "Unlink": "Unlink",
     "WarningDescription1": "Sie sind dabei, {outcome, select, competencies {Kompetenzen} expectations {Erwartungen} objectives {Ziele} outcomes {Ergebnisse} standards {Standards} other {Standards}} zu entfernen, denen die folgenden verfassten {outcome, select, competencies {Kompetenzen} expectations {Erwartungen} objectives {Ziele} outcomes {Ergebnisse} standards {Standards} other {Standards}} angehängt sind:",
     "WarningDescription2": "Was möchten Sie mit den verfassten {outcome, select, competencies {Kompetenzen} expectations {Erwartungen} objectives {Zielen} outcomes {Ergebnissen} standards {Standards} other {Standards}} tun?",
     "WarningHeader": "Verfasste {outcome, select, competencies {Kompetenzen} expectations {Erwartungen} objectives {Ziele} outcomes {Ergebnisse} standards {Standards} other {Standards}} verschieben?"

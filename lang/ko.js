@@ -1,5 +1,6 @@
 export default {
     "All": "모두",
+    "Assessed": "Assessed",
     "AvailableItems": "사용 가능한 항목",
     "AvailableOutcomes": "{outcome, select, competencies {역량} expectations {기대} objectives {목표} outcomes {결과} standards {표준} other {표준}} 사용가능",
     "Cancel": "취소",
@@ -30,6 +31,8 @@ export default {
     "Title": "{outcome, select, competencies {역량} expectations {기대} objectives {목표} outcomes {결과} standards {표준} other {표준}} 프로그램 가져오기",
     "TitleASN": "성취 표준 네트워크에서 가져오기",
     "TitleDelete": "Select {outcome, select, competencies {competencies} expectations {expectations} objectives {learning objectives} outcomes {learning outcomes} standards {standards} other {standards}} to delete",
+    "TitleUnlink": "Select {outcome, select, competencies {competencies} expectations {expectations} objectives {learning objectives} outcomes {learning outcomes} standards {standards} other {standards}} to unlink from source",
+    "Unlink": "Unlink",
     "WarningDescription1": "이제 다음 승인된 {outcome, select, competencies {역량} expectations {기대} objectives {학습 목표} outcomes {학습 결과} standards {표준} other {표준}}을(를) 제거합니다.",
     "WarningDescription2": "승인된 {outcome, select, competencies {역량} expectations {기대} objectives {학습 목표} outcomes {학습 결과} standards {표준} other {표준}}로 하시겠습니까?",
     "WarningHeader": "승인된 {outcome, select, competencies {역량} expectations {기대} objectives {목표} outcomes {결과} standards {표준} other {표준}}을(를) 이동하시겠습니까?"

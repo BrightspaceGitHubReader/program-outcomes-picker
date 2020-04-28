@@ -62,12 +62,18 @@ export default {
 		});
 	},
 	
-	getLockedOutcomesAsync: function( registryId ) {
+	getOwnedLockedOutcomesAsync: function( registryId ) {
+		return this.getLockedOutcomesAsync( registryId, 'owned' );
+	},
+
+	getLockedOutcomesAsync: function( registryId, filter ) {
+		filter = filter || 'all';
+
 		if( !endpoint ) {
 			return Promise.reject( 'Lores endpoint not set.' );
 		}
 		
-		return sendRequest( 'GET', `${endpoint}api/lores/1.0/registries/${registryId}/locked_objectives?filter=owned`, {
+		return sendRequest( 'GET', `${endpoint}api/lores/1.0/registries/${registryId}/locked_objectives?filter=${filter}`, {
 			authScope: Scopes.READ,
 			expectJson: true
 		}).catch( exception => {

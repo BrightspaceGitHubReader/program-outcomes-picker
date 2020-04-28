@@ -135,7 +135,7 @@ Lores.createOutcomesAsync = function( orgUnitId, sourceData ) {
 	);
 };
 
-Lores.getLockedOutcomesAsync = function( registryId ) {
+Lores.getOwnedLockedOutcomesAsync = function( registryId ) {
 	if( registryId !== MOCK_REGISTRY.id ) {
 		return delayedSuccess( [] );
 	}
