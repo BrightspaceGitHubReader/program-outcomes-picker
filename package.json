@@ -1,6 +1,6 @@
 {
   "name": "d2l-program-outcomes-picker",
-  "version": "3.1.0",
+  "version": "3.1.1",
   "scripts": {
     "lang:build": "lang-build -edc langtools/config.json",
     "lang:copy": "lang-copy -svc langtools/config.json",
@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@brightspace-ui/core": "^1.43.2",
-    "d2l-alert": "BrightspaceUI/alert#semver:4.13.0",
+    "d2l-alert": "BrightspaceUI/alert#semver:4.14.1",
     "lit-element": "^2.2.1"
   },
   "devDependencies": {
