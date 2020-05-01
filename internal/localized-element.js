@@ -14,7 +14,7 @@ import pt from '../lang/pt.js';
 import sv from '../lang/sv.js';
 import tr from '../lang/tr.js';
 import zh from '../lang/zh.js';
-import zhTW from '../lang/zh-TW.js';
+import zhTW from '../lang/zh-tw.js';
 
 const FALLBACK_LANGUAGE = 'en';
 const translations = {
