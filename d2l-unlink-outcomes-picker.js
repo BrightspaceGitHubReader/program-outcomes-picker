@@ -90,7 +90,7 @@ class UnlinkOutcomesPicker extends LocalizedLitElement {
 		this.registryId = null;
 		this.loresEndpoint = null;
 		this.outcomesTerm = 'standards';
-		this.valenceHost = null;
+		this.valenceHost = window.location.origin;
 		this._loading = true;
 		this._errored = false;
 		
