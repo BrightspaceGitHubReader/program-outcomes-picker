@@ -30,7 +30,7 @@
    "Subject" : "Objet",
    "Title" : "Importer les {outcome, select, competencies {compétences} expectations {attentes} objectives {objectifs} outcomes {résultats} standards {normes} other {normes}} du programme",
    "TitleASN" : "Importer depuis ASN (Achievement Standards Network)",
-   "TitleDelete" : "Sélectionner les {{outcome, select, competencies {compétences} expectations {attentes} objectives {objectifs d'apprentissage} outcomes {résultats d'apprentissage} standards {normes} other {normes}} à supprimer",
+   "TitleDelete" : "Sélectionner les {outcome, select, competencies {compétences} expectations {attentes} objectives {objectifs d'apprentissage} outcomes {résultats d'apprentissage} standards {normes} other {normes}} à supprimer",
    "TitleUnlink" : "Select {outcome, select, competencies {competencies} expectations {expectations} objectives {learning objectives} outcomes {learning outcomes} standards {standards} other {standards}} to unlink from source",
    "Unlink" : "Unlink",
    "WarningDescription1" : "Vous êtes sur le point de supprimer le/la {outcome, select, competencies {compétences} expectations {attentes} objectives {objectifs} outcomes {résultats} standards {normes} other {normes}}, mais les {outcome, select, competencies {compétences} expectations {attentes} objectives {objectifs} outcomes {résultats} standards {normes} other {normes}} déjà créés y sont joints :",
