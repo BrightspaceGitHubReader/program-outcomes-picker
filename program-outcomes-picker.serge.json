@@ -4,6 +4,7 @@
 	"output_file_path": "serge/%LANG%.json",
 	"output_lang_rewrite": [
 		"ar-sa ar",
+		"da-dk da",
 		"de-de de",
 		"es-mx es",
 		"fr-ca fr",
@@ -15,6 +16,6 @@
 		"sv-se sv",
 		"tr-tr tr",
 		"zh-cn zh",
-		"zh-TW zh-TW"
+		"zh-tw zh-tw"
 	]
 }
