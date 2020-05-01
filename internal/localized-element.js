@@ -2,6 +2,7 @@ import { LitElement } from 'lit-element/lit-element.js';
 import { LocalizeMixin } from '@brightspace-ui/core/mixins/localize-mixin.js';
 
 import ar from '../lang/ar.js';
+import da from '../lang/da.js';
 import de from '../lang/de.js';
 import en from '../lang/en.js';
 import es from '../lang/es.js';
@@ -19,6 +20,7 @@ import zhTW from '../lang/zh-tw.js';
 const FALLBACK_LANGUAGE = 'en';
 const translations = {
 	ar: ar,
+	da: da,
 	de: de,
 	en: en,
 	es: es,
