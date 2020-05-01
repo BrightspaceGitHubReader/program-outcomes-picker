@@ -3,6 +3,7 @@ import { heading2Styles } from '@brightspace-ui/core/components/typography/style
 import { createNode, TreeBehaviour } from './internal/selection-state-node.js';
 import { CheckboxState } from './internal/enums.js';
 import Lores from './internal/lores.js';
+import Valence from './internal/valence.js';
 import LocalizedLitElement from './internal/localized-element.js';
 import './internal/delete-outcomes-picker-tree.js';
 import './internal/orphaned-outcomes-warning.js';
@@ -18,6 +19,7 @@ class DeleteOutcomesPicker extends LocalizedLitElement {
 			loresEndpoint: { type: String, attribute: 'lores-endpoint' },
 			outcomesTerm: { type: String, attribute: 'outcome-term' },
 			noHeader: { type: Boolean, attribute: 'no-header' },
+			valenceHost: { type: String, attribute: 'valence-host' },
 			
 			_dataState: { type: Object },
 			_loading: { type: Boolean },
@@ -88,6 +90,7 @@ class DeleteOutcomesPicker extends LocalizedLitElement {
 		this.registryId = null;
 		this.loresEndpoint = null;
 		this.outcomesTerm = 'standards';
+		this.valenceHost = window.location.origin;
 		this._loading = true;
 		this._errored = false;
 		
@@ -100,6 +103,7 @@ class DeleteOutcomesPicker extends LocalizedLitElement {
 	
 	connectedCallback() {
 		Lores.setEndpoint( this.loresEndpoint );
+		Valence.setHost( this.valenceHost );
 		super.connectedCallback();
 	}
 	
@@ -175,7 +179,7 @@ class DeleteOutcomesPicker extends LocalizedLitElement {
 					></delete-outcomes-picker-tree>
 				</div>
 				<div class="button-tray">
-					<d2l-button primary @click="${this._delete}">${this.localize('Delete')}</d2l-button>
+					<d2l-button primary @click="${this._confirmDelete}">${this.localize('Delete')}</d2l-button>
 					<div class="button-spacer"></div>
 					<d2l-button @click="${this._close}">${this.localize('Cancel')}</d2l-button>
 				</div>
@@ -187,7 +191,8 @@ class DeleteOutcomesPicker extends LocalizedLitElement {
 		super.updated( changedProperties );
 		if(
 			changedProperties.has( 'loresEndpoint' ) ||
-			changedProperties.has( 'registryId' )
+			changedProperties.has( 'registryId' ) ||
+			changedProperties.has( 'valenceHost' )
 		) {
 			this._loading = true;
 			this._errored = false;
@@ -197,13 +202,17 @@ class DeleteOutcomesPicker extends LocalizedLitElement {
 			};
 			
 			Lores.setEndpoint( this.loresEndpoint );
+			Valence.setHost( this.valenceHost );
 			Promise.all([
 				Lores.fetchRegistryAsync( this.registryId ),
-				Lores.getOwnedLockedOutcomesAsync( this.registryId )
+				Lores.getOwnedLockedOutcomesAsync( this.registryId ),
+				Valence.getAlignedOutcomesStatus( this.registryId )
 			]).then( responses => {
 				const lockedOutcomes = new Set();
+				const assessedOutcomes = new Set();
 				responses[1].forEach( outcomeId => lockedOutcomes.add( outcomeId ) );
-				this._dataState.stateNodes = this._buildState( responses[0].objectives, lockedOutcomes, null );
+				responses[2].forEach( info => info.HasAssessments && assessedOutcomes.add( info.ObjectiveId ) );
+				this._dataState.stateNodes = this._buildState( responses[0].objectives, lockedOutcomes, assessedOutcomes, null );
 				this._loading = false;
 			}).catch( err => {
 				console.error( err );  //eslint-disable-line no-console
@@ -214,7 +223,7 @@ class DeleteOutcomesPicker extends LocalizedLitElement {
 
 	}
 	
-	_buildState( outcomes, lockedOutcomes, parent ) {
+	_buildState( outcomes, lockedOutcomes, assessedOutcomes, parent ) {
 		return outcomes.map( outcome => {
 			this._dataState.outcomesMap.set( outcome.id, outcome );
 			const stateNode = createNode( TreeBehaviour.CascadesDown, {
@@ -222,37 +231,72 @@ class DeleteOutcomesPicker extends LocalizedLitElement {
 				parent: parent,
 				children: null, // gets set after children are processed
 				checkboxState: CheckboxState.NOT_CHECKED,
-				locked: lockedOutcomes.has( outcome.id )
+				locked: lockedOutcomes.has( outcome.id ),
+				assessed: assessedOutcomes.has( outcome.id )
 			});
-			stateNode.children = this._buildState( outcome.children, lockedOutcomes, stateNode );
-			stateNode.locked |= stateNode.children.some( child => child.locked );
+			stateNode.children = this._buildState( outcome.children, lockedOutcomes, assessedOutcomes, stateNode );
+			stateNode.disabled = stateNode.locked || stateNode.assessed || stateNode.children.some( child => child.disabled );
 			return stateNode;
 		});
 	}
 	
-	_buildUpdate( stateNodes ) {
-		const newTrees = [];
+	_buildUpdate( stateNodes, /*out*/ updateJson ) {
+		let numDeleted = 0;
 		stateNodes.forEach( node => {
-			if( node.checkboxState !== CheckboxState.CHECKED ) {
-				newTrees.push({
-					id: node.outcomeId,
-					children: this._buildUpdate( node.children )
-				});
+			if( node.checkboxState === CheckboxState.CHECKED ) {
+				numDeleted += this._getTreeSize( node );
+				return;
 			}
+			
+			const updateNode = {
+				id: node.outcomeId,
+				children: []
+			};
+			numDeleted += this._buildUpdate( node.children, updateNode.children );
+			updateJson.push( updateNode );
 		});
-		return newTrees;
+		return numDeleted;
 	}
 	
-	_delete() {
-		//TODO
+	_getTreeSize( node ) {
+		return node.children.reduce( (count, child) => count + this._getTreeSize( child ), 1 );
+	}
+	
+	_deleteAsync( registryId, updateJson ) {
+		this._loading = true;
+		return Lores.updateRegistryAsync( registryId, updateJson ).then( () => {
+			this._loading = false;
+		}).catch( err => {
+			this._loading = false;
+			this._errored = true;
+			throw err;
+		});
+	}
+	
+	_confirmDelete() {
+		const registryId = this.registryId;
+		const updateJson = [];
+		const numDeleted = this._buildUpdate( this._dataState.stateNodes, updateJson );
+		
+		this.dispatchEvent(
+			new CustomEvent(
+				'd2l-outcomes-delete-picker-delete',
+				{
+					bubbles: false,
+					detail: {
+						deleteAction: this._deleteAsync.bind( this, registryId, updateJson ),
+						numOutcomesToDelete: numDeleted
+					}
+				} 
+			)
+		);
 	}
 	
 	_close() {
-		// TODO: include number of outcomes deleted
 		this.dispatchEvent(
 			new CustomEvent(
 				'd2l-outcomes-delete-picker-cancel',
-				{ bubbles: false } 
+				{ bubbles: false }
 			)
 		);
 	}

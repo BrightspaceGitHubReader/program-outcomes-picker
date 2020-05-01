@@ -23,7 +23,7 @@
     "eslint-plugin-lit": "^1.2.0",
     "eslint-plugin-sort-class-members": "^1.6.0",
     "open-cli": "^5.0.0",
-    "parallelshell": "^3.0.2",
+    "@clarencep/parallelshell": "^3.0.4",
     "polymer-cli": "^1.9.5",
     "sleep-ms": "^2.0.1"
   }
