@@ -72,6 +72,12 @@ class UnlinkOutcomesPicker extends LocalizedLitElement {
 				border-top: 1px solid var(--d2l-color-mica);
 				padding: 11px 40px;
 			}
+
+			.no-header .body,
+			.no-header .button-tray {
+				padding-left: 0px;
+				padding-right: 0px;
+			}
 			
 			.button-spacer {
 				display: inline-block;
@@ -181,9 +187,17 @@ class UnlinkOutcomesPicker extends LocalizedLitElement {
 				</div>
 			`;
 		}
+
+		const mainClasses = [
+			'main'
+		];
+
+		if( this.noHeader ) {
+			mainClasses.push( 'no-header' );
+		}
 		
 		return html`
-			<div class="main">
+			<div class="${mainClasses.join(' ')}">
 				${this._renderHeader()}
 				<div class="body">
 					${this._renderAlert()}
@@ -336,11 +350,11 @@ class UnlinkOutcomesPicker extends LocalizedLitElement {
 
 		this.dispatchEvent(
 			new CustomEvent(
-				'd2l-unlink-outcomes-picker-confirm',
+				'd2l-unlink-outcomes-picker-import',
 				{
 					bubbles: false,
 					detail: {
-						unlinkAction: () => Valence.bulkUnlinkOutcomes( this.registryId, toUnlink ),
+						unlink: toUnlink,
 						assessedOutcomes: assessedSelected
 					}
 				}
