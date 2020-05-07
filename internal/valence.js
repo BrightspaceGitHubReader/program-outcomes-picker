@@ -11,14 +11,6 @@ export default {
 			host += '/';
 		}
 	},
-    
-	bulkUnlinkOutcomes: function( registryId, outcomeIds ) {
-		return sendRequest( 'POST', `${host}d2l/api/le/lo/registry/${registryId}/bulkDetach`, {
-			authScope: scope,
-			expectJson: true,
-			requestBodyJson: outcomeIds
-		} );
-	},
 
 	getAlignedOutcomesStatus: function( registryId ) {
 		return sendRequest( 'GET', `${host}d2l/api/le/lo/registry/${registryId}/alignedOutcomesStatus`, {
