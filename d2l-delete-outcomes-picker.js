@@ -280,11 +280,12 @@ class DeleteOutcomesPicker extends LocalizedLitElement {
 		
 		this.dispatchEvent(
 			new CustomEvent(
-				'd2l-outcomes-delete-picker-delete',
+				'd2l-outcomes-delete-picker-import',
 				{
 					bubbles: false,
 					detail: {
 						deleteAction: this._deleteAsync.bind( this, registryId, updateJson ),
+						newRegistry: updateJson,
 						numOutcomesToDelete: numDeleted
 					}
 				} 
