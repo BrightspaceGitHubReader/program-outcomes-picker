@@ -21,6 +21,7 @@
     "Import": "Ausgewählte {outcome, select, competencies {Kompetenzen} expectations {Erwartungen} objectives {Ziele} outcomes {Ergebnisse} standards {Standards} other {Standards}} importieren",
     "Jurisdiction": "Zuständigkeit",
     "MoveOrphanedOutcomes": "Ins Stammverzeichnis verschieben",
+    "NumSelected": "{num} selected",
     "ProgramOutcomes": "Programm-{outcome, select, competencies {Kompetenzen} expectations {Erwartungen} objectives {Ziele} outcomes {Ergebnisse} standards {Standards} other {Standards}}",
     "SelectEducationLevel": "Ausbildungsstand auswählen",
     "SelectFilters": "Bitte treffen eine Auswahl aus den Filteroptionen, um die verfügbaren Elemente zu sehen.",

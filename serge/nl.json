@@ -21,6 +21,7 @@
     "Import": "Importeer geselecteerde {outcome, select, competencies {Competenties} expectations {Verwachtingen} objectives {Doelstellingen} outcomes {Resultaten} standards {Standaarden} other {Standaarden}}",
     "Jurisdiction": "Rechtsgebied",
     "MoveOrphanedOutcomes": "Verplaatsen naar Hoofdmap",
+    "NumSelected": "{num} selected",
     "ProgramOutcomes": "Programma {outcome, select, competencies {Competenties} expectations {Verwachtingen} objectives {Doelstellingen} outcomes {Resultaten} standards {Standaarden} other {Standaarden}}",
     "SelectEducationLevel": "Opleidingsniveau selecteren",
     "SelectFilters": "Selecteer een van de filteropties om te zien welke items beschikbaar zijn",
