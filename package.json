@@ -1,6 +1,6 @@
 {
   "name": "d2l-program-outcomes-picker",
-  "version": "3.2.2",
+  "version": "3.2.3",
   "scripts": {
     "lang:build": "lang-build -edc langtools/config.json",
     "lang:copy": "lang-copy -svc langtools/config.json",
