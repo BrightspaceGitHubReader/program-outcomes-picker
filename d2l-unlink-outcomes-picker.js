@@ -23,7 +23,8 @@ class UnlinkOutcomesPicker extends LocalizedLitElement {
 			
 			_dataState: { type: Object },
 			_loading: { type: Boolean },
-			_errored: { type: Boolean }
+			_errored: { type: Boolean },
+			_numSelected: { type: Number }
 		};
 	}
 	
@@ -69,7 +70,9 @@ class UnlinkOutcomesPicker extends LocalizedLitElement {
 			}
 			
 			.button-tray {
+				align-items: center;
 				border-top: 1px solid var(--d2l-color-mica);
+				display: flex;
 				padding: 11px 40px;
 			}
 
@@ -82,6 +85,12 @@ class UnlinkOutcomesPicker extends LocalizedLitElement {
 			.button-spacer {
 				display: inline-block;
 				width: 13px;
+			}
+
+			#selection-indicator {
+				flex-grow: 1;
+				font-size: var(--d2l-body-compact-text_-_font-size);
+				text-align: end;
 			}
 		`;
 		
@@ -99,12 +108,14 @@ class UnlinkOutcomesPicker extends LocalizedLitElement {
 		this.valenceHost = window.location.origin;
 		this._loading = true;
 		this._errored = false;
+		this._numSelected = 0;
 		
 		this._dataState = {
 			outcomesMap: new Map(),
 			stateNodes: []
 		};
 		
+		this.addEventListener('d2l-outcome-selection-state-changed', this._onSelectionStateChanged.bind(this));
 	}
 	
 	connectedCallback() {
@@ -112,9 +123,24 @@ class UnlinkOutcomesPicker extends LocalizedLitElement {
 		Valence.setHost( this.valenceHost );
 		super.connectedCallback();
 	}
+
+	_computeNumSelected() {
+		const countSelectedRecursive = (stateNode) => {
+			let count = 0;
+
+			if (stateNode.checkboxState === CheckboxState.CHECKED) {
+				count++;
+			}
+
+			return stateNode.children.reduce((cur, child) => cur + countSelectedRecursive(child), count);
+		};
+
+		return this._dataState.stateNodes.reduce((cur, node) => cur + countSelectedRecursive(node), 0);
+	}
 	
-	localize( term ) {
-		return super.localize( term, { outcome: this.outcomesTerm } );
+	localize( term, extra ) {
+		extra = Object.assign({ outcome: this.outcomesTerm }, extra);
+		return super.localize( term, extra );
 	}
 	
 	_onAlertClosed() {
@@ -125,6 +151,10 @@ class UnlinkOutcomesPicker extends LocalizedLitElement {
 		console.error( err );  //eslint-disable-line no-console
 		this._errored = true;
 		this._loading = false;
+	}
+
+	_onSelectionStateChanged() {
+		this._numSelected = this._computeNumSelected();
 	}
 	
 	_outcomeIsCourseLevel( outcome, registrySources ) {
@@ -165,6 +195,16 @@ class UnlinkOutcomesPicker extends LocalizedLitElement {
 					@click="${this._close}"
 				></d2l-button-icon>
 			</div>
+		`;
+	}
+
+	_renderSelected() {
+		if (this._numSelected === 0) {
+			return '';
+		}
+
+		return html`
+			<div id="selection-indicator">${this.localize('NumSelected', { 'num': this._numSelected })}</div>
 		`;
 	}
 	
@@ -210,6 +250,7 @@ class UnlinkOutcomesPicker extends LocalizedLitElement {
 					<d2l-button primary @click="${this._unlink}">${this.localize('Unlink')}</d2l-button>
 					<div class="button-spacer"></div>
 					<d2l-button @click="${this._close}">${this.localize('Cancel')}</d2l-button>
+					${this._renderSelected()}
 				</div>
 			</div>
 		`;
