@@ -21,6 +21,7 @@ export default {
     "Import": "Seçilenleri İçe Aktar {outcome, select, competencies {Yeterlikler} expectations {Beklentiler} objectives {Hedefler} outcomes {Kazanımlar} standards {Standartlar} other {Standartlar}}",
     "Jurisdiction": "Yetki Alanı",
     "MoveOrphanedOutcomes": "Köke Taşı",
+    "NumSelected": "{num} selected",
     "ProgramOutcomes": "Program {outcome, select, competencies {Yeterlikler} expectations {Beklentiler} objectives {Hedefler} outcomes {Kazanımlar} standards {Standartlar} other {Standartlar}}",
     "SelectEducationLevel": "Eğitim Seviyesini Seç",
     "SelectFilters": "Mevcut öğeleri görmek için lütfen filtreleme seçeneklerinden birini belirleyin",

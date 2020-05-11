@@ -21,6 +21,7 @@ export default {
     "Import": "Import Selected {outcome, select, competencies {Competencies} expectations {Expectations} objectives {Objectives} outcomes {Outcomes} standards {Standards} other {Standards}}",
     "Jurisdiction": "Jurisdiksjon",
     "MoveOrphanedOutcomes": "Move to Root",
+    "NumSelected": "{num} selected",
     "ProgramOutcomes": "Program {outcome, select, competencies {Competencies} expectations {Expectations} objectives {Objectives} outcomes {Outcomes} standards {Standards} other {Standards}}",
     "SelectEducationLevel": "Velg utdanningsnivå",
     "SelectFilters": "Please select from the filtering options to see the items that are available",

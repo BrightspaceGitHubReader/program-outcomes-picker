@@ -296,6 +296,16 @@ class OutcomeTreeNode extends LocalizedLitElement {
 			document.body.appendChild( notification );
 			setTimeout( () => document.body.removeChild( notification ), 500 );
 		}
+
+		this.dispatchEvent(
+			new CustomEvent(
+				'd2l-outcome-selection-state-changed',
+				{
+					bubbles: true,
+					composed: true
+				}
+			)
+		);
 	}
 	
 	_hasChildren() {

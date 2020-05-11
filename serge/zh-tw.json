@@ -21,6 +21,7 @@
     "Import": "匯入選取的 {outcome, select, competencies {能力} expectations {預期} objectives {目標} outcomes {成果} standards {標準} other {標準}}",
     "Jurisdiction": "司法管轄區",
     "MoveOrphanedOutcomes": "移至根目錄",
+    "NumSelected": "{num} selected",
     "ProgramOutcomes": "計畫 {outcome, select, competencies {能力} expectations {預期} objectives {目標} outcomes {成果} standards {標準} other {標準}}",
     "SelectEducationLevel": "選取教育程度",
     "SelectFilters": "請從篩選選項中選擇，以查看可用的項目",

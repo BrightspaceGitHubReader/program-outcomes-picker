@@ -21,6 +21,7 @@
     "Import": "استيراد {outcome, select, competencies {الكفاءات} expectations {التوقعات} objectives {الأهداف} outcomes {النتائج} standards {المعايير} other {المعايير}} المحددة",
     "Jurisdiction": "الاختصاص القضائي",
     "MoveOrphanedOutcomes": "نقل إلى الجذر",
+    "NumSelected": "{num} selected",
     "ProgramOutcomes": "{outcome, select, competencies {الكفاءات} expectations {التوقعات} objectives {الأهداف} outcomes {النتائج} standards {المعايير} other {المعايير}} الخاصة بالبرنامج",
     "SelectEducationLevel": "تحديد مستوى التعليم",
     "SelectFilters": "يُرجى تحديد خيار من خيارات التصفية للاطّلاع على العناصر المتوفرة",

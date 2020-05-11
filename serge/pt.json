@@ -21,6 +21,7 @@
     "Import": "Importar {outcome, select, competencies {Competências} expectations {Expectativas} objectives {Objetivos} outcomes {Resultados} standards {Padrões} other {Padrões}} selecionados(as)",
     "Jurisdiction": "Jurisdição",
     "MoveOrphanedOutcomes": "Mover para Raiz",
+    "NumSelected": "{num} selected",
     "ProgramOutcomes": "{outcome, select, competencies {Competências} expectations {Expectativas} objectives {Objetivos} outcomes {Resultados} standards {Padrões} other {Padrões}} do programa",
     "SelectEducationLevel": "Selecionar Nível de instrução",
     "SelectFilters": "Selecione uma das opções de filtragem para ver os itens que estão disponíveis",
