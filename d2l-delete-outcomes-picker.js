@@ -280,7 +280,7 @@ class DeleteOutcomesPicker extends LocalizedLitElement {
 		
 		this.dispatchEvent(
 			new CustomEvent(
-				'd2l-outcomes-delete-picker-import',
+				'd2l-delete-outcomes-picker-import',
 				{
 					bubbles: false,
 					detail: {
@@ -296,7 +296,7 @@ class DeleteOutcomesPicker extends LocalizedLitElement {
 	_close() {
 		this.dispatchEvent(
 			new CustomEvent(
-				'd2l-outcomes-delete-picker-cancel',
+				'd2l-delete-outcomes-picker-cancel',
 				{ bubbles: false }
 			)
 		);
