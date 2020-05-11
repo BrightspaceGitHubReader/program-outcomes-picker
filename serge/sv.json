@@ -21,6 +21,7 @@
     "Import": "Importera valda {outcome, select, competencies {Kompetenser} expectations {Förväntningar} objectives {Mål} outcomes {Resultat} standards {Standarder} other {Standarder}}",
     "Jurisdiction": "Jurisdiktion",
     "MoveOrphanedOutcomes": "Flytta till rot",
+    "NumSelected": "{num} selected",
     "ProgramOutcomes": "Program {outcome, select, competencies {Kompetenser} expectations {Förväntningar} objectives {Mål} outcomes {Resultat} standards {Standarder} other {Standarder}}",
     "SelectEducationLevel": "Välj utbildningsnivå",
     "SelectFilters": "Välj bland filtreringsalternativen för att se de objekt som finns tillgängliga",

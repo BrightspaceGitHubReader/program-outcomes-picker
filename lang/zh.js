@@ -21,6 +21,7 @@ export default {
     "Import": "导入所选 {outcome, select, competencies {能力} expectations {预期} objectives {目标} outcomes {成果} standards {标准} other {标准}}",
     "Jurisdiction": "司法管辖区",
     "MoveOrphanedOutcomes": "移到根",
+    "NumSelected": "{num} selected",
     "ProgramOutcomes": "程序 {outcome, select, competencies {能力} expectations {预期} objectives {目标} outcomes {成果} standards {标准} other {标准}}",
     "SelectEducationLevel": "选择教育水平",
     "SelectFilters": "请选择筛选选项以查看可用项目",

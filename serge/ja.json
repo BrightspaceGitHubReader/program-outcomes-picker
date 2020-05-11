@@ -21,6 +21,7 @@
     "Import": "選択した {outcome, select, competencies {コンピテンシ} expectations {期待} objectives {目的} outcomes {結果} standards {標準} other {標準}}のインポート",
     "Jurisdiction": "権利",
     "MoveOrphanedOutcomes": "ルートに移動",
+    "NumSelected": "{num} selected",
     "ProgramOutcomes": "{outcome, select, competencies {コンピテンシ} expectations {期待} objectives {目的} outcomes {結果} standards {標準} other {標準}}のプログラム",
     "SelectEducationLevel": "教育レベルの選択",
     "SelectFilters": "フィルタリングオプションから選択して、使用可能な項目を表示してください",
