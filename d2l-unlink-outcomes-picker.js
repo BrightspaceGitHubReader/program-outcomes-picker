@@ -126,6 +126,10 @@ class UnlinkOutcomesPicker extends LocalizedLitElement {
 
 	_computeNumSelected() {
 		const countSelectedRecursive = (stateNode) => {
+			if (stateNode.checkboxState === CheckboxState.NOT_CHECKED) {
+				return 0;
+			}
+
 			let count = 0;
 
 			if (stateNode.checkboxState === CheckboxState.CHECKED) {
