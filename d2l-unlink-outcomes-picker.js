@@ -157,7 +157,8 @@ class UnlinkOutcomesPicker extends LocalizedLitElement {
 		this._loading = false;
 	}
 
-	_onSelectionStateChanged() {
+	_onSelectionStateChanged(e) {
+		e.stopPropagation();
 		this._numSelected = this._computeNumSelected();
 	}
 	
