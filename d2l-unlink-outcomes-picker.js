@@ -143,7 +143,7 @@ class UnlinkOutcomesPicker extends LocalizedLitElement {
 	}
 	
 	localize( term, extra ) {
-		extra = Object.assign({}, { outcome: this.outcomesTerm }, extra);
+		extra = Object.assign({ outcome: this.outcomesTerm }, extra);
 		return super.localize( term, extra );
 	}
 	

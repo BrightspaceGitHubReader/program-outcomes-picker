@@ -120,7 +120,7 @@ class DeleteOutcomesPicker extends LocalizedLitElement {
 	localize( term, params ) {
 		return super.localize(
 			term,
-			Object.assign( {}, { outcome: this.outcomesTerm }, params || {} )
+			Object.assign( { outcome: this.outcomesTerm }, params || {} )
 		);
 	}
 	
