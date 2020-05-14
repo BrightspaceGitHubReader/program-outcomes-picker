@@ -131,11 +131,15 @@ class DeleteOutcomesPicker extends LocalizedLitElement {
 	_countSelected( event ) {
 		const countRecursive = function( nodes ) {
 			return nodes.reduce( (count, node) => {
-				if( node.checkboxState === CheckboxState.NOT_CHECKED ) {
-					return count;
-				} else {
-					const isLeaf = !node.children.length;
-					return count + (isLeaf ? 1 : 0) + countRecursive( node.children );
+				switch( node.checkboxState ) {
+					case CheckboxState.NOT_CHECKED:
+						return count;
+					case CheckboxState.PARTIAL:
+						return count + countRecursive( node.children );
+					case CheckboxState.CHECKED:
+						return count + 1 + countRecursive( node.children );
+					default:
+						throw new Error( 'Invalid CheckboxState enum value' );
 				}
 			}, 0 );
 		};
