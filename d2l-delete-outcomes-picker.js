@@ -23,7 +23,8 @@ class DeleteOutcomesPicker extends LocalizedLitElement {
 			
 			_dataState: { type: Object },
 			_loading: { type: Boolean },
-			_errored: { type: Boolean }
+			_errored: { type: Boolean },
+			_numSelected: { type: Number, value: 0 }
 		};
 	}
 	
@@ -71,11 +72,19 @@ class DeleteOutcomesPicker extends LocalizedLitElement {
 			.button-tray {
 				border-top: 1px solid var(--d2l-color-mica);
 				padding: 11px 40px;
+				display: flex;
 			}
 			
 			.button-spacer {
 				display: inline-block;
 				width: 13px;
+			}
+			
+			#selection-indicator {
+				flex-grow: 1;
+				font-size: var(--d2l-body-compact-text_-_font-size);
+				text-align: end;
+				align-self: center;
 			}
 		`;
 		
@@ -99,6 +108,7 @@ class DeleteOutcomesPicker extends LocalizedLitElement {
 			stateNodes: []
 		};
 		
+		this.addEventListener( 'd2l-outcome-selection-state-changed', this._countSelected.bind( this ) );
 	}
 	
 	connectedCallback() {
@@ -107,12 +117,29 @@ class DeleteOutcomesPicker extends LocalizedLitElement {
 		super.connectedCallback();
 	}
 	
-	localize( term ) {
-		return super.localize( term, { outcome: this.outcomesTerm } );
+	localize( term, params ) {
+		return super.localize(
+			term,
+			Object.assign( {}, { outcome: this.outcomesTerm }, params || {} )
+		);
 	}
 	
 	_onAlertClosed() {
 		this._errored = false;
+	}
+	
+	_countSelected( event ) {
+		const countRecursive = function( nodes ) {
+			return nodes.reduce( (count, node) => {
+				if( node.checkboxState === CheckboxState.NOT_CHECKED ) {
+					return count;
+				} else {
+					return count + 1 + countRecursive( node.children );
+				}
+			}, 0 );
+		};
+		this._numSelected = countRecursive( this._dataState.stateNodes );
+		event.stopPropagation();
 	}
 	
 	_renderAlert() {
@@ -146,6 +173,15 @@ class DeleteOutcomesPicker extends LocalizedLitElement {
 				></d2l-button-icon>
 			</div>
 		`;
+	}
+	
+	_renderSelectCount() {
+		if( !this._numSelected ) {
+			return '';
+		}
+		
+		const countString = this.localize('NumSelected', { 'num': this._numSelected });
+		return html`<span id="selection-indicator">${countString}</span>`;
 	}
 	
 	_suppressEventBehaviour( event ) {
@@ -182,6 +218,7 @@ class DeleteOutcomesPicker extends LocalizedLitElement {
 					<d2l-button primary @click="${this._confirmDelete}">${this.localize('Delete')}</d2l-button>
 					<div class="button-spacer"></div>
 					<d2l-button @click="${this._close}">${this.localize('Cancel')}</d2l-button>
+					${this._renderSelectCount()}
 				</div>
 			</div>
 		`;
