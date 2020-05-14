@@ -134,7 +134,8 @@ class DeleteOutcomesPicker extends LocalizedLitElement {
 				if( node.checkboxState === CheckboxState.NOT_CHECKED ) {
 					return count;
 				} else {
-					return count + 1 + countRecursive( node.children );
+					const isLeaf = !node.children.length;
+					return count + (isLeaf ? 1 : 0) + countRecursive( node.children );
 				}
 			}, 0 );
 		};
@@ -278,10 +279,8 @@ class DeleteOutcomesPicker extends LocalizedLitElement {
 	}
 	
 	_buildUpdate( stateNodes, /*out*/ updateJson ) {
-		let numDeleted = 0;
 		stateNodes.forEach( node => {
 			if( node.checkboxState === CheckboxState.CHECKED ) {
-				numDeleted += this._getTreeSize( node );
 				return;
 			}
 			
@@ -289,14 +288,9 @@ class DeleteOutcomesPicker extends LocalizedLitElement {
 				id: node.outcomeId,
 				children: []
 			};
-			numDeleted += this._buildUpdate( node.children, updateNode.children );
+			this._buildUpdate( node.children, updateNode.children );
 			updateJson.push( updateNode );
 		});
-		return numDeleted;
-	}
-	
-	_getTreeSize( node ) {
-		return node.children.reduce( (count, child) => count + this._getTreeSize( child ), 1 );
 	}
 	
 	_deleteAsync( registryId, updateJson ) {
@@ -312,8 +306,10 @@ class DeleteOutcomesPicker extends LocalizedLitElement {
 	
 	_confirmDelete() {
 		const registryId = this.registryId;
+		const numDeleted = this._numSelected;
 		const updateJson = [];
-		const numDeleted = this._buildUpdate( this._dataState.stateNodes, updateJson );
+		
+		this._buildUpdate( this._dataState.stateNodes, updateJson );
 		
 		this.dispatchEvent(
 			new CustomEvent(
