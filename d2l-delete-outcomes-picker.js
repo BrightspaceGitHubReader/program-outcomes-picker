@@ -86,6 +86,12 @@ class DeleteOutcomesPicker extends LocalizedLitElement {
 				text-align: end;
 				align-self: center;
 			}
+			
+			.offscreen {
+				position: absolute;
+				left: -10000px;
+				user-select: none;
+			}
 		`;
 		
 		return [
@@ -180,15 +186,6 @@ class DeleteOutcomesPicker extends LocalizedLitElement {
 		`;
 	}
 	
-	_renderSelectCount() {
-		if( !this._numSelected ) {
-			return '';
-		}
-		
-		const countString = this.localize('NumSelected', { 'num': this._numSelected });
-		return html`<span id="selection-indicator">${countString}</span>`;
-	}
-	
 	_suppressEventBehaviour( event ) {
 		event.preventDefault();
 	}
@@ -209,6 +206,7 @@ class DeleteOutcomesPicker extends LocalizedLitElement {
 			`;
 		}
 		
+		const countString = this._numSelected ? this.localize('NumSelected', { 'num': this._numSelected }) : '';
 		return html`
 			<div class="main">
 				${this._renderHeader()}
@@ -220,10 +218,13 @@ class DeleteOutcomesPicker extends LocalizedLitElement {
 					></delete-outcomes-picker-tree>
 				</div>
 				<div class="button-tray">
-					<d2l-button primary @click="${this._confirmDelete}">${this.localize('Delete')}</d2l-button>
+					<d2l-button primary @click="${this._confirmDelete}">
+						${this.localize('Delete')}
+						<div class="offscreen">${countString}</div>
+					</d2l-button>
 					<div class="button-spacer"></div>
 					<d2l-button @click="${this._close}">${this.localize('Cancel')}</d2l-button>
-					${this._renderSelectCount()}
+					<span id="selection-indicator">${countString}</span>
 				</div>
 			</div>
 		`;

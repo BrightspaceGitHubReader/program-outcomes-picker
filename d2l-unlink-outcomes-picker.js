@@ -92,6 +92,12 @@ class UnlinkOutcomesPicker extends LocalizedLitElement {
 				font-size: var(--d2l-body-compact-text_-_font-size);
 				text-align: end;
 			}
+			
+			.offscreen {
+				position: absolute;
+				left: -10000px;
+				user-select: none;
+			}
 		`;
 		
 		return [
@@ -203,16 +209,6 @@ class UnlinkOutcomesPicker extends LocalizedLitElement {
 		`;
 	}
 
-	_renderSelected() {
-		if (this._numSelected === 0) {
-			return '';
-		}
-
-		return html`
-			<div id="selection-indicator">${this.localize('NumSelected', { 'num': this._numSelected })}</div>
-		`;
-	}
-	
 	_suppressEventBehaviour( event ) {
 		event.preventDefault();
 	}
@@ -241,6 +237,7 @@ class UnlinkOutcomesPicker extends LocalizedLitElement {
 			mainClasses.push( 'no-header' );
 		}
 		
+		const countString = this._numSelected ? this.localize('NumSelected', { 'num': this._numSelected }) : '';
 		return html`
 			<div class="${mainClasses.join(' ')}">
 				${this._renderHeader()}
@@ -252,10 +249,13 @@ class UnlinkOutcomesPicker extends LocalizedLitElement {
 					></unlink-outcomes-picker-tree>
 				</div>
 				<div class="button-tray">
-					<d2l-button primary @click="${this._unlink}">${this.localize('Unlink')}</d2l-button>
+					<d2l-button primary @click="${this._unlink}">
+						${this.localize('Unlink')}
+						<div class="offscreen">${countString}</div>
+					</d2l-button>
 					<div class="button-spacer"></div>
 					<d2l-button @click="${this._close}">${this.localize('Cancel')}</d2l-button>
-					${this._renderSelected()}
+					<div id="selection-indicator">${countString}</div>
 				</div>
 			</div>
 		`;
