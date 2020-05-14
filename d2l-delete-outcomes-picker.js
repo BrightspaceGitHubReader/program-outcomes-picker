@@ -23,7 +23,8 @@ class DeleteOutcomesPicker extends LocalizedLitElement {
 			
 			_dataState: { type: Object },
 			_loading: { type: Boolean },
-			_errored: { type: Boolean }
+			_errored: { type: Boolean },
+			_numSelected: { type: Number, value: 0 }
 		};
 	}
 	
@@ -71,11 +72,25 @@ class DeleteOutcomesPicker extends LocalizedLitElement {
 			.button-tray {
 				border-top: 1px solid var(--d2l-color-mica);
 				padding: 11px 40px;
+				display: flex;
 			}
 			
 			.button-spacer {
 				display: inline-block;
 				width: 13px;
+			}
+			
+			#selection-indicator {
+				flex-grow: 1;
+				font-size: var(--d2l-body-compact-text_-_font-size);
+				text-align: end;
+				align-self: center;
+			}
+			
+			.offscreen {
+				position: absolute;
+				left: -10000px;
+				user-select: none;
 			}
 		`;
 		
@@ -99,6 +114,7 @@ class DeleteOutcomesPicker extends LocalizedLitElement {
 			stateNodes: []
 		};
 		
+		this.addEventListener( 'd2l-outcome-selection-state-changed', this._countSelected.bind( this ) );
 	}
 	
 	connectedCallback() {
@@ -107,12 +123,34 @@ class DeleteOutcomesPicker extends LocalizedLitElement {
 		super.connectedCallback();
 	}
 	
-	localize( term ) {
-		return super.localize( term, { outcome: this.outcomesTerm } );
+	localize( term, params ) {
+		return super.localize(
+			term,
+			Object.assign( { outcome: this.outcomesTerm }, params || {} )
+		);
 	}
 	
 	_onAlertClosed() {
 		this._errored = false;
+	}
+	
+	_countSelected( event ) {
+		const countRecursive = function( nodes ) {
+			return nodes.reduce( (count, node) => {
+				switch( node.checkboxState ) {
+					case CheckboxState.NOT_CHECKED:
+						return count;
+					case CheckboxState.PARTIAL:
+						return count + countRecursive( node.children );
+					case CheckboxState.CHECKED:
+						return count + 1 + countRecursive( node.children );
+					default:
+						throw new Error( 'Invalid CheckboxState enum value' );
+				}
+			}, 0 );
+		};
+		this._numSelected = countRecursive( this._dataState.stateNodes );
+		event.stopPropagation();
 	}
 	
 	_renderAlert() {
@@ -168,6 +206,7 @@ class DeleteOutcomesPicker extends LocalizedLitElement {
 			`;
 		}
 		
+		const countString = this._numSelected ? this.localize('NumSelected', { 'num': this._numSelected }) : '';
 		return html`
 			<div class="main">
 				${this._renderHeader()}
@@ -179,9 +218,13 @@ class DeleteOutcomesPicker extends LocalizedLitElement {
 					></delete-outcomes-picker-tree>
 				</div>
 				<div class="button-tray">
-					<d2l-button primary @click="${this._confirmDelete}">${this.localize('Delete')}</d2l-button>
+					<d2l-button primary @click="${this._confirmDelete}">
+						${this.localize('Delete')}
+						<div class="offscreen">${countString}</div>
+					</d2l-button>
 					<div class="button-spacer"></div>
 					<d2l-button @click="${this._close}">${this.localize('Cancel')}</d2l-button>
+					<span id="selection-indicator">${countString}</span>
 				</div>
 			</div>
 		`;
@@ -241,10 +284,8 @@ class DeleteOutcomesPicker extends LocalizedLitElement {
 	}
 	
 	_buildUpdate( stateNodes, /*out*/ updateJson ) {
-		let numDeleted = 0;
 		stateNodes.forEach( node => {
 			if( node.checkboxState === CheckboxState.CHECKED ) {
-				numDeleted += this._getTreeSize( node );
 				return;
 			}
 			
@@ -252,14 +293,9 @@ class DeleteOutcomesPicker extends LocalizedLitElement {
 				id: node.outcomeId,
 				children: []
 			};
-			numDeleted += this._buildUpdate( node.children, updateNode.children );
+			this._buildUpdate( node.children, updateNode.children );
 			updateJson.push( updateNode );
 		});
-		return numDeleted;
-	}
-	
-	_getTreeSize( node ) {
-		return node.children.reduce( (count, child) => count + this._getTreeSize( child ), 1 );
 	}
 	
 	_deleteAsync( registryId, updateJson ) {
@@ -275,8 +311,10 @@ class DeleteOutcomesPicker extends LocalizedLitElement {
 	
 	_confirmDelete() {
 		const registryId = this.registryId;
+		const numDeleted = this._numSelected;
 		const updateJson = [];
-		const numDeleted = this._buildUpdate( this._dataState.stateNodes, updateJson );
+		
+		this._buildUpdate( this._dataState.stateNodes, updateJson );
 		
 		this.dispatchEvent(
 			new CustomEvent(
