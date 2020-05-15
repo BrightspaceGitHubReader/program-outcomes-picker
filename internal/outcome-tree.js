@@ -8,7 +8,8 @@ class OutcomeTree extends LocalizedLitElement {
 	
 	static get properties() {
 		return {
-			_focusedNode: { type: OutcomeTreeNode }
+			_focusedNode: { type: OutcomeTreeNode },
+			_hasFocus: { type: Boolean, value: false }
 		};
 	}
 	
@@ -34,6 +35,11 @@ class OutcomeTree extends LocalizedLitElement {
 		];
 	}
 	
+	firstUpdated( changedProperties ) {
+		super.firstUpdated( changedProperties );
+		this.addEventListener( 'blur', () => { this._hasFocus = false; } );
+	}
+	
 	updated( changedProperties ) {
 		super.updated( changedProperties );
 		const firstNode = this._getFirstNode();
@@ -57,15 +63,17 @@ class OutcomeTree extends LocalizedLitElement {
 			activeDescendant = this._focusedNode.htmlId;
 		}
 		
+		const tabIndex = (Browser.isChrome() && this._hasFocus) ? -1 : 0;
 		return html`
 			<div class="outcomes-tree">
 				<ul
 					id="tree-root"
 					role="tree"
 					aria-activedescendant="${ifDefined(activeDescendant)}"
-					tabindex="0"
+					tabindex="${tabIndex}"
 					@keydown="${this._onKeyDown}"
 					@focus="${this._onFocus}"
+					@blur="${this._onBlur}"
 				>
 					${this._renderTree()}
 				</ul>
@@ -80,6 +88,7 @@ class OutcomeTree extends LocalizedLitElement {
 	}
 	
 	_onFocus() {
+		this._hasFocus = true;
 		if( !Browser.isSafari() && this._focusedNode ) {
 			this._focusedNode._focusNode();
 		}
