@@ -7,6 +7,7 @@ import LocalizedLitElement from './localized-element.js';
 import OutcomeFormatter from './outcome-formatter.js';
 import '@brightspace-ui/core/components/button/button-icon.js';
 import '@brightspace-ui/core/components/inputs/input-checkbox.js';
+import '@brightspace-ui/core/components/offscreen/offscreen.js';
 import 'd2l-alert/d2l-alert.js';
 
 const CheckboxStateInfo = {
@@ -290,7 +291,7 @@ class OutcomeTreeNode extends LocalizedLitElement {
 		}
 		
 		if( OS.isMac() ) {
-			const notification = document.createElement( 'div' );
+			const notification = document.createElement( 'd2l-offscreen' );
 			notification.setAttribute( 'role', 'alert' );
 			notification.textContent = this.localize( CheckboxStateInfo[selectionNode.checkboxState].checkedTerm );
 			document.body.appendChild( notification );
