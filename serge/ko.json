@@ -32,7 +32,7 @@
    "Title" : "{outcome, select, competencies {역량} expectations {기대} objectives {목표} outcomes {결과} standards {표준} other {표준}} 프로그램 가져오기",
    "TitleASN" : "성취 표준 네트워크에서 가져오기",
    "TitleDelete" : "삭제할 {outcome, select, competencies {역량} expectations {기대} learning objectives {목표} learning outcomes {결과} standards {표준} other {표준}}를 선택하십시오.",
-   "TitleUnlink" : "소스에서 링크 해제할 {결과, 선택, 역량 {competencies} 기대 {expectations} 목표 {learning objectives} 결과 {learning outcomes} 표준 {standards} 기타 {standards}}을(를) 선택하십시오.",
+   "TitleUnlink" : "소스에서 링크 해제할 {outcome, select, competencies {역량} expectations {기대} learning objectives {목표} learning outcomes {결과} standards {표준} other {표준}}을(를) 선택하십시오.",
    "Unlink" : "링크 해제",
    "WarningDescription1" : "이제 다음 승인된 {outcome, select, competencies {역량} expectations {기대} objectives {학습 목표} outcomes {학습 결과} standards {표준} other {표준}}을(를) 제거합니다.",
    "WarningDescription2" : "승인된 {outcome, select, competencies {역량} expectations {기대} objectives {학습 목표} outcomes {학습 결과} standards {표준} other {표준}}로 하시겠습니까?",
