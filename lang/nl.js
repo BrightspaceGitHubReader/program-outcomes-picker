@@ -1,6 +1,6 @@
 export default {
     "All": "Alle",
-    "Assessed": "Assessed",
+    "Assessed": "Beoordeeld",
     "AvailableItems": "Beschikbare items",
     "AvailableOutcomes": "Beschikbare {outcome, select, competencies {Competenties} expectations {Verwachtingen} objectives {Doelstellingen} outcomes {Resultaten} standards {Standaarden} other {Standaarden}}",
     "Cancel": "Annuleren",
@@ -21,7 +21,7 @@ export default {
     "Import": "Importeer geselecteerde {outcome, select, competencies {Competenties} expectations {Verwachtingen} objectives {Doelstellingen} outcomes {Resultaten} standards {Standaarden} other {Standaarden}}",
     "Jurisdiction": "Rechtsgebied",
     "MoveOrphanedOutcomes": "Verplaatsen naar Hoofdmap",
-    "NumSelected": "{num} selected",
+    "NumSelected": "{num} geselecteerd",
     "ProgramOutcomes": "Programma {outcome, select, competencies {Competenties} expectations {Verwachtingen} objectives {Doelstellingen} outcomes {Resultaten} standards {Standaarden} other {Standaarden}}",
     "SelectEducationLevel": "Opleidingsniveau selecteren",
     "SelectFilters": "Selecteer een van de filteropties om te zien welke items beschikbaar zijn",
@@ -32,8 +32,8 @@ export default {
     "Title": "Importeer programma {outcome, select, competencies {Competenties} expectations {Verwachtingen} objectives {Doelstellingen} outcomes {Resultaten} standards {Standaarden} other {Standaarden}}",
     "TitleASN": "Import van Achievement Standards Network",
     "TitleDelete": "Selecteer {outcome, select, competencies {competenties} expectations {verwachtingen} objectives {leerdoelen} outcomes {leerresultaten} standards {standaarden} other {standaarden}} die u wilt verwijderen",
-    "TitleUnlink": "Select {outcome, select, competencies {competencies} expectations {expectations} objectives {learning objectives} outcomes {learning outcomes} standards {standards} other {standards}} to unlink from source",
-    "Unlink": "Unlink",
+    "TitleUnlink": "Selecteer {outcome, select, competencies {competenties} expectations {verwachtingen} objectives {leerdoelen} outcomes {leerresultaten} standards {standaarden} other {standaarden}} die u wilt wilt loskoppelen van de bron",
+    "Unlink": "Loskoppelen",
     "WarningDescription1": "U staat op het punt {outcome, select, competencies {Competenties} expectations {Verwachtingen} objectives {Cursusdoelstellingen} outcomes {Leerresultaten} standards {Standaarden} other {Standaarden}} te verwijderen, waaraan de volgende opgestelde outcome, select, competencies {Competenties} expectations {Verwachtingen} objectives {Cursusdoelstellingen} outcomes {Leerresultaten} standards {Standaarden} other {Standaarden}} zijn verbonden:",
     "WarningDescription2": "Wat wilt u doen met de opgestelde outcome, select, competencies {Competenties} expectations {Verwachtingen} objectives {Cursusdoelstellingen} outcomes {Leerresultaten} standards {Standaarden} other {Standaarden}}?",
     "WarningHeader": "Opgestelde {outcome, select, competencies {Competenties} expectations {Verwachtingen} objectives {Doelstellingen} outcomes {Resultaten} standards {Standaarden} other {Standaarden}} verplaatsen?"

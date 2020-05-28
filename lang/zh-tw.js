@@ -1,6 +1,6 @@
 export default {
     "All": "全部",
-    "Assessed": "Assessed",
+    "Assessed": "已評量",
     "AvailableItems": "可用項目",
     "AvailableOutcomes": "可用的 {outcome, select, competencies {能力} expectations {預期} objectives {目標} outcomes {成果} standards {標準} other {標準}}",
     "Cancel": "取消",
@@ -21,7 +21,7 @@ export default {
     "Import": "匯入選取的 {outcome, select, competencies {能力} expectations {預期} objectives {目標} outcomes {成果} standards {標準} other {標準}}",
     "Jurisdiction": "司法管轄區",
     "MoveOrphanedOutcomes": "移至根目錄",
-    "NumSelected": "{num} selected",
+    "NumSelected": "已選取 {num} 項",
     "ProgramOutcomes": "計畫 {outcome, select, competencies {能力} expectations {預期} objectives {目標} outcomes {成果} standards {標準} other {標準}}",
     "SelectEducationLevel": "選取教育程度",
     "SelectFilters": "請從篩選選項中選擇，以查看可用的項目",
@@ -32,8 +32,8 @@ export default {
     "Title": "匯入計畫 {outcome, select, competencies {能力} expectations {預期} objectives {目標} outcomes {成果} standards {標準} other {標準}}",
     "TitleASN": "從達成標準網路匯入",
     "TitleDelete": "選取 {outcome, select, competencies {能力} expectations {預期} objectives {學習目標} outcomes {學習成果} standards {標準} other {標準}} 以刪除",
-    "TitleUnlink": "Select {outcome, select, competencies {competencies} expectations {expectations} objectives {learning objectives} outcomes {learning outcomes} standards {standards} other {standards}} to unlink from source",
-    "Unlink": "Unlink",
+    "TitleUnlink": "選取{outcome, select, competencies {能力} expectations {預期} objectives {學習目標} outcomes {學習成果} standards {標準} other {標準}}以取消與來源的連結",
+    "Unlink": "取消連結",
     "WarningDescription1": "您即將移除 {outcome, select, competencies {能力} expectations {預期} objectives {學習目標} outcomes {學習成果} standards {標準} other {標準}}，而下列已撰寫的 {outcome, select, competencies {能力} expectations {預期} objectives {學習目標} outcomes {學習成果} standards {標準} other {標準}} 附加於其中：",
     "WarningDescription2": "您希望如何處理該些已撰寫的 {outcome, select, competencies {能力} expectations {預期} objectives {學習目標} outcomes {學習成果} standards {標準} other {標準}}？",
     "WarningHeader": "移動已撰寫的 {outcome, select, competencies {能力} expectations {預期} objectives {目標} outcomes {成果} standards {標準} other {標準}}？"
