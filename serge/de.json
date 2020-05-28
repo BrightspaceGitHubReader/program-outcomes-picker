@@ -1,6 +1,6 @@
 {
     "All": "Alle",
-    "Assessed": "Assessed",
+    "Assessed": "Bewertet",
     "AvailableItems": "Verfügbare Elemente",
     "AvailableOutcomes": "Verfügbare {outcome, select, competencies {Kompetenzen} expectations {Erwartungen} objectives {Ziele} outcomes {Ergebnisse} standards {Standards} other {Standards}}",
     "Cancel": "Abbrechen",
@@ -21,7 +21,7 @@
     "Import": "Ausgewählte {outcome, select, competencies {Kompetenzen} expectations {Erwartungen} objectives {Ziele} outcomes {Ergebnisse} standards {Standards} other {Standards}} importieren",
     "Jurisdiction": "Zuständigkeit",
     "MoveOrphanedOutcomes": "Ins Stammverzeichnis verschieben",
-    "NumSelected": "{num} selected",
+    "NumSelected": "{num} ausgewählt",
     "ProgramOutcomes": "Programm-{outcome, select, competencies {Kompetenzen} expectations {Erwartungen} objectives {Ziele} outcomes {Ergebnisse} standards {Standards} other {Standards}}",
     "SelectEducationLevel": "Ausbildungsstand auswählen",
     "SelectFilters": "Bitte treffen eine Auswahl aus den Filteroptionen, um die verfügbaren Elemente zu sehen.",
@@ -32,8 +32,8 @@
     "Title": "Programm-{outcome, select, competencies {Kompetenzen} expectations {Erwartungen} objectives {Ziele} outcomes {Ergebnisse} standards {Standards} other {Standards}} importieren.",
     "TitleASN": "Import von Erfolgsstandardnetzwerk",
     "TitleDelete": "{outcome, select, competencies {Kompetenzen} expectations {Erwartungen} objectives {Lernziele} outcomes {Lernergebnisse} standards {Standards} other {Standards}} zum Löschen auswählen",
-    "TitleUnlink": "Select {outcome, select, competencies {competencies} expectations {expectations} objectives {learning objectives} outcomes {learning outcomes} standards {standards} other {standards}} to unlink from source",
-    "Unlink": "Unlink",
+    "TitleUnlink": "{outcome, select, competencies {Kompetenzen} expectations {Erwartungen} objectives {Lernziele} outcomes {Lernergebnisse} standards {Standards} other {Standards}} zum Trennen von der Quelle auswählen",
+    "Unlink": "Verknüpfung trennen",
     "WarningDescription1": "Sie sind dabei, {outcome, select, competencies {Kompetenzen} expectations {Erwartungen} objectives {Ziele} outcomes {Ergebnisse} standards {Standards} other {Standards}} zu entfernen, denen die folgenden verfassten {outcome, select, competencies {Kompetenzen} expectations {Erwartungen} objectives {Ziele} outcomes {Ergebnisse} standards {Standards} other {Standards}} angehängt sind:",
     "WarningDescription2": "Was möchten Sie mit den verfassten {outcome, select, competencies {Kompetenzen} expectations {Erwartungen} objectives {Zielen} outcomes {Ergebnissen} standards {Standards} other {Standards}} tun?",
     "WarningHeader": "Verfasste {outcome, select, competencies {Kompetenzen} expectations {Erwartungen} objectives {Ziele} outcomes {Ergebnisse} standards {Standards} other {Standards}} verschieben?"

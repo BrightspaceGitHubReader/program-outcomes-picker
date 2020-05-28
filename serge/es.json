@@ -1,6 +1,6 @@
 {
     "All": "Todo",
-    "Assessed": "Assessed",
+    "Assessed": "Evaluado",
     "AvailableItems": "Elementos disponibles",
     "AvailableOutcomes": "{outcome, select, competencies {Competencias} expectations {Expectativas} objectives {Objetivos} outcomes {Resultados} standards {Estándares} other {Estándares}} disponibles",
     "Cancel": "Cancelar",
@@ -21,7 +21,7 @@
     "Import": "Importar {outcome, select, competencies {Competencias} expectations {Expectativas} objectives {Objetivos} outcomes {Resultados} standards {Estándares} other {Estándares}} seleccionados",
     "Jurisdiction": "Jurisdicción",
     "MoveOrphanedOutcomes": "Mover a la raíz",
-    "NumSelected": "{num} selected",
+    "NumSelected": "{num} seleccionado",
     "ProgramOutcomes": "{outcome, select, competencies {Competencias} expectations {Expectativas} objectives {Objetivos} outcomes {Resultados} standards {Estándares} other {Estándares}} del programa",
     "SelectEducationLevel": "Seleccionar nivel de educación",
     "SelectFilters": "Realice la selección a partir de las opciones de filtro para ver los elementos disponibles",
@@ -32,8 +32,8 @@
     "Title": "Importar programa de {outcome, select, competencies {Competencias} expectations {Expectativas} objectives {Objetivos} outcomes {Resultados} standards {Estándares} other {Estándares}}",
     "TitleASN": "Importar desde la red de estándares de logros",
     "TitleDelete": "Seleccione {outcome, select, competencies {competencias} expectations {expectativas} objectives {objetivos de aprendizaje} outcomes {resultados de aprendizaje} standards {estándares} other {estándares}} que desea eliminar",
-    "TitleUnlink": "Select {outcome, select, competencies {competencies} expectations {expectations} objectives {learning objectives} outcomes {learning outcomes} standards {standards} other {standards}} to unlink from source",
-    "Unlink": "Unlink",
+    "TitleUnlink": "Seleccione {outcome, select, competencies {competencias} expectations {expectativas} objectives {objetivos de aprendizaje} outcomes {resultados de aprendizaje} standards {estándares} other {estándares}} que desea desvincular del origen",
+    "Unlink": "Desvincular",
     "WarningDescription1": "Está a punto de eliminar {outcome, select, competencies {competencias} expectations {expectativas} objectives {objetivos de aprendizaje} outcomes {objetivos de aprendizaje} standards {estándares} other {estándares}} a los que los siguientes {outcome, select, competencies {competencias} expectations {expectativas} objectives {objetivos de aprendizaje} outcomes {objetivos de aprendizaje} standards {estándares} other {estándares}} creados se encuentran adjuntos:",
     "WarningDescription2": "¿Qué le gustaría hacer con {outcome, select, competencies {competencias} expectations {expectativas} objectives {objetivos de aprendizaje} outcomes {objetivos de aprendizaje} standards {estándares} other {estándares}} creados?",
     "WarningHeader": "¿Desea mover {outcome, select, competencies {Competencias} expectations {Expectativas} objectives {Objetivos} outcomes {Resultados} standards {Estándares} other {Estándares}} creados?"

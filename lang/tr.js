@@ -1,6 +1,6 @@
 export default {
     "All": "Tümü",
-    "Assessed": "Assessed",
+    "Assessed": "Değerlendirildi",
     "AvailableItems": "Mevcut öğeler",
     "AvailableOutcomes": "Kullanılabilir {outcome, select, competencies {Yeterlikler} expectations {Beklentiler} objectives {Hedefler} outcomes {Çıktılar} standards {Standartlar} other {Standartlar}}",
     "Cancel": "İptal",
@@ -21,7 +21,7 @@ export default {
     "Import": "Seçilenleri İçe Aktar {outcome, select, competencies {Yeterlikler} expectations {Beklentiler} objectives {Hedefler} outcomes {Kazanımlar} standards {Standartlar} other {Standartlar}}",
     "Jurisdiction": "Yetki Alanı",
     "MoveOrphanedOutcomes": "Köke Taşı",
-    "NumSelected": "{num} selected",
+    "NumSelected": "{num} seçildi",
     "ProgramOutcomes": "Program {outcome, select, competencies {Yeterlikler} expectations {Beklentiler} objectives {Hedefler} outcomes {Kazanımlar} standards {Standartlar} other {Standartlar}}",
     "SelectEducationLevel": "Eğitim Seviyesini Seç",
     "SelectFilters": "Mevcut öğeleri görmek için lütfen filtreleme seçeneklerinden birini belirleyin",
@@ -32,8 +32,8 @@ export default {
     "Title": "Programı İçe Aktar {outcome, select, competencies {Yeterlikler} expectations {Beklentiler} objectives {Hedefler} outcomes {Kazanımlar} standards {Standartlar} other {Standartlar}}",
     "TitleASN": "Başarı Standartları Ağından İçe Aktar",
     "TitleDelete": "Silmek için {outcome, select, competencies {yeterlikler} expectations {beklentiler} objectives {hedefler} outcomes {kazanımlar} standards {standartlar} other {standartlar}} seç",
-    "TitleUnlink": "Select {outcome, select, competencies {competencies} expectations {expectations} objectives {learning objectives} outcomes {learning outcomes} standards {standards} other {standards}} to unlink from source",
-    "Unlink": "Unlink",
+    "TitleUnlink": "Kaynak bağlantısını kaldırmak için {outcome, select, competencies {yeterlikler} expectations {beklentiler} objectives {öğrenme hedefleri} outcomes {öğrenme kazanımları} standards {standartlar} other {standartlar}} öğesini seçin",
+    "Unlink": "Bağlantıyı Kaldır",
     "WarningDescription1": "{outcome, select, competencies {yeterlikler} expectations {beklentiler} objectives {öğrenme hedefleri} outcomes {öğrenme kazanımları} standards {standartlar} other {standartlar}} öğelerini, ekteki yazılan {outcome, select, competencies {yeterlikler} expectations {beklentiler} objectives {öğrenme hedefleri} outcomes {öğrenme kazanımları} standards {standartlar} other {standartlar}} öğelerine kaldırmak üzeresiniz:",
     "WarningDescription2": "Yazılan {outcome, select, competencies {yeterlikler} expectations {beklentiler} objectives {öğrenme hedefleri} outcomes {öğrenme kazanımları} standards {standartlar} other {standartlar}} ile ne yapmak istersiniz?",
     "WarningHeader": "Yazılı {outcome, select, competencies {Yeterlikler} expectations {Beklentiler} objectives {Hedefler} outcomes {Kazanımlar} standards {Standartlar} other {Standartlar}} taşınsın mı?"

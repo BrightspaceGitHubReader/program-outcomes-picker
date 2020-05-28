@@ -1,6 +1,6 @@
 {
     "All": "Todos",
-    "Assessed": "Assessed",
+    "Assessed": "Avaliados",
     "AvailableItems": "Itens disponíveis",
     "AvailableOutcomes": "{outcome, select, competencies {Competências} expectations {Expectativas} objectives {Objetivos} outcomes {Resultados} standards {Padrões} other {Padrões}} disponíveis",
     "Cancel": "Cancelar",
@@ -21,7 +21,7 @@
     "Import": "Importar {outcome, select, competencies {Competências} expectations {Expectativas} objectives {Objetivos} outcomes {Resultados} standards {Padrões} other {Padrões}} selecionados(as)",
     "Jurisdiction": "Jurisdição",
     "MoveOrphanedOutcomes": "Mover para Raiz",
-    "NumSelected": "{num} selected",
+    "NumSelected": "{num} selecionados",
     "ProgramOutcomes": "{outcome, select, competencies {Competências} expectations {Expectativas} objectives {Objetivos} outcomes {Resultados} standards {Padrões} other {Padrões}} do programa",
     "SelectEducationLevel": "Selecionar Nível de instrução",
     "SelectFilters": "Selecione uma das opções de filtragem para ver os itens que estão disponíveis",
@@ -32,8 +32,8 @@
     "Title": "Importar {outcome, select, competencies {Competências} expectations {Expectativas} objectives {Objetivos} outcomes {Resultados} standards {Padrões} other {Padrões}} do programa",
     "TitleASN": "Importar da Achievement Standards Network",
     "TitleDelete": "Selecionar {outcome, select, competencies {competências} expectations {expectativas} objectives {objetivos da aprendizagem} outcomes {resultados da aprendizagem} standards {padrões} other {padrões}} para excluir",
-    "TitleUnlink": "Select {outcome, select, competencies {competencies} expectations {expectations} objectives {learning objectives} outcomes {learning outcomes} standards {standards} other {standards}} to unlink from source",
-    "Unlink": "Unlink",
+    "TitleUnlink": "Selecione itens de {outcome, select, competencies {competência} expectations {expectativa} objectives {objetivo de aprendizagem} outcomes {resultado de aprendizagem} standards {padrão} other {padrão}} para serem desvinculados da fonte",
+    "Unlink": "Desvincular",
     "WarningDescription1": "Você está prestes a remover {outcome, select, competencies {competências} expectations {expectativas} objectives {objetivos da aprendizagem} outcomes {resultados da aprendizagem} standards {padrões} other {padrões}} para os(as) quais os(as) seguintes referidos(as) {outcome, select, competencies {competencies} expectations {expectations} objectives {learning objectives} outcomes {learning outcomes} standards {standards} other {standards}} estão anexados(as):",
     "WarningDescription2": "O que você gostaria de fazer com os(as) {output, select, competencies {competências} expectations {expectativas} objectives {objetivos da aprendizagem} outcomes {resultados da aprendizagem} standards {padrões} other {padrões}} referidos(as)?",
     "WarningHeader": "Mover os(as) referidos(as) {outcome, select, competencies {Competências} expectations {Expectativas} objectives {Objetivos} outcomes {Resultados} standards {Padrões} other {Padrões}}?"

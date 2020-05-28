@@ -1,6 +1,6 @@
 export default {
     "All": "모두",
-    "Assessed": "Assessed",
+    "Assessed": "평가됨",
     "AvailableItems": "사용 가능한 항목",
     "AvailableOutcomes": "{outcome, select, competencies {역량} expectations {기대} objectives {목표} outcomes {결과} standards {표준} other {표준}} 사용가능",
     "Cancel": "취소",
@@ -21,7 +21,7 @@ export default {
     "Import": "선택된 {outcome, select, competencies {역량} expectations {기대} objectives {목표} outcomes {결과} standards {표준} other {표준}} 가져오기",
     "Jurisdiction": "관할권",
     "MoveOrphanedOutcomes": "루트로 이동",
-    "NumSelected": "{num} selected",
+    "NumSelected": "{num}개가 선택됨",
     "ProgramOutcomes": "{outcome, select, competencies {역량} expectations {기대} objectives {목표} outcomes {결과} standards {표준} other {표준}} 프로그램",
     "SelectEducationLevel": "교육 수준 선택",
     "SelectFilters": "사용 가능한 항목을 보려면 필터링 옵션에서 선택하십시오.",
@@ -32,8 +32,8 @@ export default {
     "Title": "{outcome, select, competencies {역량} expectations {기대} objectives {목표} outcomes {결과} standards {표준} other {표준}} 프로그램 가져오기",
     "TitleASN": "성취 표준 네트워크에서 가져오기",
     "TitleDelete": "삭제할 {outcome, select, competencies {역량} expectations {기대} learning objectives {목표} learning outcomes {결과} standards {표준} other {표준}}를 선택하십시오.",
-    "TitleUnlink": "Select {outcome, select, competencies {competencies} expectations {expectations} objectives {learning objectives} outcomes {learning outcomes} standards {standards} other {standards}} to unlink from source",
-    "Unlink": "Unlink",
+    "TitleUnlink": "소스에서 링크 해제할 {outcome, select, competencies {역량} expectations {기대} learning objectives {목표} learning outcomes {결과} standards {표준} other {표준}}을(를) 선택하십시오.",
+    "Unlink": "링크 해제",
     "WarningDescription1": "이제 다음 승인된 {outcome, select, competencies {역량} expectations {기대} objectives {학습 목표} outcomes {학습 결과} standards {표준} other {표준}}을(를) 제거합니다.",
     "WarningDescription2": "승인된 {outcome, select, competencies {역량} expectations {기대} objectives {학습 목표} outcomes {학습 결과} standards {표준} other {표준}}로 하시겠습니까?",
     "WarningHeader": "승인된 {outcome, select, competencies {역량} expectations {기대} objectives {목표} outcomes {결과} standards {표준} other {표준}}을(를) 이동하시겠습니까?"

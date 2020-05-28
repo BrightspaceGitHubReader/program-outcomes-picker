@@ -1,6 +1,6 @@
 {
     "All": "全部",
-    "Assessed": "Assessed",
+    "Assessed": "已评估",
     "AvailableItems": "可用项目",
     "AvailableOutcomes": "可用 {outcome, select, competencies {能力} expectations {预期} objectives {目标} outcomes {成果} standards {标准} other {标准}}",
     "Cancel": "取消",
@@ -21,7 +21,7 @@
     "Import": "导入所选 {outcome, select, competencies {能力} expectations {预期} objectives {目标} outcomes {成果} standards {标准} other {标准}}",
     "Jurisdiction": "司法管辖区",
     "MoveOrphanedOutcomes": "移到根",
-    "NumSelected": "{num} selected",
+    "NumSelected": "已选择 {num}",
     "ProgramOutcomes": "程序 {outcome, select, competencies {能力} expectations {预期} objectives {目标} outcomes {成果} standards {标准} other {标准}}",
     "SelectEducationLevel": "选择教育水平",
     "SelectFilters": "请选择筛选选项以查看可用项目",
@@ -32,8 +32,8 @@
     "Title": "导入程序 {outcome, select, competencies {能力} expectations {预期} objectives {目标} outcomes {成果} standards {标准} other {标准}}",
     "TitleASN": "从成绩标准网络导入",
     "TitleDelete": "选择 {outcome, select, competencies {能力} expectations {预期} objectives {对象} outcomes {成果} standards {标准} other {标准}}以删除",
-    "TitleUnlink": "Select {outcome, select, competencies {competencies} expectations {expectations} objectives {learning objectives} outcomes {learning outcomes} standards {standards} other {standards}} to unlink from source",
-    "Unlink": "Unlink",
+    "TitleUnlink": "选择 {outcome, select, competencies {能力} expectations {预期} objectives {学习目标} outcomes {学习成果} standards {标准} other {标准}} 以与源断开链接",
+    "Unlink": "断开链接",
     "WarningDescription1": "您将移动 {outcome, select, competencies {能力} expectations {预期} objectives {学习目标} outcomes {学习成果} standards {标准} other {标准}} 至随附以下已编写 {outcome, select, competencies {能力} expectations {预期} objectives {学习目标} outcomes {学习成果} standards {标准} other {标准}} 的内容：",
     "WarningDescription2": "您想怎么处理已编写 {outcome, select, competencies {能力} expectations {预期} objectives {学习目标} outcomes {学习成果} standards {标准} other {标准}}？",
     "WarningHeader": "移动已编写内容 {outcome, select, competencies {能力} expectations {预期} objectives {目标} outcomes {成果} standards {标准} other {标准}}？"
